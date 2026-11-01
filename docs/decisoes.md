@@ -75,3 +75,17 @@ A versão instalada é a 7: URLs ficam em `prisma.config.ts` (CLI/migrations usa
 e o client usa `@prisma/adapter-pg` com `DATABASE_URL` (pooler). Gerador `prisma-client`
 com saída em `src/generated/prisma` (não versionado; gerado no `postinstall`).
 `dotenv` adicionado porque o Prisma 7 não carrega o `.env` sozinho.
+
+## D-15 — Detalhes da API decididos na construção do backend (01/11/2026)
+- `:id` que não é UUID responde **404** com a mensagem do recurso (não 400), para não
+  distinguir "id inválido" de "registro de outra conta" (RN-04).
+- Mensagens de validação em português, inclusive campo não permitido
+  (`forbidNonWhitelisted`): "O campo X não é permitido".
+- Campos de texto opcionais enviados como `""` ou `null` limpam o valor.
+- `POST /inquilinos` e `POST /inquilinos/:id/saida` devolvem o detalhe do inquilino
+  (mesmo formato de `GET /inquilinos/:id`).
+- Desfazer um mês que não está pago → 409. Saída com data futura é aceita (os meses
+  continuam sendo gerados até a data de saída).
+- Itens de `aVencer` no painel trazem também `nome` (inquilino) e `imovel` (nome),
+  necessários para a tela.
+- `trust proxy` ligado no Express, para o limite de login usar o IP real atrás da Vercel.

@@ -4,6 +4,7 @@ import { AuthModule } from './auth/auth.module.js';
 import { ImoveisModule } from './imoveis/imoveis.module.js';
 import { InquilinosModule } from './inquilinos/inquilinos.module.js';
 import { PagamentosModule } from './pagamentos/pagamentos.module.js';
+import { PainelModule } from './painel/painel.module.js';
 import { PrismaModule } from './prisma/prisma.module.js';
 
 @Module({
@@ -14,6 +15,7 @@ import { PrismaModule } from './prisma/prisma.module.js';
     ImoveisModule,
     InquilinosModule,
     PagamentosModule,
+    PainelModule,
   ],
 })
 export class AppModule {}

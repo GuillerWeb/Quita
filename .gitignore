@@ -1,0 +1,11 @@
+node_modules/
+dist/
+.angular/
+.vercel/
+.env
+.env.*
+!.env.example
+coverage/
+
+# Prisma Client gerado
+backend/src/generated/

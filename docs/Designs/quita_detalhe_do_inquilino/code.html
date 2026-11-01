@@ -1,0 +1,637 @@
+<!DOCTYPE html><html lang="pt-BR"><head><meta charset="utf-8"><meta content="width=device-width, initial-scale=1.0" name="viewport"><meta content="web_dashboard" name="shell-type"><link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@20..48,100..700,0..1,-50..200" rel="stylesheet"><link href="https://fonts.googleapis.com" rel="preconnect"><link crossorigin="" href="https://fonts.gstatic.com" rel="preconnect"><link href="https://fonts.googleapis.com/css2?family=Atkinson+Hyperlegible+Next:ital,wght@0,400..700;1,400..700&amp;family=Space+Grotesk:wght@500;600;700&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"><style>@layer base{html,body{margin:0;padding:0;}body{overscroll-behavior:none;}main>:first-child{margin-top:0!important;}main>:last-child{margin-bottom:0!important;}}::-webkit-scrollbar{display:none;}</style><script src="https://cdn.tailwindcss.com"></script><script id="tailwind-config">tailwind.config={darkMode:"class",theme:{extend:{"colors":{"on-surface":"#101d22","on-primary-fixed":"#002117","on-secondary-fixed-variant":"#5c4300","on-primary":"#ffffff","on-secondary-container":"#735500","secondary-fixed-dim":"#f1bf51","surface-container-highest":"#d7e5eb","error":"#ba1a1a","inverse-primary":"#9fd1bd","error-container":"#ffdad6","inverse-on-surface":"#e5f3fa","on-surface-variant":"#404945","on-primary-container":"#a3d5c1","on-error-container":"#93000a","primary-fixed":"#baeed9","tertiary":"#7c1223","background":"#f2fbff","surface-container-high":"#dceaf1","secondary":"#795900","surface-tint":"#376757","surface-dim":"#cedce3","surface-variant":"#d7e5eb","primary-container":"#2e5e4e","on-tertiary-fixed":"#40000a","surface-container":"#e2f0f7","secondary-fixed":"#ffdf9f","surface":"#f2fbff","on-secondary-fixed":"#261a00","on-tertiary-container":"#ffb9ba","surface-container-lowest":"#ffffff","surface-container-low":"#e8f6fd","on-error":"#ffffff","primary":"#144637","primary-fixed-dim":"#9fd1bd","secondary-container":"#fdcb5b","outline-variant":"#c0c9c3","on-primary-fixed-variant":"#1e4f40","tertiary-fixed":"#ffdada","on-tertiary":"#ffffff","tertiary-container":"#9d2b38","on-background":"#101d22","inverse-surface":"#253237","tertiary-fixed-dim":"#ffb3b4","on-secondary":"#ffffff","outline":"#707974","surface-bright":"#f2fbff","on-tertiary-fixed-variant":"#881c2a"},"borderRadius":{"DEFAULT":"0.25rem","lg":"0.5rem","xl":"0.75rem","full":"9999px"},"spacing":{"space-lg":"1.5rem","space-xs":"0.25rem","margin":"2rem","gutter":"1.5rem","space-xl":"2.5rem","space-md":"1rem","space-sm":"0.5rem"},"fontFamily":{"numeric-table":["Space Grotesk"],"headline-sm":["Space Grotesk"],"label-sm":["Atkinson Hyperlegible Next"],"numeric-hero":["Space Grotesk"],"display-lg":["Space Grotesk"],"headline-lg":["Space Grotesk"],"headline-md":["Space Grotesk"],"headline-lg-mobile":["Space Grotesk"],"body-sm":["Atkinson Hyperlegible Next"],"label-md":["Atkinson Hyperlegible Next"],"body-md":["Atkinson Hyperlegible Next"],"body-lg":["Atkinson Hyperlegible Next"]},"fontSize":{"numeric-table":["15px",{"lineHeight":"20px","fontWeight":"600"}],"headline-sm":["16px",{"lineHeight":"24px","fontWeight":"600"}],"label-sm":["11px",{"lineHeight":"14px","letterSpacing":"0.04em","fontWeight":"600"}],"numeric-hero":["32px",{"lineHeight":"40px","letterSpacing":"-0.02em","fontWeight":"700"}],"display-lg":["36px",{"lineHeight":"44px","letterSpacing":"-0.02em","fontWeight":"700"}],"headline-lg":["28px",{"lineHeight":"36px","letterSpacing":"-0.015em","fontWeight":"600"}],"headline-md":["20px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"headline-lg-mobile":["22px",{"lineHeight":"28px","letterSpacing":"-0.01em","fontWeight":"600"}],"body-sm":["12px",{"lineHeight":"16px","fontWeight":"400"}],"label-md":["13px",{"lineHeight":"18px","fontWeight":"600"}],"body-md":["14px",{"lineHeight":"20px","fontWeight":"400"}],"body-lg":["16px",{"lineHeight":"24px","fontWeight":"400"}]}}}}</script></head><body class="bg-surface font-body-md text-on-surface antialiased"><aside class="fixed left-0 top-0 h-full w-64 bg-surface-container-lowest z-50 flex flex-col justify-between shadow-[0_1px_8px_rgba(0,0,0,0.04)]"><div class="flex flex-col"><div class="h-16 px-space-md flex items-center justify-between"><div class="flex items-center gap-space-sm"><img alt="Quita Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VrZX3huMt0UlSssVAw7JsQ1m0iFeKgkdbfwB0sn_IORoqLp2gYJaiCjBHpz1xs-2neuhGo6jyu7Xqey5VeBy6KpvHArtHA1GWNphGfmqPf6PRCnHuIuf-vm0WwnUHUzMGPip6LleLWlO87Gb-LbNvwUwXc06CzburZxil2pEqhmFKXJjjzBWe2w_VxWYdUg4xSko1x8wi1A9Siq0issbPa8DIMy7DaNIAEV6z_JQLwaQ"><span class="font-headline-sm text-headline-sm text-primary tracking-tight">Quita</span></div></div><div class="px-space-md pt-space-md"><span class="px-space-sm font-label-sm text-label-sm uppercase tracking-wider text-outline">Menu Principal</span><nav class="mt-space-xs flex flex-col gap-1" data-active-classes="bg-primary-container text-on-primary font-label-md rounded-lg"><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="painel" href="#"><span class="material-symbols-outlined text-[20px]">grid_view</span><span class="">Painel</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="imoveis" href="#"><span class="material-symbols-outlined text-[20px]">apartment</span><span class="">Imóveis</span></a><a class="flex items-center gap-space-sm px-space-sm py-2 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors font-label-md text-label-md" data-path="inquilinos" href="#"><span class="material-symbols-outlined text-[20px]">groups</span><span class="">Inquilinos</span></a></nav></div></div><div class="p-space-md"><div class="p-space-sm rounded-lg bg-surface-container-low flex items-center justify-between"><div class="flex items-center gap-space-sm min-w-0"><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center shrink-0"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div><div class="flex flex-col truncate"><span class="font-label-md text-label-md text-on-surface truncate leading-tight">Carlos Silveira</span><span class="font-label-sm text-label-sm text-on-surface-variant">Proprietário</span></div></div><a class="shrink-0 p-1 rounded-md text-on-surface-variant hover:bg-surface-container hover:text-error transition-colors flex items-center justify-center" data-path="login" href="#" title="Sair da conta"><span class="material-symbols-outlined text-[20px]">logout</span></a></div></div></aside><div class="pl-64"><header class="fixed top-0 left-64 right-0 h-16 bg-surface/80 backdrop-blur-xl shadow-[0_1px_8px_rgba(0,0,0,0.04)] z-40 flex items-center justify-between px-margin"><div class="flex items-center gap-space-md"><img alt="Quita Logo" class="h-8 w-auto object-contain" src="https://lh3.googleusercontent.com/aida/AEtjO1VrZX3huMt0UlSssVAw7JsQ1m0iFeKgkdbfwB0sn_IORoqLp2gYJaiCjBHpz1xs-2neuhGo6jyu7Xqey5VeBy6KpvHArtHA1GWNphGfmqPf6PRCnHuIuf-vm0WwnUHUzMGPip6LleLWlO87Gb-LbNvwUwXc06CzburZxil2pEqhmFKXJjjzBWe2w_VxWYdUg4xSko1x8wi1A9Siq0issbPa8DIMy7DaNIAEV6z_JQLwaQ"><span class="font-headline-sm text-headline-sm text-primary">Quita</span><span class="font-label-sm text-label-sm text-on-surface-variant bg-surface-container px-2 py-0.5 rounded-full">Livro-Caixa</span></div><div class="flex items-center gap-space-md"><div class="flex items-center gap-space-xs text-on-surface-variant"><span class="material-symbols-outlined text-[20px]">calendar_today</span><span class="font-label-md text-label-md text-on-surface">Exercício 2024</span></div><div class="w-8 h-8 rounded-full bg-primary flex items-center justify-center"><span class="material-symbols-outlined text-on-primary text-[18px]">person</span></div></div></header><main class="relative pt-16 bg-surface min-h-screen w-full px-margin"><div class="flex flex-col w-full pb-space-xl">
+<!-- Top Breadcrumb & Quick Context -->
+<div class="flex items-center justify-between py-space-sm">
+<nav class="flex items-center gap-2 text-on-surface-variant font-label-md text-label-md">
+<a class="hover:text-primary transition-colors flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[16px]">groups</span>
+<span class="">Inquilinos</span>
+</a>
+<span class="text-outline text-xs">/</span>
+<span class="text-on-surface font-semibold">Mariana Souza</span>
+</nav>
+<div class="flex items-center gap-2">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary-fixed/30 text-primary font-label-sm text-label-sm">
+<span class="w-1.5 h-1.5 rounded-full bg-primary"></span>
+        Contrato Ativo (Ciclo 24m)
+      </span>
+<span class="font-label-sm text-label-sm text-outline px-2 py-0.5 bg-surface-container rounded">ID #INQ-0482</span>
+</div>
+</div>
+<!-- Hero Header / Profile Info Card -->
+<div class="mt-space-sm bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex flex-col lg:flex-row lg:items-center justify-between gap-space-md">
+<!-- Left: Identity & Core Lease Specs -->
+<div class="flex items-start gap-space-md">
+<div class="w-14 h-14 rounded-xl bg-surface-container flex items-center justify-center shrink-0">
+<span class="font-headline-md text-headline-md text-primary">MS</span>
+</div>
+<div class="flex flex-col gap-1 min-w-0">
+<div class="flex flex-wrap items-center gap-x-3 gap-y-1">
+<h1 class="font-display-lg text-display-lg text-on-surface tracking-tight">Mariana Souza</h1>
+<span class="px-2 py-0.5 rounded bg-surface-container text-on-surface-variant font-label-sm text-label-sm flex items-center gap-1">
+<span class="material-symbols-outlined text-[14px]">home</span>
+              Casa 2 — Rua das Acácias
+            </span>
+</div>
+<div class="flex flex-wrap items-center gap-y-1 gap-x-4 text-on-surface-variant font-body-md text-body-md mt-0.5">
+<div class="flex items-center gap-1 text-on-surface font-numeric-table text-numeric-table">
+<span class="text-primary font-bold">R$ 1.200,00</span>
+<span class="text-outline font-normal text-xs font-body-sm text-body-sm">/ mês</span>
+</div>
+<span class="text-outline">•</span>
+<div class="flex items-center gap-1 text-on-surface font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px] text-outline">event_repeat</span>
+<span class="">Vencimento todo dia 10</span>
+</div>
+<span class="text-outline">•</span>
+<div class="flex items-center gap-2">
+<a class="inline-flex items-center gap-1 text-primary hover:underline font-label-md text-label-md" href="tel:11987654321">
+<span class="material-symbols-outlined text-[16px]">call</span>
+                (11) 98765-4321
+              </a>
+<a class="px-1.5 py-0.5 rounded bg-surface-container text-primary font-label-sm text-label-sm hover:bg-surface-container-high transition-colors" href="https://wa.me/5511987654321" target="_blank" title="Conversar no WhatsApp">
+                WhatsApp
+              </a>
+</div>
+<span class="text-outline">•</span>
+<a class="inline-flex items-center gap-1 text-on-surface-variant hover:text-primary transition-colors font-label-md text-label-md" href="mailto:mariana.souza@email.com.br">
+<span class="material-symbols-outlined text-[16px] text-outline">mail</span>
+              mariana.souza@email.com.br
+            </a>
+</div>
+</div>
+</div>
+<!-- Right: Administrative Actions -->
+<div class="flex items-center gap-space-sm shrink-0 self-start lg:self-center">
+<button class="px-space-md py-2 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors font-label-md text-label-md flex items-center gap-1.5" type="button">
+<span class="material-symbols-outlined text-[18px]">edit</span>
+<span class="">Editar Cadastro</span>
+</button>
+<button class="px-space-md py-2 rounded-lg bg-error-container/40 text-on-error-container hover:bg-error-container/70 transition-colors font-label-md text-label-md flex items-center gap-1.5" title="Iniciar rescisão ou entrega de chaves" type="button">
+<span class="material-symbols-outlined text-[18px] text-tertiary">sensor_door</span>
+<span class="">Registrar Saída</span>
+</button>
+</div>
+</div>
+</div>
+<!-- Key Metrics Ledger Band -->
+<div class="grid grid-cols-1 md:grid-cols-4 gap-space-md mt-space-md">
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-outline">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Total Quitado (2026)</span>
+<span class="material-symbols-outlined text-[18px] text-primary">verified</span>
+</div>
+<div class="mt-2">
+<span class="font-numeric-hero text-numeric-hero text-primary">R$ 10.800</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">9 de 12 competências quitadas</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-outline">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Competência Atual</span>
+<span class="material-symbols-outlined text-[18px] text-secondary">pending_actions</span>
+</div>
+<div class="mt-2">
+<span class="font-numeric-hero text-numeric-hero text-on-surface">R$ 1.200</span>
+<p class="font-body-sm text-body-sm text-secondary font-semibold mt-0.5">Vence hoje (10/10/2026)</p>
+</div>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-outline">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Pontualidade Histórica</span>
+<span class="material-symbols-outlined text-[18px] text-primary">trending_up</span>
+</div>
+<div class="mt-2 flex items-baseline gap-2">
+<span class="font-numeric-hero text-numeric-hero text-on-surface">100%</span>
+<span class="font-label-sm text-label-sm text-primary font-semibold">Sem atrasos</span>
+</div>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Média de quitação no dia do vencimento</p>
+</div>
+<div class="bg-surface-container-lowest p-space-md rounded-xl shadow-sm flex flex-col justify-between">
+<div class="flex items-center justify-between text-outline">
+<span class="font-label-sm text-label-sm uppercase tracking-wider">Depósito Caução</span>
+<span class="material-symbols-outlined text-[18px] text-outline">shield</span>
+</div>
+<div class="mt-2">
+<span class="font-numeric-hero text-numeric-hero text-on-surface">R$ 3.600</span>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Custódia Banco Itaú (3 meses)</p>
+</div>
+</div>
+</div>
+<!-- SECTION 1: Régua Anual de Quitações — 2026 -->
+<section class="mt-space-lg bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex flex-col md:flex-row md:items-center justify-between gap-space-sm mb-space-md">
+<div>
+<div class="flex items-center gap-2">
+<span class="material-symbols-outlined text-primary text-[22px]">calendar_view_month</span>
+<h2 class="font-headline-md text-headline-md text-on-surface">Régua Anual de Quitações — 2026</h2>
+</div>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+          Visão horizontal consolidada de liquidações do ano corrente. Clique em qualquer mês para exibir detalhes.
+        </p>
+</div>
+<!-- Quick Legend -->
+<div class="flex flex-wrap items-center gap-3 font-label-sm text-label-sm text-on-surface-variant bg-surface-container-low px-3 py-1.5 rounded-lg">
+<span class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded bg-primary-container"></span>
+<span class="">Quitado (9)</span>
+</span>
+<span class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded bg-secondary-container"></span>
+<span class="">Aguardando (1)</span>
+</span>
+<span class="flex items-center gap-1.5">
+<span class="w-3 h-3 rounded bg-surface-container-high"></span>
+<span class="">A vencer (2)</span>
+</span>
+</div>
+</div>
+<!-- 12-Month Horizontal Ribbon -->
+<div class="grid grid-cols-2 sm:grid-cols-4 md:grid-cols-6 lg:grid-cols-12 gap-2.5">
+<!-- JAN -->
+<div class="flex flex-col items-center p-2.5 rounded-lg bg-primary/10 hover:bg-primary/15 transition-all text-center group cursor-pointer">
+<span class="font-label-sm text-label-sm uppercase font-bold text-primary">Jan</span>
+<div class="w-7 h-7 mt-2 rounded bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<span class="font-numeric-table text-numeric-table text-on-surface mt-2 text-xs">R$ 1.200</span>
+<span class="font-label-sm text-[10px] text-primary font-semibold mt-0.5">Pago</span>
+</div>
+<!-- FEV -->
+<div class="flex flex-col items-center p-2.5 rounded-lg bg-primary/10 hover:bg-primary/15 transition-all text-center group cursor-pointer">
+<span class="font-label-sm text-label-sm uppercase font-bold text-primary">Fev</span>
+<div class="w-7 h-7 mt-2 rounded bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<span class="font-numeric-table text-numeric-table text-on-surface mt-2 text-xs">R$ 1.200</span>
+<span class="font-label-sm text-[10px] text-primary font-semibold mt-0.5">Pago</span>
+</div>
+<!-- MAR -->
+<div class="flex flex-col items-center p-2.5 rounded-lg bg-primary/10 hover:bg-primary/15 transition-all text-center group cursor-pointer">
+<span class="font-label-sm text-label-sm uppercase font-bold text-primary">Mar</span>
+<div class="w-7 h-7 mt-2 rounded bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<span class="font-numeric-table text-numeric-table text-on-surface mt-2 text-xs">R$ 1.200</span>
+<span class="font-label-sm text-[10px] text-primary font-semibold mt-0.5">Pago</span>
+</div>
+<!-- ABR -->
+<div class="flex flex-col items-center p-2.5 rounded-lg bg-primary/10 hover:bg-primary/15 transition-all text-center group cursor-pointer">
+<span class="font-label-sm text-label-sm uppercase font-bold text-primary">Abr</span>
+<div class="w-7 h-7 mt-2 rounded bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<span class="font-numeric-table text-numeric-table text-on-surface mt-2 text-xs">R$ 1.200</span>
+<span class="font-label-sm text-[10px] text-primary font-semibold mt-0.5">Pago</span>
+</div>
+<!-- MAI -->
+<div class="flex flex-col items-center p-2.5 rounded-lg bg-primary/10 hover:bg-primary/15 transition-all text-center group cursor-pointer">
+<span class="font-label-sm text-label-sm uppercase font-bold text-primary">Mai</span>
+<div class="w-7 h-7 mt-2 rounded bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<span class="font-numeric-table text-numeric-table text-on-surface mt-2 text-xs">R$ 1.200</span>
+<span class="font-label-sm text-[10px] text-primary font-semibold mt-0.5">Pago</span>
+</div>
+<!-- JUN -->
+<div class="flex flex-col items-center p-2.5 rounded-lg bg-primary/10 hover:bg-primary/15 transition-all text-center group cursor-pointer">
+<span class="font-label-sm text-label-sm uppercase font-bold text-primary">Jun</span>
+<div class="w-7 h-7 mt-2 rounded bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<span class="font-numeric-table text-numeric-table text-on-surface mt-2 text-xs">R$ 1.200</span>
+<span class="font-label-sm text-[10px] text-primary font-semibold mt-0.5">Pago</span>
+</div>
+<!-- JUL -->
+<div class="flex flex-col items-center p-2.5 rounded-lg bg-primary/10 hover:bg-primary/15 transition-all text-center group cursor-pointer">
+<span class="font-label-sm text-label-sm uppercase font-bold text-primary">Jul</span>
+<div class="w-7 h-7 mt-2 rounded bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<span class="font-numeric-table text-numeric-table text-on-surface mt-2 text-xs">R$ 1.200</span>
+<span class="font-label-sm text-[10px] text-primary font-semibold mt-0.5">Pago</span>
+</div>
+<!-- AGO -->
+<div class="flex flex-col items-center p-2.5 rounded-lg bg-primary/10 hover:bg-primary/15 transition-all text-center group cursor-pointer">
+<span class="font-label-sm text-label-sm uppercase font-bold text-primary">Ago</span>
+<div class="w-7 h-7 mt-2 rounded bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<span class="font-numeric-table text-numeric-table text-on-surface mt-2 text-xs">R$ 1.200</span>
+<span class="font-label-sm text-[10px] text-primary font-semibold mt-0.5">Pago</span>
+</div>
+<!-- SET -->
+<div class="flex flex-col items-center p-2.5 rounded-lg bg-primary/10 hover:bg-primary/15 transition-all text-center group cursor-pointer">
+<span class="font-label-sm text-label-sm uppercase font-bold text-primary">Set</span>
+<div class="w-7 h-7 mt-2 rounded bg-primary-container text-on-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">check</span>
+</div>
+<span class="font-numeric-table text-numeric-table text-on-surface mt-2 text-xs">R$ 1.200</span>
+<span class="font-label-sm text-[10px] text-primary font-semibold mt-0.5">Pago</span>
+</div>
+<!-- OUT (CURRENT / AGUARDANDO) -->
+<div class="flex flex-col items-center p-2.5 rounded-lg bg-secondary-fixed/30 hover:bg-secondary-fixed/50 transition-all text-center relative cursor-pointer" onclick="document.getElementById('modal-pagamento').classList.remove('hidden')">
+<div class="absolute -top-2 px-1.5 py-0.2 rounded-full bg-secondary text-on-secondary font-label-sm text-[9px] font-bold">Hoje</div>
+<span class="font-label-sm text-label-sm uppercase font-bold text-secondary">Out</span>
+<div class="w-7 h-7 mt-2 rounded bg-secondary-container text-on-secondary-container flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">schedule</span>
+</div>
+<span class="font-numeric-table text-numeric-table text-on-surface mt-2 text-xs">R$ 1.200</span>
+<span class="font-label-sm text-[10px] text-secondary font-bold mt-0.5">Aguardando</span>
+</div>
+<!-- NOV (FUTURE) -->
+<div class="flex flex-col items-center p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all text-center opacity-70">
+<span class="font-label-sm text-label-sm uppercase font-semibold text-outline">Nov</span>
+<div class="w-7 h-7 mt-2 rounded bg-surface-container text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">lock_clock</span>
+</div>
+<span class="font-numeric-table text-numeric-table text-outline mt-2 text-xs">R$ 1.200</span>
+<span class="font-label-sm text-[10px] text-outline mt-0.5">A vencer</span>
+</div>
+<!-- DEZ (FUTURE) -->
+<div class="flex flex-col items-center p-2.5 rounded-lg bg-surface-container-low hover:bg-surface-container transition-all text-center opacity-70">
+<span class="font-label-sm text-label-sm uppercase font-semibold text-outline">Dez</span>
+<div class="w-7 h-7 mt-2 rounded bg-surface-container text-outline flex items-center justify-center">
+<span class="material-symbols-outlined text-[18px]">lock_clock</span>
+</div>
+<span class="font-numeric-table text-numeric-table text-outline mt-2 text-xs">R$ 1.200</span>
+<span class="font-label-sm text-[10px] text-outline mt-0.5">A vencer</span>
+</div>
+</div>
+<!-- Active Ribbon Banner / Next Obligation Callout -->
+<div class="mt-space-md p-space-sm bg-surface-container-low rounded-lg flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm">
+<div class="flex items-center gap-space-sm">
+<span class="w-2.5 h-2.5 rounded-full bg-secondary animate-pulse"></span>
+<span class="font-body-md text-body-md text-on-surface">
+<strong>Atenção:</strong> Competência Outubro/2026 aguarda compensação de <strong>R$ 1.200,00</strong> com vencimento programado para <strong>10/10/2026</strong>.
+        </span>
+</div>
+<button class="px-space-md py-1.5 bg-primary text-on-primary rounded-lg font-label-md text-label-md hover:bg-primary-container transition-colors shrink-0 flex items-center gap-1.5 self-start sm:self-auto" onclick="document.getElementById('modal-pagamento').classList.remove('hidden')" type="button">
+<span class="material-symbols-outlined text-[18px]">price_check</span>
+<span class="">Dar Baixa em Outubro</span>
+</button>
+</div>
+</section>
+<!-- SECTION 2: Tabela de Histórico de Lançamentos -->
+<section class="mt-space-lg bg-surface-container-lowest rounded-xl p-space-lg shadow-sm">
+<div class="flex flex-col sm:flex-row sm:items-center justify-between gap-space-sm pb-space-md">
+<div>
+<h2 class="font-headline-md text-headline-md text-on-surface">Histórico de Lançamentos</h2>
+<p class="font-body-md text-body-md text-on-surface-variant mt-0.5">
+          Livro de registros contábeis por competência contratual.
+        </p>
+</div>
+<div class="flex items-center gap-2">
+<button class="p-2 rounded-lg bg-surface-container text-on-surface-variant hover:bg-surface-container-high transition-colors font-label-md text-label-md flex items-center gap-1.5" title="Exportar Extrato" type="button">
+<span class="material-symbols-outlined text-[18px]">download</span>
+<span class="">Exportar PDF</span>
+</button>
+</div>
+</div>
+<!-- Ledger Table -->
+<div class="overflow-x-auto">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="bg-surface-container-low text-on-surface-variant font-label-sm text-label-sm uppercase tracking-wider">
+<th class="py-3 px-4 rounded-l-lg">Competência</th>
+<th class="py-3 px-4">Vencimento</th>
+<th class="py-3 px-4">Valor Base</th>
+<th class="py-3 px-4">Status</th>
+<th class="py-3 px-4">Liquidação / Pagamento</th>
+<th class="py-3 px-4 text-right rounded-r-lg">Ações</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-surface-container">
+<!-- Row 1: OUTUBRO (Pending) -->
+<tr class="hover:bg-secondary-fixed/10 transition-colors bg-secondary-fixed/5 font-body-md text-body-md">
+<td class="py-4 px-4 font-semibold text-on-surface flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-secondary"></span>
+<span class="">Outubro / 2026</span>
+<span class="px-1.5 py-0.2 rounded bg-secondary-fixed text-on-secondary-fixed font-label-sm text-[10px]">Atual</span>
+</td>
+<td class="py-4 px-4 font-numeric-table text-numeric-table text-on-surface">10/10/2026</td>
+<td class="py-4 px-4 font-numeric-table text-numeric-table font-bold text-on-surface">R$ 1.200,00</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-secondary-fixed/40 text-on-secondary-container font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">hourglass_top</span>
+                Aguardando vencimento
+              </span>
+</td>
+<td class="py-4 px-4 text-outline font-body-sm text-body-sm italic">
+              Pendente de quitação
+            </td>
+<td class="py-4 px-4 text-right">
+<button class="px-3 py-1.5 rounded-lg bg-primary text-on-primary hover:bg-primary-container transition-colors font-label-md text-label-md inline-flex items-center gap-1" onclick="document.getElementById('modal-pagamento').classList.remove('hidden')" type="button">
+<span class="material-symbols-outlined text-[16px]">check_circle</span>
+<span class="">Marcar como pago</span>
+</button>
+</td>
+</tr>
+<!-- Row 2: SETEMBRO (Paid) -->
+<tr class="hover:bg-surface-container-low transition-colors font-body-md text-body-md">
+<td class="py-4 px-4 font-semibold text-on-surface flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="">Setembro / 2026</span>
+</td>
+<td class="py-4 px-4 font-numeric-table text-numeric-table text-on-surface">10/09/2026</td>
+<td class="py-4 px-4 font-numeric-table text-numeric-table text-on-surface">R$ 1.200,00</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">check</span>
+                Pago
+              </span>
+</td>
+<td class="py-4 px-4 text-on-surface">
+<div class="flex items-center gap-1.5 font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px] text-primary">qr_code_2</span>
+<span class="">10/09/2026 às 08:42</span>
+<span class="text-outline text-xs">(PIX)</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Ver Comprovante" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-error transition-colors" title="Desfazer lançamento" type="button">
+<span class="material-symbols-outlined text-[18px]">undo</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 3: AGOSTO (Paid) -->
+<tr class="hover:bg-surface-container-low transition-colors font-body-md text-body-md">
+<td class="py-4 px-4 font-semibold text-on-surface flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="">Agosto / 2026</span>
+</td>
+<td class="py-4 px-4 font-numeric-table text-numeric-table text-on-surface">10/08/2026</td>
+<td class="py-4 px-4 font-numeric-table text-numeric-table text-on-surface">R$ 1.200,00</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">check</span>
+                Pago
+              </span>
+</td>
+<td class="py-4 px-4 text-on-surface">
+<div class="flex items-center gap-1.5 font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px] text-outline">account_balance</span>
+<span class="">09/08/2026 às 16:15</span>
+<span class="text-outline text-xs">(Transferência TED)</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Ver Comprovante" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-error transition-colors" title="Desfazer lançamento" type="button">
+<span class="material-symbols-outlined text-[18px]">undo</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 4: JULHO (Paid) -->
+<tr class="hover:bg-surface-container-low transition-colors font-body-md text-body-md">
+<td class="py-4 px-4 font-semibold text-on-surface flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="">Julho / 2026</span>
+</td>
+<td class="py-4 px-4 font-numeric-table text-numeric-table text-on-surface">10/07/2026</td>
+<td class="py-4 px-4 font-numeric-table text-numeric-table text-on-surface">R$ 1.200,00</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">check</span>
+                Pago
+              </span>
+</td>
+<td class="py-4 px-4 text-on-surface">
+<div class="flex items-center gap-1.5 font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px] text-primary">qr_code_2</span>
+<span class="">10/07/2026 às 11:02</span>
+<span class="text-outline text-xs">(PIX)</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Ver Comprovante" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-error transition-colors" title="Desfazer lançamento" type="button">
+<span class="material-symbols-outlined text-[18px]">undo</span>
+</button>
+</div>
+</td>
+</tr>
+<!-- Row 5: JUNHO (Paid) -->
+<tr class="hover:bg-surface-container-low transition-colors font-body-md text-body-md">
+<td class="py-4 px-4 font-semibold text-on-surface flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-primary"></span>
+<span class="">Junho / 2026</span>
+</td>
+<td class="py-4 px-4 font-numeric-table text-numeric-table text-on-surface">10/06/2026</td>
+<td class="py-4 px-4 font-numeric-table text-numeric-table text-on-surface">R$ 1.200,00</td>
+<td class="py-4 px-4">
+<span class="inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full bg-primary/10 text-primary font-label-sm text-label-sm font-semibold">
+<span class="material-symbols-outlined text-[14px]">check</span>
+                Pago
+              </span>
+</td>
+<td class="py-4 px-4 text-on-surface">
+<div class="flex items-center gap-1.5 font-label-md text-label-md">
+<span class="material-symbols-outlined text-[16px] text-primary">qr_code_2</span>
+<span class="">10/06/2026 às 09:18</span>
+<span class="text-outline text-xs">(PIX)</span>
+</div>
+</td>
+<td class="py-4 px-4 text-right">
+<div class="inline-flex items-center gap-1">
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" title="Ver Comprovante" type="button">
+<span class="material-symbols-outlined text-[18px]">receipt_long</span>
+</button>
+<button class="p-1.5 rounded-lg text-on-surface-variant hover:bg-surface-container hover:text-error transition-colors" title="Desfazer lançamento" type="button">
+<span class="material-symbols-outlined text-[18px]">undo</span>
+</button>
+</div>
+</td>
+</tr>
+</tbody>
+</table>
+</div>
+<!-- Table Footer / Pagination or Range -->
+<div class="pt-space-md mt-space-sm flex flex-col sm:flex-row sm:items-center justify-between text-on-surface-variant font-label-md text-label-md gap-2">
+<span class="">Exibindo 5 de 12 lançamentos da vigência 2026</span>
+<button class="text-primary hover:underline font-semibold flex items-center gap-1 self-start sm:self-auto" type="button">
+<span class="">Carregar meses anteriores de 2026</span>
+<span class="material-symbols-outlined text-[16px]">expand_more</span>
+</button>
+</div>
+</section>
+<!-- Contract Details & Property Quick Reference Split Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 gap-space-md mt-space-md">
+<!-- Property Info Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Imóvel Vinculado</span>
+<span class="px-2 py-0.5 rounded bg-surface-container font-label-sm text-label-sm text-on-surface">Urbano Residencial</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Casa 2 — Rua das Acácias, 142</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Jardim das Flores, São Paulo - SP · CEP 01234-567</p>
+<div class="grid grid-cols-3 gap-2 mt-space-md pt-space-sm bg-surface-container-low p-space-sm rounded-lg text-center">
+<div>
+<span class="font-label-sm text-label-sm text-outline block">Quartos</span>
+<span class="font-numeric-table text-numeric-table text-on-surface">2 dorms</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-outline block">Metragem</span>
+<span class="font-numeric-table text-numeric-table text-on-surface">68 m²</span>
+</div>
+<div>
+<span class="font-label-sm text-label-sm text-outline block">IPTU / mês</span>
+<span class="font-numeric-table text-numeric-table text-on-surface">Incluso</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between">
+<a class="text-primary font-label-md text-label-md hover:underline inline-flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[16px]">apartment</span>
+<span class="">Acessar ficha cadastral do imóvel</span>
+</a>
+<span class="font-label-sm text-label-sm text-outline">Matrícula #48.912</span>
+</div>
+</div>
+<!-- Contract Clause & Adjustments Card -->
+<div class="bg-surface-container-lowest rounded-xl p-space-lg shadow-sm flex flex-col justify-between">
+<div>
+<div class="flex items-center justify-between mb-space-sm">
+<span class="font-label-sm text-label-sm uppercase tracking-wider text-outline">Termos do Contrato</span>
+<span class="px-2 py-0.5 rounded bg-primary/10 text-primary font-label-sm text-label-sm">IPCA Anual</span>
+</div>
+<h3 class="font-headline-sm text-headline-sm text-on-surface">Locação com Garantia Fidejussória</h3>
+<p class="font-body-md text-body-md text-on-surface-variant mt-1">Início em 10/01/2025 · Término previsto em 09/01/2027</p>
+<div class="space-y-2 mt-space-md">
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant">Próximo Reajuste Contratual:</span>
+<span class="font-semibold text-on-surface">Janeiro / 2027</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant">Multa por Atraso:</span>
+<span class="font-semibold text-on-surface">2% + juros 0,033% ao dia</span>
+</div>
+<div class="flex items-center justify-between text-body-sm font-body-sm">
+<span class="text-on-surface-variant">Chave PIX Cadastrada p/ Recebimento:</span>
+<span class="font-numeric-table text-xs text-primary font-semibold">financeiro@quita.imob.br</span>
+</div>
+</div>
+</div>
+<div class="mt-space-md pt-space-sm flex items-center justify-between">
+<a class="text-primary font-label-md text-label-md hover:underline inline-flex items-center gap-1" href="#">
+<span class="material-symbols-outlined text-[16px]">description</span>
+<span class="">Ver minuta assinada (PDF)</span>
+</a>
+<span class="font-label-sm text-label-sm text-outline">DocuSign ID: 89f41b</span>
+</div>
+</div>
+</div>
+<!-- SECTION 3: DIÁLOGO MODAL "Marcar como pago" (Aberto com overlay sobre a tela) -->
+<div class="fixed inset-0 z-50 flex items-center justify-center p-4" id="modal-pagamento">
+<!-- Backdrop Wash Overlay -->
+<div class="fixed inset-0 bg-[#1E2B30]/40 backdrop-blur-[2px] transition-opacity" onclick="document.getElementById('modal-pagamento').classList.add('hidden')"></div>
+<!-- Modal Content Window -->
+<div class="relative bg-surface-container-lowest rounded-xl max-w-lg w-full p-space-lg shadow-2xl z-10 animate-in fade-in zoom-in-95 duration-150">
+<!-- Modal Header -->
+<div class="flex items-start justify-between pb-space-sm">
+<div class="flex items-center gap-2.5">
+<div class="w-10 h-10 rounded-lg bg-primary/10 text-primary flex items-center justify-center">
+<span class="material-symbols-outlined text-[24px]">verified</span>
+</div>
+<div>
+<h3 class="font-headline-md text-headline-md text-on-surface">Confirmar Quitação de Aluguel</h3>
+<p class="font-body-sm text-body-sm text-on-surface-variant mt-0.5">Livro-caixa contábil do exercício 2026</p>
+</div>
+</div>
+<button class="p-1 rounded-md text-on-surface-variant hover:bg-surface-container hover:text-on-surface transition-colors" onclick="document.getElementById('modal-pagamento').classList.add('hidden')" title="Fechar modal" type="button">
+<span class="material-symbols-outlined text-[20px]">close</span>
+</button>
+</div>
+<!-- Settlement Summary Ledger Box -->
+<div class="mt-space-md bg-surface-container-low p-space-md rounded-lg flex flex-col gap-2">
+<div class="flex justify-between items-center text-body-sm font-body-sm text-on-surface-variant">
+<span class="">Inquilino:</span>
+<span class="font-semibold text-on-surface">Mariana Souza</span>
+</div>
+<div class="flex justify-between items-center text-body-sm font-body-sm text-on-surface-variant">
+<span class="">Imóvel:</span>
+<span class="font-semibold text-on-surface">Casa 2 — Rua das Acácias</span>
+</div>
+<div class="flex justify-between items-center text-body-sm font-body-sm text-on-surface-variant">
+<span class="">Competência:</span>
+<span class="font-semibold text-secondary">Outubro / 2026</span>
+</div>
+<div class="pt-2 mt-1 flex justify-between items-baseline bg-surface-container-lowest p-2.5 rounded">
+<span class="font-label-md text-label-md text-on-surface">Valor a Quitar:</span>
+<span class="font-numeric-hero text-numeric-hero text-primary font-bold">R$ 1.200,00</span>
+</div>
+</div>
+<!-- Form Inputs -->
+<form class="mt-space-md flex flex-col gap-space-md" onsubmit="event.preventDefault(); document.getElementById('modal-pagamento').classList.add('hidden');">
+<!-- Date Input -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface" for="data-pagamento">Data do Pagamento</label>
+<div class="relative flex items-center">
+<span class="material-symbols-outlined absolute left-3 text-outline text-[18px]">calendar_month</span>
+<input class="w-full h-10 pl-9 pr-3 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary shadow-xs" id="data-pagamento" type="date" value="2026-10-10">
+</div>
+<span class="font-body-sm text-[11px] text-outline">Preenchido automaticamente com a data corrente.</span>
+</div>
+<!-- Payment Method Select -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface">Forma de Pagamento</label>
+<div class="grid grid-cols-3 gap-2">
+<label class="cursor-pointer">
+<input checked="" class="peer sr-only" name="forma-pagamento" type="radio" value="pix">
+<div class="p-2.5 rounded-lg bg-surface-container-low text-center peer-checked:bg-primary peer-checked:text-on-primary transition-all flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">qr_code_2</span>
+<span class="font-label-sm text-label-sm font-semibold">PIX</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="forma-pagamento" type="radio" value="ted">
+<div class="p-2.5 rounded-lg bg-surface-container-low text-center peer-checked:bg-primary peer-checked:text-on-primary transition-all flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">account_balance</span>
+<span class="font-label-sm text-label-sm font-semibold">TED / Doc</span>
+</div>
+</label>
+<label class="cursor-pointer">
+<input class="peer sr-only" name="forma-pagamento" type="radio" value="dinheiro">
+<div class="p-2.5 rounded-lg bg-surface-container-low text-center peer-checked:bg-primary peer-checked:text-on-primary transition-all flex flex-col items-center gap-1">
+<span class="material-symbols-outlined text-[18px]">payments</span>
+<span class="font-label-sm text-label-sm font-semibold">Dinheiro</span>
+</div>
+</label>
+</div>
+</div>
+<!-- Optional Observation Field -->
+<div class="flex flex-col gap-1.5">
+<label class="font-label-md text-label-md text-on-surface" for="obs-quitacao">Observação ou Comprovante (Opcional)</label>
+<input class="w-full h-10 px-3 rounded-lg bg-surface-container-lowest text-on-surface font-body-md text-body-md focus:outline-none focus:ring-1 focus:ring-primary shadow-xs" id="obs-quitacao" placeholder="Ex: Chave PIX confirmada no app bancário" type="text">
+</div>
+<!-- Modal Footer Actions -->
+<div class="flex items-center justify-end gap-space-sm pt-space-sm mt-2">
+<button class="px-space-md py-2.5 rounded-lg bg-surface-container text-on-surface hover:bg-surface-container-high transition-colors font-label-md text-label-md" onclick="document.getElementById('modal-pagamento').classList.add('hidden')" type="button">
+            Cancelar
+          </button>
+<button class="px-space-lg py-2.5 rounded-lg bg-primary-container text-on-primary hover:bg-primary transition-colors font-label-md text-label-md flex items-center gap-1.5 font-semibold shadow-sm" type="submit">
+<span class="material-symbols-outlined text-[18px]">check_circle</span>
+<span class="">Confirmar Pagamento</span>
+</button>
+</div>
+</form>
+</div>
+</div>
+</div></main></div>
+
+</body></html>

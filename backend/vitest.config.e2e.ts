@@ -7,5 +7,8 @@ export default defineConfig({
     globals: true,
     root: './',
     include: ['**/*.e2e-spec.ts'],
+    // Os testes e2e usam o banco de dev no Supabase (rede): tempo maior.
+    testTimeout: 30_000,
+    hookTimeout: 60_000,
   },
 });

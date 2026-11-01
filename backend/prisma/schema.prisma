@@ -1,13 +1,81 @@
-// This is your Prisma schema file,
-// learn more about it in the docs: https://pris.ly/d/prisma-schema
-
-// Get a free hosted Postgres database in seconds: `npx create-db`
+// Modelo de dados: docs/modelo-de-dados.md
+// Prisma 7: as URLs de conexão ficam em prisma.config.ts (CLI) e no adapter (app).
 
 generator client {
-  provider = "prisma-client"
-  output   = "../src/generated/prisma"
+  provider            = "prisma-client"
+  output              = "../src/generated/prisma"
+  moduleFormat        = "esm"
+  importFileExtension = "js"
 }
 
 datasource db {
   provider = "postgresql"
+}
+
+enum StatusPagamento {
+  AGUARDANDO
+  PAGO
+}
+
+model Proprietario {
+  id         String      @id @default(uuid())
+  nome       String
+  email      String      @unique
+  senhaHash  String
+  criadoEm   DateTime    @default(now())
+  imoveis    Imovel[]
+  inquilinos Inquilino[]
+  pagamentos Pagamento[]
+}
+
+model Imovel {
+  id             String       @id @default(uuid())
+  proprietarioId String
+  proprietario   Proprietario @relation(fields: [proprietarioId], references: [id], onDelete: Cascade)
+  nome           String
+  endereco       String?
+  criadoEm       DateTime     @default(now())
+  inquilinos     Inquilino[]
+
+  @@index([proprietarioId])
+}
+
+model Inquilino {
+  id             String       @id @default(uuid())
+  proprietarioId String
+  proprietario   Proprietario @relation(fields: [proprietarioId], references: [id], onDelete: Cascade)
+  imovelId       String
+  imovel         Imovel       @relation(fields: [imovelId], references: [id], onDelete: Restrict)
+  nome           String
+  telefone       String?
+  email          String?
+  cpf            String?
+  observacoes    String?
+  valorAluguel   Decimal      @db.Decimal(10, 2)
+  diaVencimento  Int // 1 a 31 (RN-20)
+  dataEntrada    DateTime     @db.Date
+  dataSaida      DateTime?    @db.Date // null = ativo
+  criadoEm       DateTime     @default(now())
+  pagamentos     Pagamento[]
+
+  @@index([proprietarioId])
+  @@index([imovelId])
+}
+
+model Pagamento {
+  id             String          @id @default(uuid())
+  proprietarioId String
+  proprietario   Proprietario    @relation(fields: [proprietarioId], references: [id], onDelete: Cascade)
+  inquilinoId    String
+  inquilino      Inquilino       @relation(fields: [inquilinoId], references: [id], onDelete: Cascade)
+  competencia    DateTime        @db.Date // sempre o dia 1 do mês de referência
+  valor          Decimal         @db.Decimal(10, 2)
+  dataVencimento DateTime        @db.Date
+  status         StatusPagamento @default(AGUARDANDO)
+  dataPagamento  DateTime?       @db.Date
+  criadoEm       DateTime        @default(now())
+  atualizadoEm   DateTime        @updatedAt
+
+  @@unique([inquilinoId, competencia]) // garante RN-17 (sem duplicatas)
+  @@index([proprietarioId, status, dataVencimento])
 }

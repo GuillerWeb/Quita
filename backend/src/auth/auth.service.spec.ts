@@ -12,10 +12,7 @@ function criarServico() {
     },
   };
   const jwt = new JwtService({ secret: 'segredo-de-teste' });
-  const servico = new AuthService(
-    prisma as unknown as PrismaService,
-    jwt,
-  );
+  const servico = new AuthService(prisma as unknown as PrismaService, jwt);
   return { servico, prisma, jwt };
 }
 

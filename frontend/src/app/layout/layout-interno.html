@@ -1,0 +1,60 @@
+<mat-sidenav-container class="moldura">
+  <mat-sidenav
+    class="menu"
+    [mode]="celular() ? 'over' : 'side'"
+    [opened]="!celular()"
+    [fixedInViewport]="celular()"
+  >
+    <nav class="menu-conteudo" aria-label="Menu principal">
+      <a routerLink="/" class="menu-logo" aria-label="Quita — ir para o painel"><q-logo [altura]="22" /></a>
+
+      <span class="rotulo-secao menu-rotulo">Menu principal</span>
+      <ul class="menu-itens">
+        @for (item of itens; track item.rota) {
+          <li>
+            <a
+              [routerLink]="item.rota"
+              routerLinkActive="ativo"
+              [routerLinkActiveOptions]="{ exact: item.exato }"
+              ariaCurrentWhenActive="page"
+            >
+              <span class="material-symbols-outlined" aria-hidden="true">{{ item.icone }}</span>
+              {{ item.rotulo }}
+            </a>
+          </li>
+        }
+      </ul>
+
+      @if (auth.proprietario(); as proprietario) {
+        <div class="usuario">
+          <span class="usuario-icone" aria-hidden="true">
+            <span class="material-symbols-outlined icone-cheio">person</span>
+          </span>
+          <div class="usuario-texto">
+            <strong>{{ proprietario.nome }}</strong>
+            <span>Proprietário</span>
+          </div>
+          <button mat-icon-button type="button" (click)="auth.sair()" aria-label="Sair" matTooltip="Sair">
+            <span class="material-symbols-outlined">logout</span>
+          </button>
+        </div>
+      }
+    </nav>
+  </mat-sidenav>
+
+  <mat-sidenav-content class="conteudo">
+    @if (celular()) {
+      <header class="barra-celular">
+        <button mat-icon-button type="button" (click)="menu().toggle()" aria-label="Abrir menu">
+          <span class="material-symbols-outlined">menu</span>
+        </button>
+        <a routerLink="/" aria-label="Quita — ir para o painel"><q-logo [altura]="20" /></a>
+        <span class="espaco"></span>
+        @if (auth.proprietario(); as proprietario) {
+          <q-avatar [nome]="proprietario.nome" />
+        }
+      </header>
+    }
+    <router-outlet />
+  </mat-sidenav-content>
+</mat-sidenav-container>

@@ -1,0 +1,143 @@
+:host {
+  display: block;
+  height: 100vh;
+}
+
+.moldura {
+  height: 100%;
+  background: var(--q-fundo);
+}
+
+.menu {
+  width: var(--q-largura-menu);
+  border-right: 1px solid var(--q-divisoria) !important;
+}
+
+.menu-conteudo {
+  display: flex;
+  flex-direction: column;
+  height: 100%;
+  padding: 28px 20px 20px;
+}
+
+.menu-logo {
+  display: inline-flex;
+  padding: 0 10px;
+  margin-bottom: 48px;
+}
+
+.menu-rotulo {
+  padding: 0 10px;
+  margin-bottom: 12px;
+}
+
+.menu-itens {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  a {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    height: 46px;
+    padding: 0 12px;
+    border-radius: var(--q-raio);
+    color: var(--q-texto);
+    text-decoration: none;
+    font-size: 16px;
+    font-weight: 600;
+
+    &:hover {
+      background: var(--q-superficie-baixa);
+    }
+
+    &.ativo {
+      background: var(--q-primaria);
+      color: #fff;
+    }
+
+    .material-symbols-outlined {
+      font-size: 24px;
+    }
+  }
+}
+
+.usuario {
+  margin-top: auto;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px 6px 10px 10px;
+  border-radius: var(--q-raio);
+  background: var(--q-superficie-baixa);
+
+  &-icone {
+    width: 40px;
+    height: 40px;
+    border-radius: 50%;
+    background: var(--q-primaria-escura);
+    color: #fff;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+  }
+
+  &-texto {
+    display: flex;
+    flex-direction: column;
+    min-width: 0;
+    flex: 1;
+
+    strong {
+      font-family: var(--q-fonte-titulo);
+      font-weight: 600;
+      font-size: 15px;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+    }
+
+    span {
+      font-size: 13px;
+      color: var(--q-texto-suave);
+    }
+  }
+
+  button {
+    color: var(--q-texto-suave);
+  }
+}
+
+.conteudo {
+  background: var(--q-fundo);
+}
+
+.barra-celular {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  height: 60px;
+  padding: 0 12px 0 4px;
+  background: var(--q-superficie);
+  border-bottom: 1px solid var(--q-divisoria);
+
+  a {
+    display: inline-flex;
+  }
+
+  .espaco {
+    flex: 1;
+  }
+
+  q-avatar {
+    transform: scale(0.75);
+  }
+}

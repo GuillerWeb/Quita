@@ -376,3 +376,121 @@ a.linha:hover,
   justify-content: center;
   padding: var(--q-xl);
 }
+
+// ---------- Diálogos ----------
+.dialogo-cabecalho {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 24px 24px 0;
+
+  .mat-mdc-dialog-title {
+    padding: 0;
+    margin: 0;
+    font-size: 20px;
+    line-height: 28px;
+
+    &::before {
+      display: none;
+    }
+  }
+
+  small {
+    display: block;
+    color: var(--q-texto-suave);
+    font-size: 13px;
+    font-family: var(--q-fonte-corpo);
+    font-weight: 400;
+  }
+}
+
+.dialogo-icone {
+  width: 40px;
+  height: 40px;
+  border-radius: var(--q-raio);
+  background: var(--q-superficie-baixa);
+  color: var(--q-primaria);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+
+  &--perigo {
+    background: var(--q-atrasado-claro);
+    color: var(--q-atrasado);
+  }
+}
+
+.dialogo-texto {
+  margin: 0;
+  color: var(--q-texto-suave);
+  font-size: 15px;
+  line-height: 22px;
+}
+
+.mat-mdc-dialog-content {
+  font-family: var(--q-fonte-corpo) !important;
+}
+
+.mat-mdc-dialog-actions {
+  padding: 8px 24px 24px !important;
+  gap: 8px;
+}
+
+.botao-perigo-forte.mat-mdc-unelevated-button {
+  --mat-button-filled-container-color: var(--q-atrasado);
+}
+
+// Faixa de resumo dentro dos diálogos (inquilino, imóvel, competência).
+.resumo-dialogo {
+  background: var(--q-superficie-baixa);
+  border-radius: var(--q-raio-lg);
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  font-size: 13px;
+  margin-bottom: 20px;
+
+  div {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px;
+  }
+
+  dt {
+    color: var(--q-texto-suave);
+  }
+
+  dd {
+    margin: 0;
+    font-weight: 600;
+    text-align: right;
+  }
+
+  .valor-destaque {
+    background: var(--q-superficie);
+    border-radius: var(--q-raio);
+    padding: 12px;
+    align-items: center;
+    margin-top: 4px;
+
+    dt {
+      color: var(--q-texto);
+      font-weight: 600;
+    }
+
+    dd {
+      font-family: var(--q-fonte-titulo);
+      font-size: 28px;
+      line-height: 34px;
+      font-weight: 700;
+      color: var(--q-primaria-escura);
+    }
+  }
+}
+
+// ---------- Avisos (snackbar) ----------
+.aviso-erro .mat-mdc-snackbar-surface {
+  background: var(--q-atrasado) !important;
+}

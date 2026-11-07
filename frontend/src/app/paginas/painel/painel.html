@@ -1,0 +1,166 @@
+<div class="pagina">
+  @if (erro()) {
+    <div class="aviso aviso--erro" role="alert">
+      <span class="material-symbols-outlined" aria-hidden="true">error</span>
+      <span>{{ erro() }}</span>
+      <button mat-button type="button" (click)="carregar()">Tentar de novo</button>
+    </div>
+  }
+
+  @if (painel(); as p) {
+    <header class="pagina-cabecalho">
+      <div class="pagina-cabecalho__titulo">
+        <h1 class="titulo-pagina">{{ titulo() }}</h1>
+      </div>
+      <div class="pagina-cabecalho__acoes">
+        <a mat-flat-button routerLink="/inquilinos/novo">
+          <span class="botao-carregando"><span class="material-symbols-outlined" aria-hidden="true">add</span>Novo inquilino</span>
+        </a>
+      </div>
+    </header>
+
+    @if (vazio()) {
+      <section class="cartao">
+        <q-estado-vazio
+          titulo="Seu livro-caixa está em branco."
+          texto="Cadastre seu primeiro imóvel e depois o inquilino. Os meses de cobrança aparecem aqui sozinhos, todo mês."
+        >
+          <a mat-flat-button routerLink="/imoveis/novo">
+            <span class="botao-carregando"><span class="material-symbols-outlined" aria-hidden="true">add_home</span>Cadastrar imóvel</span>
+          </a>
+        </q-estado-vazio>
+      </section>
+    } @else {
+      <!-- Totais do mês -->
+      <section class="totais" aria-label="Totais do mês">
+        <p class="totais-frase">
+          <span class="suave">Recebido</span>
+          <strong class="numero recebido">{{ p.totais.recebido | dinheiro }}</strong>
+          <span class="suave">de</span>
+          <strong class="numero">{{ p.totais.esperado | dinheiro }}</strong>
+        </p>
+        <div
+          class="barra"
+          role="progressbar"
+          aria-label="Percentual recebido no mês"
+          [attr.aria-valuenow]="percentual() | number: '1.0-0'"
+          aria-valuemin="0"
+          aria-valuemax="100"
+        >
+          <span class="barra-preenchida" [style.width.%]="percentual()"></span>
+        </div>
+        <div class="totais-legenda">
+          <span><span class="ponto-aguardando" aria-hidden="true"></span><strong class="numero">{{ p.totais.aguardando | dinheiro }}</strong> aguardando</span>
+          <span><strong class="numero">{{ percentual() | number: '1.0-1' }}%</strong> quitado</span>
+        </div>
+      </section>
+
+      <!-- Pendências em aberto (atrasados de qualquer mês) -->
+      <section class="secao">
+        <div class="secao-cabecalho">
+          <div class="secao-cabecalho__titulo">
+            <h2>Pendências em aberto</h2>
+            @if (p.atrasados.length) {
+              <span class="chip chip--alerta"><span class="chip__ponto"></span>{{ p.atrasados.length }} {{ p.atrasados.length === 1 ? 'pendência' : 'pendências' }}</span>
+            }
+          </div>
+          <span class="rotulo-secao">Meses atrasados</span>
+        </div>
+
+        <div class="cartao">
+          @for (a of p.atrasados; track a.inquilinoId) {
+            <div class="linha linha-atrasado">
+              <q-avatar [nome]="a.nome" [alerta]="true" />
+              <a class="linha-texto" [routerLink]="['/inquilinos', a.inquilinoId]">
+                <strong>{{ a.nome }}</strong>
+                <span>{{ a.imovel }}</span>
+              </a>
+              <q-regua-meses
+                class="regua-atrasados"
+                [meses]="regua(a)"
+                [clicavel]="true"
+                [rotulo]="'Meses atrasados de ' + a.nome"
+                (selecionar)="pagar(a.pagamentos[$event], a.nome, a.imovel)"
+              />
+              <div class="divida">
+                <strong class="numero">{{ a.meses }} {{ a.meses === 1 ? 'mês' : 'meses' }} · {{ a.valorDevido | dinheiro }}</strong>
+                <span>vencimento dia {{ diaDoVencimento(a) }}</span>
+              </div>
+              <button mat-flat-button class="botao-claro" type="button" (click)="pagar(a.pagamentos[0], a.nome, a.imovel)"
+                      [attr.aria-label]="'Marcar ' + rotuloMes(a.pagamentos[0]) + ' de ' + a.nome + ' como pago'"
+                      matTooltip="Marca o mês mais antigo. Clique num mês da régua para escolher outro.">
+                <span class="botao-carregando"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span>Marcar como pago</span>
+              </button>
+            </div>
+          } @empty {
+            <div class="linha linha-vazia">
+              <span class="material-symbols-outlined icone-ok" aria-hidden="true">task_alt</span>
+              <span>Nenhum pagamento atrasado.</span>
+            </div>
+          }
+        </div>
+      </section>
+
+      <div class="colunas">
+        <!-- A vencer este mês -->
+        <section class="secao">
+          <div class="secao-cabecalho">
+            <div class="secao-cabecalho__titulo">
+              <h2>A vencer este mês</h2>
+              <span class="chip">{{ p.aVencer.length }} {{ p.aVencer.length === 1 ? 'programado' : 'programados' }}</span>
+            </div>
+            <span class="rotulo-secao">Ordenado por data</span>
+          </div>
+          <div class="cartao">
+            @for (v of p.aVencer; track v.id) {
+              <div class="linha">
+                <span class="icone-quadrado" aria-hidden="true"><span class="material-symbols-outlined">event_upcoming</span></span>
+                <a class="linha-texto" [routerLink]="['/inquilinos', v.inquilinoId]">
+                  <strong>{{ v.nome }}</strong>
+                  <span>{{ v.imovel }}</span>
+                </a>
+                <div class="valor-vencer">
+                  <span>vence em {{ v.dataVencimento | dataBr: true }}</span>
+                  <strong class="numero">{{ v.valor | dinheiro }}</strong>
+                </div>
+                <button mat-icon-button type="button" class="botao-pagar" (click)="pagar(v, v.nome, v.imovel)"
+                        [attr.aria-label]="'Marcar aluguel de ' + v.nome + ' como pago'" matTooltip="Marcar como pago">
+                  <span class="material-symbols-outlined">check_circle</span>
+                </button>
+              </div>
+            } @empty {
+              <div class="linha linha-vazia"><span>Nada mais a vencer neste mês.</span></div>
+            }
+          </div>
+        </section>
+
+        <!-- Imóveis vagos -->
+        <section class="secao">
+          <div class="secao-cabecalho">
+            <div class="secao-cabecalho__titulo">
+              <h2>Imóveis vagos</h2>
+              <span class="chip">{{ p.imoveisVagos.length }} {{ p.imoveisVagos.length === 1 ? 'unidade' : 'unidades' }}</span>
+            </div>
+          </div>
+          <div class="cartao">
+            @for (i of p.imoveisVagos; track i.id) {
+              <div class="linha">
+                <div class="linha-texto">
+                  <strong class="nome-vago">{{ i.nome }}</strong>
+                  <span>Sem inquilino</span>
+                </div>
+                <a mat-button [routerLink]="['/inquilinos/novo']" [queryParams]="{ imovelId: i.id }">
+                  <span class="botao-carregando">Cadastrar inquilino<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+                </a>
+              </div>
+            } @empty {
+              <div class="linha linha-vazia"><span>Todos os imóveis estão ocupados.</span></div>
+            }
+          </div>
+        </section>
+      </div>
+    }
+  } @else if (!erro()) {
+    <div class="carregando-pagina"><mat-spinner diameter="40" aria-label="Carregando o painel" /></div>
+  }
+</div>

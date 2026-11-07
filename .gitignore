@@ -9,3 +9,4 @@ coverage/
 
 # Prisma Client gerado
 backend/src/generated/
+*.tsbuildinfo

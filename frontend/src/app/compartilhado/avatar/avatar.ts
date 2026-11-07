@@ -4,17 +4,41 @@ import { ChangeDetectionStrategy, Component, computed, input } from '@angular/co
 @Component({
   selector: 'q-avatar',
   changeDetection: ChangeDetectionStrategy.OnPush,
-  template: `<span class="avatar" [class.avatar--alerta]="alerta()" [class.avatar--grande]="grande()" aria-hidden="true">{{ iniciais() }}</span>`,
+  template: `<span
+    class="avatar"
+    [class.avatar--alerta]="alerta()"
+    [class.avatar--grande]="grande()"
+    aria-hidden="true"
+    >{{ iniciais() }}</span
+  >`,
   styles: `
-    :host { display: inline-flex; flex-shrink: 0; }
-    .avatar {
-      width: 48px; height: 48px; border-radius: 50%;
-      display: inline-flex; align-items: center; justify-content: center;
-      background: var(--q-superficie-media); color: var(--q-primaria-escura);
-      font-family: var(--q-fonte-titulo); font-weight: 600; font-size: 16px;
+    :host {
+      display: inline-flex;
+      flex-shrink: 0;
     }
-    .avatar--alerta { background: var(--q-atrasado-claro); color: var(--q-atrasado); }
-    .avatar--grande { width: 64px; height: 64px; border-radius: 12px; font-size: 22px; }
+    .avatar {
+      width: 48px;
+      height: 48px;
+      border-radius: 50%;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      background: var(--q-superficie-media);
+      color: var(--q-primaria-escura);
+      font-family: var(--q-fonte-titulo);
+      font-weight: 600;
+      font-size: 16px;
+    }
+    .avatar--alerta {
+      background: var(--q-atrasado-claro);
+      color: var(--q-atrasado);
+    }
+    .avatar--grande {
+      width: 64px;
+      height: 64px;
+      border-radius: 12px;
+      font-size: 22px;
+    }
   `,
 })
 export class Avatar {

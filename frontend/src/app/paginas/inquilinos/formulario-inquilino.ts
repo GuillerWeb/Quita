@@ -1,4 +1,12 @@
-import { ChangeDetectionStrategy, Component, computed, inject, input, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  input,
+  OnInit,
+  signal,
+} from '@angular/core';
 import {
   AbstractControl,
   FormBuilder,
@@ -30,7 +38,9 @@ function valorValido(controle: AbstractControl<string>): ValidationErrors | null
 function cpfValido(controle: AbstractControl<string>): ValidationErrors | null {
   const texto = controle.value?.trim();
   if (!texto) return null;
-  return /^[\d.\-\s]+$/.test(texto) && texto.replace(/\D/g, '').length === 11 ? null : { cpf: true };
+  return /^[\d.\-\s]+$/.test(texto) && texto.replace(/\D/g, '').length === 11
+    ? null
+    : { cpf: true };
 }
 
 /** `/inquilinos/novo` (aceita `?imovelId=`) e `/inquilinos/:id/editar`. */
@@ -50,10 +60,22 @@ function cpfValido(controle: AbstractControl<string>): ValidationErrors | null {
   ],
   templateUrl: './formulario-inquilino.html',
   styles: `
-    .opcional { font-weight: 400; color: var(--q-texto-suave); }
-    .prefixo { color: var(--q-texto-suave); font-weight: 600; margin-right: 6px; }
-    .secao-form { grid-column: 1 / -1; margin-top: 12px; }
-    textarea { min-height: 72px; }
+    .opcional {
+      font-weight: 400;
+      color: var(--q-texto-suave);
+    }
+    .prefixo {
+      color: var(--q-texto-suave);
+      font-weight: 600;
+      margin-right: 6px;
+    }
+    .secao-form {
+      grid-column: 1 / -1;
+      margin-top: 12px;
+    }
+    textarea {
+      min-height: 72px;
+    }
   `,
 })
 export class FormularioInquilino implements OnInit {
@@ -71,7 +93,10 @@ export class FormularioInquilino implements OnInit {
     imovelId: ['', Validators.required],
     nome: ['', [Validators.required, Validators.maxLength(100)]],
     valorAluguel: ['', [Validators.required, valorValido]],
-    diaVencimento: [10, [Validators.required, Validators.min(1), Validators.max(31), Validators.pattern(/^\d+$/)]],
+    diaVencimento: [
+      10,
+      [Validators.required, Validators.min(1), Validators.max(31), Validators.pattern(/^\d+$/)],
+    ],
     dataEntrada: [null as Date | null, Validators.required],
     telefone: ['', Validators.maxLength(20)],
     email: ['', [Validators.email]],
@@ -159,7 +184,9 @@ export class FormularioInquilino implements OnInit {
 
     this.enviando.set(true);
     this.erro.set('');
-    const requisicao = id ? this.inquilinosApi.atualizar(id, dados) : this.inquilinosApi.criar(dados);
+    const requisicao = id
+      ? this.inquilinosApi.atualizar(id, dados)
+      : this.inquilinosApi.criar(dados);
     requisicao.subscribe({
       next: (inquilino) => {
         this.notificacao.sucesso(id ? 'Dados do inquilino atualizados' : 'Inquilino cadastrado');

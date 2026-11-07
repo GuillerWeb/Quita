@@ -18,12 +18,18 @@ import { Imovel } from '../../core/modelos';
         <div class="pagina-cabecalho__titulo">
           <h1 class="titulo-pagina">Imóveis</h1>
           @if (imoveis(); as lista) {
-            <span class="chip">{{ lista.length }} {{ lista.length === 1 ? 'imóvel cadastrado' : 'imóveis cadastrados' }}</span>
+            <span class="chip"
+              >{{ lista.length }}
+              {{ lista.length === 1 ? 'imóvel cadastrado' : 'imóveis cadastrados' }}</span
+            >
           }
         </div>
         <div class="pagina-cabecalho__acoes">
           <a mat-flat-button routerLink="/imoveis/novo">
-            <span class="botao-carregando"><span class="material-symbols-outlined" aria-hidden="true">add</span>Cadastrar imóvel</span>
+            <span class="botao-carregando"
+              ><span class="material-symbols-outlined" aria-hidden="true">add</span>Cadastrar
+              imóvel</span
+            >
           </a>
         </div>
       </header>
@@ -42,7 +48,10 @@ import { Imovel } from '../../core/modelos';
               texto="Cadastre seu primeiro imóvel para acompanhar inquilinos, vencimentos e ver a régua de pagamentos ganhar vida."
             >
               <a mat-flat-button routerLink="/imoveis/novo">
-                <span class="botao-carregando"><span class="material-symbols-outlined" aria-hidden="true">add_home</span>Cadastrar imóvel</span>
+                <span class="botao-carregando"
+                  ><span class="material-symbols-outlined" aria-hidden="true">add_home</span
+                  >Cadastrar imóvel</span
+                >
               </a>
             </q-estado-vazio>
           } @else {
@@ -53,7 +62,9 @@ import { Imovel } from '../../core/modelos';
               @for (imovel of lista; track imovel.id) {
                 <li class="tabela-linha">
                   <div class="celula-imovel">
-                    <span class="icone-imovel" aria-hidden="true"><span class="material-symbols-outlined">apartment</span></span>
+                    <span class="icone-imovel" aria-hidden="true"
+                      ><span class="material-symbols-outlined">apartment</span></span
+                    >
                     <div class="linha-texto">
                       <strong>{{ imovel.nome }}</strong>
                       <span>{{ imovel.endereco || 'Sem endereço' }}</span>
@@ -68,10 +79,19 @@ import { Imovel } from '../../core/modelos';
                   </div>
                   <div class="celula-acoes">
                     @if (!imovel.inquilinoAtivo) {
-                      <a mat-button routerLink="/inquilinos/novo" [queryParams]="{ imovelId: imovel.id }">Cadastrar inquilino</a>
+                      <a
+                        mat-button
+                        routerLink="/inquilinos/novo"
+                        [queryParams]="{ imovelId: imovel.id }"
+                        >Cadastrar inquilino</a
+                      >
                     }
-                    <a mat-stroked-button [routerLink]="['/imoveis', imovel.id, 'editar']"
-                       [attr.aria-label]="'Editar ' + imovel.nome">Editar</a>
+                    <a
+                      mat-stroked-button
+                      [routerLink]="['/imoveis', imovel.id, 'editar']"
+                      [attr.aria-label]="'Editar ' + imovel.nome"
+                      >Editar</a
+                    >
                   </div>
                 </li>
               }
@@ -79,7 +99,9 @@ import { Imovel } from '../../core/modelos';
           }
         </section>
       } @else if (!erro()) {
-        <div class="carregando-pagina"><mat-spinner diameter="40" aria-label="Carregando imóveis" /></div>
+        <div class="carregando-pagina">
+          <mat-spinner diameter="40" aria-label="Carregando imóveis" />
+        </div>
       }
     </div>
   `,

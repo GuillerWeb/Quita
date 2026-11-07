@@ -41,12 +41,20 @@ a {
 }
 
 .material-symbols-outlined {
-  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  font-variation-settings:
+    'FILL' 0,
+    'wght' 400,
+    'GRAD' 0,
+    'opsz' 24;
   user-select: none;
 }
 
 .icone-cheio {
-  font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+  font-variation-settings:
+    'FILL' 1,
+    'wght' 500,
+    'GRAD' 0,
+    'opsz' 24;
 }
 
 // Números financeiros alinhados (tabular-nums), em Space Grotesk.
@@ -498,4 +506,8 @@ a.linha:hover,
 // ---------- Avisos (snackbar) ----------
 .aviso-erro .mat-mdc-snackbar-surface {
   background: var(--q-atrasado) !important;
+}
+
+.mat-mdc-button-base {
+  white-space: nowrap;
 }

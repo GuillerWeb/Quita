@@ -32,7 +32,9 @@ const ICONES: Record<EstadoMes, string> = {
     <ol class="regua" [class.regua--grande]="tamanho() === 'g'" [attr.aria-label]="rotulo()">
       @for (mes of meses(); track $index) {
         <li class="mes" [class.mes--atual]="mes.atual">
-          @if (clicavel() && mes.estado !== 'PAGO' && mes.estado !== 'FUTURO' && mes.estado !== 'VAZIO') {
+          @if (
+            clicavel() && mes.estado !== 'PAGO' && mes.estado !== 'FUTURO' && mes.estado !== 'VAZIO'
+          ) {
             <button
               type="button"
               class="quadrado quadrado--{{ mes.estado | lowercase }}"
@@ -40,12 +42,16 @@ const ICONES: Record<EstadoMes, string> = {
               [title]="mes.descricao"
               (click)="selecionar.emit($index)"
             >
-              <span class="material-symbols-outlined" aria-hidden="true">{{ icone(mes.estado) }}</span>
+              <span class="material-symbols-outlined" aria-hidden="true">{{
+                icone(mes.estado)
+              }}</span>
             </button>
           } @else {
             <span class="quadrado quadrado--{{ mes.estado | lowercase }}" [title]="mes.descricao">
               @if (icone(mes.estado)) {
-                <span class="material-symbols-outlined" aria-hidden="true">{{ icone(mes.estado) }}</span>
+                <span class="material-symbols-outlined" aria-hidden="true">{{
+                  icone(mes.estado)
+                }}</span>
               } @else if (mes.estado === 'FUTURO') {
                 <span class="ponto" aria-hidden="true"></span>
               }
@@ -69,4 +75,3 @@ export class ReguaMeses {
 
   protected readonly icone = (estado: EstadoMes) => ICONES[estado];
 }
-

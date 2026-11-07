@@ -32,8 +32,14 @@ import { LayoutAcesso } from './layout-acesso';
         <div class="campo">
           <label for="email">E-mail</label>
           <mat-form-field>
-            <input matInput id="email" type="email" formControlName="email" autocomplete="email"
-                   placeholder="seu@email.com.br" />
+            <input
+              matInput
+              id="email"
+              type="email"
+              formControlName="email"
+              autocomplete="email"
+              placeholder="seu@email.com.br"
+            />
             @if (form.controls.email.hasError('required')) {
               <mat-error>Informe o e-mail.</mat-error>
             } @else if (form.controls.email.hasError('email')) {
@@ -45,12 +51,25 @@ import { LayoutAcesso } from './layout-acesso';
         <div class="campo">
           <label for="senha">Senha</label>
           <mat-form-field>
-            <input matInput id="senha" [type]="senhaVisivel() ? 'text' : 'password'" formControlName="senha"
-                   autocomplete="current-password" placeholder="Sua senha de acesso" />
-            <button mat-icon-button matSuffix type="button" class="botao-olho"
-                    (click)="senhaVisivel.set(!senhaVisivel())"
-                    [attr.aria-label]="senhaVisivel() ? 'Ocultar senha' : 'Mostrar senha'">
-              <span class="material-symbols-outlined">{{ senhaVisivel() ? 'visibility_off' : 'visibility' }}</span>
+            <input
+              matInput
+              id="senha"
+              [type]="senhaVisivel() ? 'text' : 'password'"
+              formControlName="senha"
+              autocomplete="current-password"
+              placeholder="Sua senha de acesso"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              type="button"
+              class="botao-olho"
+              (click)="senhaVisivel.set(!senhaVisivel())"
+              [attr.aria-label]="senhaVisivel() ? 'Ocultar senha' : 'Mostrar senha'"
+            >
+              <span class="material-symbols-outlined">{{
+                senhaVisivel() ? 'visibility_off' : 'visibility'
+              }}</span>
             </button>
             @if (form.controls.senha.hasError('required')) {
               <mat-error>Informe a senha.</mat-error>
@@ -69,7 +88,10 @@ import { LayoutAcesso } from './layout-acesso';
           @if (enviando()) {
             <span class="botao-carregando"><mat-spinner diameter="20" />Entrando…</span>
           } @else {
-            <span class="botao-carregando">Entrar <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+            <span class="botao-carregando"
+              >Entrar
+              <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span
+            >
           }
         </button>
       </form>

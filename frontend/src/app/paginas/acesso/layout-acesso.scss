@@ -138,10 +138,18 @@
   height: 12px;
   border-radius: 50%;
 
-  &--pago { background: var(--q-primaria); }
-  &--aguardando { background: var(--q-aguardando); }
-  &--atrasado { background: var(--q-atrasado); }
-  &--futuro { background: var(--q-divisoria-forte); }
+  &--pago {
+    background: var(--q-primaria);
+  }
+  &--aguardando {
+    background: var(--q-aguardando);
+  }
+  &--atrasado {
+    background: var(--q-atrasado);
+  }
+  &--futuro {
+    background: var(--q-divisoria-forte);
+  }
 }
 
 .lado-formulario {

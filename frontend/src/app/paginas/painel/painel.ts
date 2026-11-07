@@ -1,5 +1,12 @@
 import { DecimalPipe } from '@angular/common';
-import { ChangeDetectionStrategy, Component, computed, inject, OnInit, signal } from '@angular/core';
+import {
+  ChangeDetectionStrategy,
+  Component,
+  computed,
+  inject,
+  OnInit,
+  signal,
+} from '@angular/core';
 import { MatButtonModule } from '@angular/material/button';
 import { MatDialog } from '@angular/material/dialog';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
@@ -97,7 +104,12 @@ export class Painel implements OnInit {
   protected pagar(pagamento: Pagamento, nome: string, imovel: string): void {
     const dados: DadosPagamento = { pagamento, nome, imovel };
     this.dialogo
-      .open(DialogoPagamento, { data: dados, width: '480px', maxWidth: 'calc(100vw - 32px)', autoFocus: false })
+      .open(DialogoPagamento, {
+        data: dados,
+        width: '480px',
+        maxWidth: 'calc(100vw - 32px)',
+        autoFocus: false,
+      })
       .afterClosed()
       .subscribe((pago?: Pagamento) => {
         if (!pago) return;

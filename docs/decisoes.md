@@ -89,3 +89,30 @@ com saída em `src/generated/prisma` (não versionado; gerado no `postinstall`).
 - Itens de `aVencer` no painel trazem também `nome` (inquilino) e `imovel` (nome),
   necessários para a tela.
 - `trust proxy` ligado no Express, para o limite de login usar o IP real atrás da Vercel.
+
+## D-16 — Decisões da construção do frontend (07/11/2026)
+- **Paleta das telas, não do guia:** o `DESIGN.md` do Stitch fala em fundo "osso" `#F5F6F3`,
+  mas as telas usam `#f2fbff`. Seguimos as telas (fonte da verdade visual). Ver `docs/Designs/MAPA.md`.
+- **Sem `@angular/animations`:** o Angular Material 21 não depende mais dele, então
+  `provideAnimationsAsync()` não foi usado.
+- **Campos "preenchidos" do Material** com o rótulo acima do campo (como no design), em vez
+  do rótulo flutuante.
+- **Datas:** adaptador próprio do datepicker para ler `dd/mm/aaaa` (o nativo lê no formato
+  americano). "Hoje" no navegador é só o valor padrão dos campos; quem valida é a API (fuso de Cuiabá).
+- **Valor do aluguel:** o usuário digita `1.200,50`; convertemos para `"1200.50"` com
+  strings/centavos, sem float.
+- **O que os designs mostram e ficou de fora** (fora do escopo ou sem dado na API): filtro do
+  mês, novo lançamento, exercício, resumo do livro-caixa, exportar, recibos, lembretes por
+  WhatsApp, busca, filtros "em dia/em atraso", paginação, pontualidade, caução, termos de
+  contrato, forma de pagamento e observação na quitação, "esqueceu a senha", "lembrar de mim",
+  termos de uso. Lista completa em `docs/Designs/MAPA.md`.
+- **Adaptações:**
+  - painel: o botão principal virou "Novo inquilino"; nas pendências, a régua mostra só os
+    meses atrasados (a API do painel não traz o histórico completo). Cada mês da régua é
+    clicável, e o botão marca o mais antigo;
+  - lista de inquilinos: sem a régua de 6 meses por linha (a lista da API não traz os meses);
+    os indicadores são "ativos", "em atraso" e "aluguéis por mês";
+  - detalhe: a régua mostra os últimos 12 meses (e não o ano civil); o cabeçalho não tem
+    breadcrumb de contrato nem ID.
+- **Sem versão mobile no design:** no celular, o menu vira gaveta (`mat-sidenav`), as
+  tabelas viram cartões e a coluna de apresentação do login some.

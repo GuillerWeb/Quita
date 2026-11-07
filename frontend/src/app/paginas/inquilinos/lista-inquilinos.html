@@ -3,12 +3,26 @@
     <div class="pagina-cabecalho__titulo">
       <h1 class="titulo-pagina">Inquilinos</h1>
       @if (inquilinos(); as lista) {
-        <span class="chip">{{ lista.length }} {{ filtro() === 'true' ? (lista.length === 1 ? 'ativo' : 'ativos') : (lista.length === 1 ? 'inativo' : 'inativos') }}</span>
+        <span class="chip"
+          >{{ lista.length }}
+          {{
+            filtro() === 'true'
+              ? lista.length === 1
+                ? 'ativo'
+                : 'ativos'
+              : lista.length === 1
+                ? 'inativo'
+                : 'inativos'
+          }}</span
+        >
       }
     </div>
     <div class="pagina-cabecalho__acoes">
       <a mat-flat-button routerLink="/inquilinos/novo">
-        <span class="botao-carregando"><span class="material-symbols-outlined" aria-hidden="true">person_add</span>Cadastrar inquilino</span>
+        <span class="botao-carregando"
+          ><span class="material-symbols-outlined" aria-hidden="true">person_add</span>Cadastrar
+          inquilino</span
+        >
       </a>
     </div>
     <p>Quem mora em cada imóvel, quanto paga e se está em dia.</p>
@@ -17,16 +31,32 @@
   @if (filtro() === 'true' && inquilinos()?.length) {
     <section class="indicadores" aria-label="Resumo dos inquilinos ativos">
       <div class="cartao indicador">
-        <span class="rotulo-secao">Inquilinos ativos <span class="material-symbols-outlined" aria-hidden="true">group</span></span>
+        <span class="rotulo-secao"
+          >Inquilinos ativos
+          <span class="material-symbols-outlined" aria-hidden="true">group</span></span
+        >
         <strong class="numero">{{ inquilinos()!.length }}</strong>
       </div>
       <div class="cartao indicador">
-        <span class="rotulo-secao">Em atraso <span class="material-symbols-outlined alerta" aria-hidden="true">warning</span></span>
-        <strong class="numero" [class.alerta]="indicadores().emAtraso > 0">{{ indicadores().emAtraso }}</strong>
-        <span class="indicador-detalhe">{{ indicadores().mesesAtrasados }} {{ indicadores().mesesAtrasados === 1 ? 'mês' : 'meses' }} em aberto</span>
+        <span class="rotulo-secao"
+          >Em atraso
+          <span class="material-symbols-outlined alerta" aria-hidden="true">warning</span></span
+        >
+        <strong class="numero" [class.alerta]="indicadores().emAtraso > 0">{{
+          indicadores().emAtraso
+        }}</strong>
+        <span class="indicador-detalhe"
+          >{{ indicadores().mesesAtrasados }}
+          {{ indicadores().mesesAtrasados === 1 ? 'mês' : 'meses' }} em aberto</span
+        >
       </div>
       <div class="cartao indicador">
-        <span class="rotulo-secao">Aluguéis por mês <span class="material-symbols-outlined" aria-hidden="true">account_balance_wallet</span></span>
+        <span class="rotulo-secao"
+          >Aluguéis por mês
+          <span class="material-symbols-outlined" aria-hidden="true"
+            >account_balance_wallet</span
+          ></span
+        >
         <strong class="numero">{{ indicadores().totalMensal | dinheiro }}</strong>
       </div>
     </section>
@@ -69,7 +99,8 @@
         }
       } @else {
         <div class="tabela-cabecalho" aria-hidden="true">
-          <span>Inquilino</span><span>Imóvel</span><span>Aluguel / vencimento</span><span>Situação</span><span></span>
+          <span>Inquilino</span><span>Imóvel</span><span>Aluguel / vencimento</span
+          ><span>Situação</span><span></span>
         </div>
         <ul class="tabela">
           @for (i of lista; track i.id) {
@@ -89,21 +120,31 @@
                 </div>
                 <div>
                   @if (!i.ativo) {
-                    <q-selo-situacao situacao="NEUTRO" [texto]="'Saiu em ' + (i.dataSaida | dataBr)" />
+                    <q-selo-situacao
+                      situacao="NEUTRO"
+                      [texto]="'Saiu em ' + (i.dataSaida | dataBr)"
+                    />
                   } @else if (i.mesesAtrasados > 0) {
                     <q-selo-situacao situacao="ATRASADO" [texto]="textoAtraso(i.mesesAtrasados)" />
                   } @else {
                     <q-selo-situacao situacao="PAGO" texto="Em dia" />
                   }
                 </div>
-                <span class="ver-detalhes">Ver detalhes <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span></span>
+                <span class="ver-detalhes"
+                  >Ver detalhes
+                  <span class="material-symbols-outlined" aria-hidden="true"
+                    >chevron_right</span
+                  ></span
+                >
               </a>
             </li>
           }
         </ul>
       }
     } @else if (!erro()) {
-      <div class="carregando-pagina"><mat-spinner diameter="40" aria-label="Carregando inquilinos" /></div>
+      <div class="carregando-pagina">
+        <mat-spinner diameter="40" aria-label="Carregando inquilinos" />
+      </div>
     }
   </section>
 </div>

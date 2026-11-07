@@ -1,0 +1,261 @@
+<div class="pagina">
+  <nav class="trilha" aria-label="Você está em">
+    <a routerLink="/inquilinos"
+      ><span class="material-symbols-outlined" aria-hidden="true">groups</span>Inquilinos</a
+    >
+    <span aria-hidden="true">/</span>
+    <span aria-current="page">{{ inquilino()?.nome ?? '…' }}</span>
+  </nav>
+
+  @if (erro()) {
+    <div class="aviso aviso--erro" role="alert">
+      <span class="material-symbols-outlined" aria-hidden="true">error</span>{{ erro() }}
+    </div>
+  }
+
+  @if (inquilino(); as i) {
+    <!-- Cabeçalho com dados e ações -->
+    <section class="cartao cabecalho-inquilino">
+      <q-avatar [nome]="i.nome" [grande]="true" [alerta]="i.resumo.mesesAtrasados > 0" />
+      <div class="dados">
+        <div class="nome-linha">
+          <h1>{{ i.nome }}</h1>
+          <span class="chip"
+            ><span class="material-symbols-outlined" aria-hidden="true">home</span
+            >{{ i.imovel.nome }}</span
+          >
+          @if (i.ativo) {
+            <q-selo-situacao situacao="PAGO" texto="Ativo" />
+          } @else {
+            <q-selo-situacao situacao="NEUTRO" [texto]="'Saiu em ' + (i.dataSaida | dataBr)" />
+          }
+        </div>
+        <ul class="fatos">
+          <li>
+            <strong class="numero">{{ i.valorAluguel | dinheiro }}</strong
+            >&nbsp;/ mês
+          </li>
+          <li>
+            <span class="material-symbols-outlined" aria-hidden="true">event_repeat</span>Vencimento
+            todo dia {{ i.diaVencimento }}
+          </li>
+          <li>
+            <span class="material-symbols-outlined" aria-hidden="true">login</span>Entrada em
+            {{ i.dataEntrada | dataBr }}
+          </li>
+        </ul>
+        <ul class="fatos fatos--contato">
+          @if (i.telefone) {
+            <li>
+              <span class="material-symbols-outlined" aria-hidden="true">call</span>{{ i.telefone }}
+            </li>
+          }
+          @if (i.email) {
+            <li>
+              <span class="material-symbols-outlined" aria-hidden="true">mail</span>{{ i.email }}
+            </li>
+          }
+          @if (i.cpf) {
+            <li>
+              <span class="material-symbols-outlined" aria-hidden="true">badge</span>CPF {{ i.cpf }}
+            </li>
+          }
+          @if (!i.telefone && !i.email && !i.cpf) {
+            <li class="suave">Sem contato cadastrado</li>
+          }
+        </ul>
+        @if (i.observacoes) {
+          <p class="observacoes">{{ i.observacoes }}</p>
+        }
+      </div>
+      <div class="acoes">
+        <a mat-flat-button class="botao-claro" [routerLink]="['/inquilinos', i.id, 'editar']">
+          <span class="botao-carregando"
+            ><span class="material-symbols-outlined" aria-hidden="true">edit</span>Editar
+            cadastro</span
+          >
+        </a>
+        @if (i.ativo) {
+          <button mat-flat-button class="botao-perigo" type="button" (click)="registrarSaida()">
+            <span class="botao-carregando"
+              ><span class="material-symbols-outlined" aria-hidden="true">door_open</span>Registrar
+              saída</span
+            >
+          </button>
+        }
+        @if (podeExcluir()) {
+          <button
+            mat-button
+            class="botao-perigo"
+            type="button"
+            (click)="excluir()"
+            [disabled]="ocupado()"
+          >
+            <span class="botao-carregando"
+              ><span class="material-symbols-outlined" aria-hidden="true">delete</span>Excluir</span
+            >
+          </button>
+        }
+      </div>
+    </section>
+
+    <!-- Resumo -->
+    <section class="resumo" aria-label="Resumo">
+      <div class="cartao indicador">
+        <span class="rotulo-secao">Valor devido</span>
+        <strong class="numero" [class.alerta]="i.resumo.mesesAtrasados > 0">{{
+          i.resumo.valorDevido | dinheiro
+        }}</strong>
+        <span class="indicador-detalhe">
+          {{
+            i.resumo.mesesAtrasados === 0
+              ? 'Nenhum mês em atraso'
+              : i.resumo.mesesAtrasados +
+                (i.resumo.mesesAtrasados === 1 ? ' mês em atraso' : ' meses em atraso')
+          }}
+        </span>
+      </div>
+      <div class="cartao indicador">
+        <span class="rotulo-secao">Competência atual</span>
+        @if (mesAtual(); as m) {
+          <strong class="numero">{{ m.valor | dinheiro }}</strong>
+          <span class="indicador-detalhe">
+            @if (m.situacao === 'PAGO') {
+              Pago em {{ m.dataPagamento | dataBr }}
+            } @else if (m.situacao === 'ATRASADO') {
+              <span class="alerta">Venceu em {{ m.dataVencimento | dataBr }}</span>
+            } @else {
+              <span class="aguardando">Vence em {{ m.dataVencimento | dataBr }}</span>
+            }
+          </span>
+        } @else {
+          <strong class="numero suave">—</strong>
+          <span class="indicador-detalhe">Sem cobrança neste mês</span>
+        }
+      </div>
+    </section>
+
+    <!-- Régua -->
+    <section class="cartao cartao--preenchido secao-regua">
+      <div class="secao-cabecalho">
+        <div class="secao-cabecalho__titulo">
+          <span class="material-symbols-outlined icone-titulo" aria-hidden="true"
+            >calendar_view_month</span
+          >
+          <h2>Régua de pagamentos</h2>
+        </div>
+        <ul class="legenda">
+          <li><span class="ponto ponto--pago"></span>Pagos ({{ legenda().pagos }})</li>
+          <li>
+            <span class="ponto ponto--aguardando"></span>Aguardando ({{ legenda().aguardando }})
+          </li>
+          <li><span class="ponto ponto--atrasado"></span>Atrasados ({{ legenda().atrasados }})</li>
+        </ul>
+      </div>
+      <p class="dica-regua">Últimos 12 meses. Clique num mês em aberto para marcar como pago.</p>
+      <q-regua-meses
+        [meses]="regua()"
+        tamanho="g"
+        [clicavel]="true"
+        rotulo="Régua dos últimos 12 meses"
+        (selecionar)="pagarDaRegua($event)"
+      />
+    </section>
+
+    <!-- Histórico -->
+    <section class="secao">
+      <div class="secao-cabecalho">
+        <div class="secao-cabecalho__titulo">
+          <h2>Histórico mês a mês</h2>
+          <span class="chip"
+            >{{ i.pagamentos.length }} {{ i.pagamentos.length === 1 ? 'mês' : 'meses' }}</span
+          >
+        </div>
+      </div>
+
+      <div class="cartao">
+        @if (i.pagamentos.length === 0) {
+          <div class="linha linha-vazia">
+            <span
+              >Ainda não há meses de cobrança. O primeiro aparece no mês do primeiro
+              vencimento.</span
+            >
+          </div>
+        } @else {
+          <div class="historico-cabecalho" aria-hidden="true">
+            <span>Competência</span><span>Vencimento</span><span>Valor</span><span>Situação</span
+            ><span>Pagamento</span><span></span>
+          </div>
+          <ul class="historico">
+            @for (p of i.pagamentos; track p.id) {
+              <li
+                class="historico-linha"
+                [class.historico-linha--atual]="p.competencia === competenciaAtual"
+              >
+                <div class="competencia">
+                  <span
+                    class="ponto ponto--{{ p.situacao.toLowerCase() }}"
+                    aria-hidden="true"
+                  ></span>
+                  <strong>{{ p.competencia | competencia: true }}</strong>
+                  @if (p.competencia === competenciaAtual) {
+                    <span class="chip">Atual</span>
+                  }
+                </div>
+                <div class="celula">
+                  <span class="rotulo-celula">Vencimento</span
+                  ><span class="numero-simples">{{ p.dataVencimento | dataBr }}</span>
+                </div>
+                <div class="celula">
+                  <span class="rotulo-celula">Valor</span
+                  ><strong class="numero">{{ p.valor | dinheiro }}</strong>
+                </div>
+                <div class="celula"><q-selo-situacao [situacao]="p.situacao" /></div>
+                <div class="celula">
+                  <span class="rotulo-celula">Pagamento</span>
+                  @if (p.dataPagamento) {
+                    <span class="numero-simples">{{ p.dataPagamento | dataBr }}</span>
+                  } @else {
+                    <span class="suave">—</span>
+                  }
+                </div>
+                <div class="celula-acao">
+                  @if (p.status === 'PAGO') {
+                    <button
+                      mat-button
+                      type="button"
+                      (click)="desfazer(p)"
+                      [attr.aria-label]="'Desfazer pagamento de ' + (p.competencia | competencia)"
+                    >
+                      <span class="botao-carregando"
+                        ><span class="material-symbols-outlined" aria-hidden="true">undo</span
+                        >Desfazer</span
+                      >
+                    </button>
+                  } @else {
+                    <button
+                      mat-flat-button
+                      type="button"
+                      (click)="pagar(p)"
+                      [attr.aria-label]="'Marcar ' + (p.competencia | competencia) + ' como pago'"
+                    >
+                      <span class="botao-carregando"
+                        ><span class="material-symbols-outlined" aria-hidden="true"
+                          >check_circle</span
+                        >Marcar como pago</span
+                      >
+                    </button>
+                  }
+                </div>
+              </li>
+            }
+          </ul>
+        }
+      </div>
+    </section>
+  } @else if (!erro()) {
+    <div class="carregando-pagina">
+      <mat-spinner diameter="40" aria-label="Carregando inquilino" />
+    </div>
+  }
+</div>

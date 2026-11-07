@@ -14,7 +14,10 @@
       </div>
       <div class="pagina-cabecalho__acoes">
         <a mat-flat-button routerLink="/inquilinos/novo">
-          <span class="botao-carregando"><span class="material-symbols-outlined" aria-hidden="true">add</span>Novo inquilino</span>
+          <span class="botao-carregando"
+            ><span class="material-symbols-outlined" aria-hidden="true">add</span>Novo
+            inquilino</span
+          >
         </a>
       </div>
     </header>
@@ -26,7 +29,10 @@
           texto="Cadastre seu primeiro imóvel e depois o inquilino. Os meses de cobrança aparecem aqui sozinhos, todo mês."
         >
           <a mat-flat-button routerLink="/imoveis/novo">
-            <span class="botao-carregando"><span class="material-symbols-outlined" aria-hidden="true">add_home</span>Cadastrar imóvel</span>
+            <span class="botao-carregando"
+              ><span class="material-symbols-outlined" aria-hidden="true">add_home</span>Cadastrar
+              imóvel</span
+            >
           </a>
         </q-estado-vazio>
       </section>
@@ -50,8 +56,13 @@
           <span class="barra-preenchida" [style.width.%]="percentual()"></span>
         </div>
         <div class="totais-legenda">
-          <span><span class="ponto-aguardando" aria-hidden="true"></span><strong class="numero">{{ p.totais.aguardando | dinheiro }}</strong> aguardando</span>
-          <span><strong class="numero">{{ percentual() | number: '1.0-1' }}%</strong> quitado</span>
+          <span
+            ><span class="ponto-aguardando" aria-hidden="true"></span
+            ><strong class="numero">{{ p.totais.aguardando | dinheiro }}</strong> aguardando</span
+          >
+          <span
+            ><strong class="numero">{{ percentual() | number: '1.0-1' }}%</strong> quitado</span
+          >
         </div>
       </section>
 
@@ -61,7 +72,10 @@
           <div class="secao-cabecalho__titulo">
             <h2>Pendências em aberto</h2>
             @if (p.atrasados.length) {
-              <span class="chip chip--alerta"><span class="chip__ponto"></span>{{ p.atrasados.length }} {{ p.atrasados.length === 1 ? 'pendência' : 'pendências' }}</span>
+              <span class="chip chip--alerta"
+                ><span class="chip__ponto"></span>{{ p.atrasados.length }}
+                {{ p.atrasados.length === 1 ? 'pendência' : 'pendências' }}</span
+              >
             }
           </div>
           <span class="rotulo-secao">Meses atrasados</span>
@@ -83,13 +97,26 @@
                 (selecionar)="pagar(a.pagamentos[$event], a.nome, a.imovel)"
               />
               <div class="divida">
-                <strong class="numero">{{ a.meses }} {{ a.meses === 1 ? 'mês' : 'meses' }} · {{ a.valorDevido | dinheiro }}</strong>
+                <strong class="numero"
+                  >{{ a.meses }} {{ a.meses === 1 ? 'mês' : 'meses' }} ·
+                  {{ a.valorDevido | dinheiro }}</strong
+                >
                 <span>vencimento dia {{ diaDoVencimento(a) }}</span>
               </div>
-              <button mat-flat-button class="botao-claro" type="button" (click)="pagar(a.pagamentos[0], a.nome, a.imovel)"
-                      [attr.aria-label]="'Marcar ' + rotuloMes(a.pagamentos[0]) + ' de ' + a.nome + ' como pago'"
-                      matTooltip="Marca o mês mais antigo. Clique num mês da régua para escolher outro.">
-                <span class="botao-carregando"><span class="material-symbols-outlined" aria-hidden="true">check_circle</span>Marcar como pago</span>
+              <button
+                mat-flat-button
+                class="botao-claro"
+                type="button"
+                (click)="pagar(a.pagamentos[0], a.nome, a.imovel)"
+                [attr.aria-label]="
+                  'Marcar ' + rotuloMes(a.pagamentos[0]) + ' de ' + a.nome + ' como pago'
+                "
+                matTooltip="Marca o mês mais antigo. Clique num mês da régua para escolher outro."
+              >
+                <span class="botao-carregando"
+                  ><span class="material-symbols-outlined" aria-hidden="true">check_circle</span
+                  >Marcar como pago</span
+                >
               </button>
             </div>
           } @empty {
@@ -107,14 +134,19 @@
           <div class="secao-cabecalho">
             <div class="secao-cabecalho__titulo">
               <h2>A vencer este mês</h2>
-              <span class="chip">{{ p.aVencer.length }} {{ p.aVencer.length === 1 ? 'programado' : 'programados' }}</span>
+              <span class="chip"
+                >{{ p.aVencer.length }}
+                {{ p.aVencer.length === 1 ? 'programado' : 'programados' }}</span
+              >
             </div>
             <span class="rotulo-secao">Ordenado por data</span>
           </div>
           <div class="cartao">
             @for (v of p.aVencer; track v.id) {
               <div class="linha">
-                <span class="icone-quadrado" aria-hidden="true"><span class="material-symbols-outlined">event_upcoming</span></span>
+                <span class="icone-quadrado" aria-hidden="true"
+                  ><span class="material-symbols-outlined">event_upcoming</span></span
+                >
                 <a class="linha-texto" [routerLink]="['/inquilinos', v.inquilinoId]">
                   <strong>{{ v.nome }}</strong>
                   <span>{{ v.imovel }}</span>
@@ -123,8 +155,14 @@
                   <span>vence em {{ v.dataVencimento | dataBr: true }}</span>
                   <strong class="numero">{{ v.valor | dinheiro }}</strong>
                 </div>
-                <button mat-icon-button type="button" class="botao-pagar" (click)="pagar(v, v.nome, v.imovel)"
-                        [attr.aria-label]="'Marcar aluguel de ' + v.nome + ' como pago'" matTooltip="Marcar como pago">
+                <button
+                  mat-icon-button
+                  type="button"
+                  class="botao-pagar"
+                  (click)="pagar(v, v.nome, v.imovel)"
+                  [attr.aria-label]="'Marcar aluguel de ' + v.nome + ' como pago'"
+                  matTooltip="Marcar como pago"
+                >
                   <span class="material-symbols-outlined">check_circle</span>
                 </button>
               </div>
@@ -139,7 +177,10 @@
           <div class="secao-cabecalho">
             <div class="secao-cabecalho__titulo">
               <h2>Imóveis vagos</h2>
-              <span class="chip">{{ p.imoveisVagos.length }} {{ p.imoveisVagos.length === 1 ? 'unidade' : 'unidades' }}</span>
+              <span class="chip"
+                >{{ p.imoveisVagos.length }}
+                {{ p.imoveisVagos.length === 1 ? 'unidade' : 'unidades' }}</span
+              >
             </div>
           </div>
           <div class="cartao">
@@ -149,8 +190,16 @@
                   <strong class="nome-vago">{{ i.nome }}</strong>
                   <span>Sem inquilino</span>
                 </div>
-                <a mat-button [routerLink]="['/inquilinos/novo']" [queryParams]="{ imovelId: i.id }">
-                  <span class="botao-carregando">Cadastrar inquilino<span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+                <a
+                  mat-button
+                  [routerLink]="['/inquilinos/novo']"
+                  [queryParams]="{ imovelId: i.id }"
+                >
+                  <span class="botao-carregando"
+                    >Cadastrar inquilino<span class="material-symbols-outlined" aria-hidden="true"
+                      >arrow_forward</span
+                    ></span
+                  >
                 </a>
               </div>
             } @empty {
@@ -161,6 +210,8 @@
       </div>
     }
   } @else if (!erro()) {
-    <div class="carregando-pagina"><mat-spinner diameter="40" aria-label="Carregando o painel" /></div>
+    <div class="carregando-pagina">
+      <mat-spinner diameter="40" aria-label="Carregando o painel" />
+    </div>
   }
 </div>

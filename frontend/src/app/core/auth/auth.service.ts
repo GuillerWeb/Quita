@@ -49,11 +49,15 @@ export class AuthService {
   readonly logado = computed(() => this._token() !== null);
 
   cadastrar(dados: { nome: string; email: string; senha: string }): Observable<RespostaAuth> {
-    return this.http.post<RespostaAuth>(`${this.url}/cadastro`, dados).pipe(tap((r) => this.iniciarSessao(r)));
+    return this.http
+      .post<RespostaAuth>(`${this.url}/cadastro`, dados)
+      .pipe(tap((r) => this.iniciarSessao(r)));
   }
 
   entrar(dados: { email: string; senha: string }): Observable<RespostaAuth> {
-    return this.http.post<RespostaAuth>(`${this.url}/login`, dados).pipe(tap((r) => this.iniciarSessao(r)));
+    return this.http
+      .post<RespostaAuth>(`${this.url}/login`, dados)
+      .pipe(tap((r) => this.iniciarSessao(r)));
   }
 
   /** Atualiza nome/e-mail do proprietário (usado ao abrir o layout interno). */

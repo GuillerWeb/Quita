@@ -35,15 +35,25 @@ export interface DadosPagamento {
   ],
   template: `
     <div class="dialogo-cabecalho">
-      <span class="dialogo-icone" aria-hidden="true"><span class="material-symbols-outlined">verified</span></span>
-      <h2 mat-dialog-title>Confirmar pagamento do aluguel<small>Registro no histórico do inquilino</small></h2>
+      <span class="dialogo-icone" aria-hidden="true"
+        ><span class="material-symbols-outlined">verified</span></span
+      >
+      <h2 mat-dialog-title>
+        Confirmar pagamento do aluguel<small>Registro no histórico do inquilino</small>
+      </h2>
     </div>
 
     <form [formGroup]="form" (ngSubmit)="confirmar()">
       <mat-dialog-content>
         <dl class="resumo-dialogo">
-          <div><dt>Inquilino:</dt><dd>{{ dados.nome }}</dd></div>
-          <div><dt>Imóvel:</dt><dd>{{ dados.imovel }}</dd></div>
+          <div>
+            <dt>Inquilino:</dt>
+            <dd>{{ dados.nome }}</dd>
+          </div>
+          <div>
+            <dt>Imóvel:</dt>
+            <dd>{{ dados.imovel }}</dd>
+          </div>
           <div>
             <dt>Competência:</dt>
             <dd class="competencia">{{ dados.pagamento.competencia | competencia: true }}</dd>
@@ -57,8 +67,15 @@ export interface DadosPagamento {
         <div class="campo">
           <label for="data-pagamento">Data do pagamento</label>
           <mat-form-field>
-            <input matInput id="data-pagamento" [formControl]="data" [matDatepicker]="calendario" [max]="hoje"
-                   placeholder="dd/mm/aaaa" aria-describedby="dica-data" />
+            <input
+              matInput
+              id="data-pagamento"
+              [formControl]="data"
+              [matDatepicker]="calendario"
+              [max]="hoje"
+              placeholder="dd/mm/aaaa"
+              aria-describedby="dica-data"
+            />
             <mat-datepicker-toggle matIconSuffix [for]="calendario" aria-label="Abrir calendário" />
             <mat-datepicker #calendario />
             @if (data.hasError('required') || data.hasError('matDatepickerParse')) {
@@ -67,7 +84,9 @@ export interface DadosPagamento {
               <mat-error>A data de pagamento não pode ser futura.</mat-error>
             }
           </mat-form-field>
-          <span class="dica" id="dica-data">Preenchido com a data de hoje. Altere se o pagamento foi em outro dia.</span>
+          <span class="dica" id="dica-data"
+            >Preenchido com a data de hoje. Altere se o pagamento foi em outro dia.</span
+          >
         </div>
 
         @if (erro()) {
@@ -93,8 +112,12 @@ export interface DadosPagamento {
     </form>
   `,
   styles: `
-    .competencia { color: var(--q-aguardando); }
-    .aviso { margin-top: 12px; }
+    .competencia {
+      color: var(--q-aguardando);
+    }
+    .aviso {
+      margin-top: 12px;
+    }
   `,
 })
 export class DialogoPagamento {

@@ -60,8 +60,8 @@ export class LayoutInterno implements OnInit {
         takeUntilDestroyed(),
       )
       .subscribe(() => {
-      if (this.celular()) void this.menu().close();
-    });
+        if (this.celular()) void this.menu().close();
+      });
   }
 
   ngOnInit(): void {

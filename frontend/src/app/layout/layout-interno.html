@@ -6,7 +6,9 @@
     [fixedInViewport]="celular()"
   >
     <nav class="menu-conteudo" aria-label="Menu principal">
-      <a routerLink="/" class="menu-logo" aria-label="Quita — ir para o painel"><q-logo [altura]="22" /></a>
+      <a routerLink="/" class="menu-logo" aria-label="Quita — ir para o painel"
+        ><q-logo [altura]="22"
+      /></a>
 
       <span class="rotulo-secao menu-rotulo">Menu principal</span>
       <ul class="menu-itens">
@@ -34,7 +36,13 @@
             <strong>{{ proprietario.nome }}</strong>
             <span>Proprietário</span>
           </div>
-          <button mat-icon-button type="button" (click)="auth.sair()" aria-label="Sair" matTooltip="Sair">
+          <button
+            mat-icon-button
+            type="button"
+            (click)="auth.sair()"
+            aria-label="Sair"
+            matTooltip="Sair"
+          >
             <span class="material-symbols-outlined">logout</span>
           </button>
         </div>

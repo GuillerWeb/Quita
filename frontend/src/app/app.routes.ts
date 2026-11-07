@@ -54,6 +54,12 @@ export const routes: Routes = [
           import('./paginas/inquilinos/formulario-inquilino').then((m) => m.FormularioInquilino),
       },
       {
+        path: 'inquilinos/:id',
+        title: 'Inquilino — Quita',
+        loadComponent: () =>
+          import('./paginas/inquilinos/detalhe-inquilino').then((m) => m.DetalheInquilino),
+      },
+      {
         path: 'inquilinos/:id/editar',
         title: 'Editar inquilino — Quita',
         loadComponent: () =>

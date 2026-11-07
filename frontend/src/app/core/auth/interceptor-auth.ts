@@ -17,8 +17,14 @@ export const interceptorAuth: HttpInterceptorFn = (req, next) => {
 
   return next(requisicao).pipe(
     catchError((erro: unknown) => {
-      const tentativaDeLogin = req.url.endsWith('/auth/login') || req.url.endsWith('/auth/cadastro');
-      if (erro instanceof HttpErrorResponse && erro.status === 401 && paraApi && !tentativaDeLogin) {
+      const tentativaDeLogin =
+        req.url.endsWith('/auth/login') || req.url.endsWith('/auth/cadastro');
+      if (
+        erro instanceof HttpErrorResponse &&
+        erro.status === 401 &&
+        paraApi &&
+        !tentativaDeLogin
+      ) {
         auth.limparSessao();
         void router.navigate(['/login']);
       }

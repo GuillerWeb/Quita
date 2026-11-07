@@ -26,8 +26,16 @@ export interface DadosConfirmacao {
       <p class="dialogo-texto">{{ dados.mensagem }}</p>
     </mat-dialog-content>
     <mat-dialog-actions align="end">
-      <button mat-flat-button class="botao-claro" type="button" [mat-dialog-close]="false">Cancelar</button>
-      <button mat-flat-button type="button" [class.botao-perigo-forte]="dados.perigo" [mat-dialog-close]="true" cdkFocusInitial>
+      <button mat-flat-button class="botao-claro" type="button" [mat-dialog-close]="false">
+        Cancelar
+      </button>
+      <button
+        mat-flat-button
+        type="button"
+        [class.botao-perigo-forte]="dados.perigo"
+        [mat-dialog-close]="true"
+        cdkFocusInitial
+      >
         {{ dados.confirmar }}
       </button>
     </mat-dialog-actions>

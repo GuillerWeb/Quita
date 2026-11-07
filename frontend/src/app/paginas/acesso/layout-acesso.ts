@@ -22,8 +22,8 @@ const EXEMPLO: MesDaRegua[] = INICIAIS.map((rotulo, i) => {
         <div class="chamada">
           <h1>Seus aluguéis, mês a mês, num só lugar.</h1>
           <p>
-            A clareza do livro-caixa com a facilidade do digital. Controle inquilinos,
-            vencimentos e histórico sem complicação.
+            A clareza do livro-caixa com a facilidade do digital. Controle inquilinos, vencimentos e
+            histórico sem complicação.
           </p>
         </div>
 

@@ -45,7 +45,13 @@ function igualASenha(controle: AbstractControl): ValidationErrors | null {
         <div class="campo">
           <label for="nome">Nome completo</label>
           <mat-form-field>
-            <input matInput id="nome" formControlName="nome" autocomplete="name" placeholder="Seu nome" />
+            <input
+              matInput
+              id="nome"
+              formControlName="nome"
+              autocomplete="name"
+              placeholder="Seu nome"
+            />
             @if (form.controls.nome.hasError('required')) {
               <mat-error>Informe seu nome.</mat-error>
             } @else if (form.controls.nome.hasError('maxlength')) {
@@ -57,8 +63,14 @@ function igualASenha(controle: AbstractControl): ValidationErrors | null {
         <div class="campo">
           <label for="email">E-mail</label>
           <mat-form-field>
-            <input matInput id="email" type="email" formControlName="email" autocomplete="email"
-                   placeholder="seu@email.com.br" />
+            <input
+              matInput
+              id="email"
+              type="email"
+              formControlName="email"
+              autocomplete="email"
+              placeholder="seu@email.com.br"
+            />
             @if (form.controls.email.hasError('required')) {
               <mat-error>Informe o e-mail.</mat-error>
             } @else if (form.controls.email.hasError('email')) {
@@ -72,12 +84,26 @@ function igualASenha(controle: AbstractControl): ValidationErrors | null {
         <div class="campo">
           <label for="senha">Senha</label>
           <mat-form-field>
-            <input matInput id="senha" [type]="senhaVisivel() ? 'text' : 'password'" formControlName="senha"
-                   autocomplete="new-password" placeholder="Crie uma senha forte" aria-describedby="dica-senha" />
-            <button mat-icon-button matSuffix type="button" class="botao-olho"
-                    (click)="senhaVisivel.set(!senhaVisivel())"
-                    [attr.aria-label]="senhaVisivel() ? 'Ocultar senha' : 'Mostrar senha'">
-              <span class="material-symbols-outlined">{{ senhaVisivel() ? 'visibility_off' : 'visibility' }}</span>
+            <input
+              matInput
+              id="senha"
+              [type]="senhaVisivel() ? 'text' : 'password'"
+              formControlName="senha"
+              autocomplete="new-password"
+              placeholder="Crie uma senha forte"
+              aria-describedby="dica-senha"
+            />
+            <button
+              mat-icon-button
+              matSuffix
+              type="button"
+              class="botao-olho"
+              (click)="senhaVisivel.set(!senhaVisivel())"
+              [attr.aria-label]="senhaVisivel() ? 'Ocultar senha' : 'Mostrar senha'"
+            >
+              <span class="material-symbols-outlined">{{
+                senhaVisivel() ? 'visibility_off' : 'visibility'
+              }}</span>
             </button>
             @if (form.controls.senha.hasError('required')) {
               <mat-error>Crie uma senha.</mat-error>
@@ -93,8 +119,14 @@ function igualASenha(controle: AbstractControl): ValidationErrors | null {
         <div class="campo">
           <label for="confirmacao">Confirmar senha</label>
           <mat-form-field>
-            <input matInput id="confirmacao" [type]="senhaVisivel() ? 'text' : 'password'"
-                   formControlName="confirmacao" autocomplete="new-password" placeholder="Repita a senha" />
+            <input
+              matInput
+              id="confirmacao"
+              [type]="senhaVisivel() ? 'text' : 'password'"
+              formControlName="confirmacao"
+              autocomplete="new-password"
+              placeholder="Repita a senha"
+            />
             @if (form.controls.confirmacao.hasError('required')) {
               <mat-error>Repita a senha.</mat-error>
             } @else if (form.controls.confirmacao.hasError('diferente')) {
@@ -114,7 +146,10 @@ function igualASenha(controle: AbstractControl): ValidationErrors | null {
           @if (enviando()) {
             <span class="botao-carregando"><mat-spinner diameter="20" />Criando conta…</span>
           } @else {
-            <span class="botao-carregando">Criar conta <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span>
+            <span class="botao-carregando"
+              >Criar conta
+              <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span></span
+            >
           }
         </button>
       </form>

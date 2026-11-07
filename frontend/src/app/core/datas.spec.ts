@@ -1,14 +1,7 @@
 import { TestBed } from '@angular/core/testing';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { AdaptadorDataBr } from './adaptador-data';
-import {
-  competenciaCurta,
-  competenciaLonga,
-  dataBr,
-  deIso,
-  paraIso,
-  somarMeses,
-} from './datas';
+import { competenciaCurta, competenciaLonga, dataBr, deIso, paraIso, somarMeses } from './datas';
 
 describe('datas', () => {
   it('converte Date local para YYYY-MM-DD e volta sem mudar o dia', () => {
@@ -51,8 +44,8 @@ describe('AdaptadorDataBr', () => {
   });
 
   it('exibe dd/MM/aaaa', () => {
-    expect(adaptador.format(new Date(2026, 0, 5), { year: 'numeric', month: 'numeric', day: 'numeric' })).toBe(
-      '05/01/2026',
-    );
+    expect(
+      adaptador.format(new Date(2026, 0, 5), { year: 'numeric', month: 'numeric', day: 'numeric' }),
+    ).toBe('05/01/2026');
   });
 });

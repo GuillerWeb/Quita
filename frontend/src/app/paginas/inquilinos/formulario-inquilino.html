@@ -1,0 +1,161 @@
+<div class="pagina pagina--estreita">
+  <header class="pagina-cabecalho">
+    <div class="pagina-cabecalho__titulo">
+      <h1 class="titulo-pagina">{{ edicao() ? 'Editar inquilino' : 'Cadastrar inquilino' }}</h1>
+    </div>
+    @if (edicao()) {
+      <p>Valor e dia de vencimento novos valem a partir dos próximos meses. Os meses já lançados mantêm os valores da época.</p>
+    }
+  </header>
+
+  @if (carregando()) {
+    <div class="carregando-pagina"><mat-spinner diameter="40" aria-label="Carregando" /></div>
+  } @else if (semImovelVago()) {
+    <section class="cartao">
+      <q-estado-vazio
+        titulo="Nenhum imóvel vago."
+        texto="Para cadastrar um inquilino, primeiro cadastre o imóvel (ou registre a saída do inquilino atual)."
+      >
+        <a mat-flat-button routerLink="/imoveis/novo">Cadastrar imóvel</a>
+      </q-estado-vazio>
+    </section>
+  } @else {
+    <form class="cartao cartao--preenchido formulario" [formGroup]="form" (ngSubmit)="salvar()" novalidate>
+      <div class="formulario-grade">
+        @if (!edicao()) {
+          <div class="campo ocupa-tudo">
+            <label for="imovel" id="rotulo-imovel">Imóvel</label>
+            <mat-form-field>
+              <mat-select id="imovel" formControlName="imovelId" placeholder="Escolha um imóvel vago" aria-labelledby="rotulo-imovel">
+                @for (imovel of imoveisVagos(); track imovel.id) {
+                  <mat-option [value]="imovel.id">{{ imovel.nome }}</mat-option>
+                }
+              </mat-select>
+              @if (form.controls.imovelId.hasError('required')) {
+                <mat-error>Escolha o imóvel.</mat-error>
+              }
+            </mat-form-field>
+          </div>
+        }
+
+        <div class="campo ocupa-tudo">
+          <label for="nome">Nome do inquilino</label>
+          <mat-form-field>
+            <input matInput id="nome" formControlName="nome" autocomplete="off" placeholder="Nome completo" />
+            @if (form.controls.nome.hasError('required')) {
+              <mat-error>Informe o nome.</mat-error>
+            } @else if (form.controls.nome.hasError('maxlength')) {
+              <mat-error>Use no máximo 100 caracteres.</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="campo">
+          <label for="valor">Valor do aluguel</label>
+          <mat-form-field>
+            <span matTextPrefix class="prefixo">R$</span>
+            <input matInput id="valor" formControlName="valorAluguel" inputmode="decimal" placeholder="1.200,00"
+                   (blur)="formatarValor()" />
+            @if (form.controls.valorAluguel.hasError('required')) {
+              <mat-error>Informe o valor.</mat-error>
+            } @else if (form.controls.valorAluguel.hasError('valor')) {
+              <mat-error>Valor maior que zero, com até 2 casas (ex.: 1.200,00).</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="campo">
+          <label for="dia">Dia de vencimento</label>
+          <mat-form-field>
+            <input matInput id="dia" type="number" min="1" max="31" formControlName="diaVencimento" inputmode="numeric"
+                   aria-describedby="dica-dia" />
+            @if (form.controls.diaVencimento.invalid) {
+              <mat-error>Dia de 1 a 31.</mat-error>
+            }
+          </mat-form-field>
+          <span class="dica" id="dica-dia">Se o mês não tiver esse dia (ex.: 31), vence no último dia do mês.</span>
+        </div>
+
+        @if (!edicao()) {
+          <div class="campo ocupa-tudo">
+            <label for="entrada">Data de entrada</label>
+            <mat-form-field>
+              <input matInput id="entrada" formControlName="dataEntrada" [matDatepicker]="calendario" placeholder="dd/mm/aaaa" />
+              <mat-datepicker-toggle matIconSuffix [for]="calendario" aria-label="Abrir calendário" />
+              <mat-datepicker #calendario />
+              @if (form.controls.dataEntrada.hasError('matDatepickerParse')) {
+                <mat-error>Data inválida. Use dd/mm/aaaa.</mat-error>
+              } @else if (form.controls.dataEntrada.hasError('required')) {
+                <mat-error>Informe a data de entrada.</mat-error>
+              }
+            </mat-form-field>
+            <div class="aviso">
+              <span class="material-symbols-outlined" aria-hidden="true">info</span>
+              <span>Se a data de entrada for antiga, os meses anteriores serão criados para você marcar o que já foi pago.
+                A data de entrada não pode ser alterada depois.</span>
+            </div>
+          </div>
+        }
+
+        <span class="rotulo-secao secao-form">Contato e documentos (opcionais)</span>
+
+        <div class="campo">
+          <label for="telefone">Telefone</label>
+          <mat-form-field>
+            <input matInput id="telefone" formControlName="telefone" type="tel" autocomplete="off" placeholder="(65) 99999-0000" />
+            @if (form.controls.telefone.hasError('maxlength')) {
+              <mat-error>Use no máximo 20 caracteres.</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="campo">
+          <label for="email">E-mail</label>
+          <mat-form-field>
+            <input matInput id="email" formControlName="email" type="email" autocomplete="off" placeholder="nome@email.com" />
+            @if (form.controls.email.hasError('email')) {
+              <mat-error>Informe um e-mail válido.</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="campo">
+          <label for="cpf">CPF</label>
+          <mat-form-field>
+            <input matInput id="cpf" formControlName="cpf" inputmode="numeric" autocomplete="off" placeholder="000.000.000-00" />
+            @if (form.controls.cpf.hasError('cpf')) {
+              <mat-error>O CPF deve ter 11 dígitos.</mat-error>
+            }
+          </mat-form-field>
+        </div>
+
+        <div class="campo ocupa-tudo">
+          <label for="observacoes">Observações</label>
+          <mat-form-field>
+            <textarea matInput id="observacoes" formControlName="observacoes" rows="3"
+                      placeholder="Ex.: paga sempre por Pix, combinou desconto…"></textarea>
+            @if (form.controls.observacoes.hasError('maxlength')) {
+              <mat-error>Use no máximo 500 caracteres.</mat-error>
+            }
+          </mat-form-field>
+        </div>
+      </div>
+
+      @if (erro()) {
+        <div class="aviso aviso--erro" role="alert">
+          <span class="material-symbols-outlined" aria-hidden="true">error</span>{{ erro() }}
+        </div>
+      }
+
+      <div class="acoes-formulario">
+        <a mat-flat-button class="botao-claro" [routerLink]="edicao() ? ['/inquilinos', id()] : ['/inquilinos']">Cancelar</a>
+        <button mat-flat-button type="submit" [disabled]="enviando()">
+          <span class="botao-carregando">
+            @if (enviando()) { <mat-spinner diameter="18" /> }
+            {{ edicao() ? 'Salvar alterações' : 'Cadastrar inquilino' }}
+          </span>
+        </button>
+      </div>
+    </form>
+  }
+</div>

@@ -41,6 +41,24 @@ export const routes: Routes = [
         loadComponent: () =>
           import('./paginas/imoveis/formulario-imovel').then((m) => m.FormularioImovel),
       },
+      {
+        path: 'inquilinos',
+        title: 'Inquilinos — Quita',
+        loadComponent: () =>
+          import('./paginas/inquilinos/lista-inquilinos').then((m) => m.ListaInquilinos),
+      },
+      {
+        path: 'inquilinos/novo',
+        title: 'Cadastrar inquilino — Quita',
+        loadComponent: () =>
+          import('./paginas/inquilinos/formulario-inquilino').then((m) => m.FormularioInquilino),
+      },
+      {
+        path: 'inquilinos/:id/editar',
+        title: 'Editar inquilino — Quita',
+        loadComponent: () =>
+          import('./paginas/inquilinos/formulario-inquilino').then((m) => m.FormularioInquilino),
+      },
     ],
   },
   { path: '**', redirectTo: '' },

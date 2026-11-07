@@ -1,0 +1,109 @@
+<div class="pagina">
+  <header class="pagina-cabecalho">
+    <div class="pagina-cabecalho__titulo">
+      <h1 class="titulo-pagina">Inquilinos</h1>
+      @if (inquilinos(); as lista) {
+        <span class="chip">{{ lista.length }} {{ filtro() === 'true' ? (lista.length === 1 ? 'ativo' : 'ativos') : (lista.length === 1 ? 'inativo' : 'inativos') }}</span>
+      }
+    </div>
+    <div class="pagina-cabecalho__acoes">
+      <a mat-flat-button routerLink="/inquilinos/novo">
+        <span class="botao-carregando"><span class="material-symbols-outlined" aria-hidden="true">person_add</span>Cadastrar inquilino</span>
+      </a>
+    </div>
+    <p>Quem mora em cada imóvel, quanto paga e se está em dia.</p>
+  </header>
+
+  @if (filtro() === 'true' && inquilinos()?.length) {
+    <section class="indicadores" aria-label="Resumo dos inquilinos ativos">
+      <div class="cartao indicador">
+        <span class="rotulo-secao">Inquilinos ativos <span class="material-symbols-outlined" aria-hidden="true">group</span></span>
+        <strong class="numero">{{ inquilinos()!.length }}</strong>
+      </div>
+      <div class="cartao indicador">
+        <span class="rotulo-secao">Em atraso <span class="material-symbols-outlined alerta" aria-hidden="true">warning</span></span>
+        <strong class="numero" [class.alerta]="indicadores().emAtraso > 0">{{ indicadores().emAtraso }}</strong>
+        <span class="indicador-detalhe">{{ indicadores().mesesAtrasados }} {{ indicadores().mesesAtrasados === 1 ? 'mês' : 'meses' }} em aberto</span>
+      </div>
+      <div class="cartao indicador">
+        <span class="rotulo-secao">Aluguéis por mês <span class="material-symbols-outlined" aria-hidden="true">account_balance_wallet</span></span>
+        <strong class="numero">{{ indicadores().totalMensal | dinheiro }}</strong>
+      </div>
+    </section>
+  }
+
+  <section class="cartao">
+    <div class="barra-filtros">
+      <mat-button-toggle-group
+        [value]="filtro()"
+        (change)="trocarFiltro($event.value)"
+        aria-label="Mostrar inquilinos ativos ou inativos"
+        hideSingleSelectionIndicator
+      >
+        <mat-button-toggle value="true">Ativos</mat-button-toggle>
+        <mat-button-toggle value="false">Inativos</mat-button-toggle>
+      </mat-button-toggle-group>
+    </div>
+
+    @if (erro()) {
+      <div class="aviso aviso--erro margem" role="alert">
+        <span class="material-symbols-outlined" aria-hidden="true">error</span>{{ erro() }}
+      </div>
+    }
+
+    @if (inquilinos(); as lista) {
+      @if (lista.length === 0) {
+        @if (filtro() === 'true') {
+          <q-estado-vazio
+            titulo="Nenhum inquilino ativo."
+            texto="Cadastre o inquilino de um imóvel vago. Se a entrada foi há alguns meses, os meses anteriores são criados para você marcar o que já foi pago."
+          >
+            <a mat-flat-button routerLink="/inquilinos/novo">Cadastrar inquilino</a>
+          </q-estado-vazio>
+        } @else {
+          <q-estado-vazio
+            [mostrarRegua]="false"
+            titulo="Nenhum inquilino inativo."
+            texto="Quando você registrar a saída de um inquilino, ele aparece aqui com todo o histórico."
+          />
+        }
+      } @else {
+        <div class="tabela-cabecalho" aria-hidden="true">
+          <span>Inquilino</span><span>Imóvel</span><span>Aluguel / vencimento</span><span>Situação</span><span></span>
+        </div>
+        <ul class="tabela">
+          @for (i of lista; track i.id) {
+            <li>
+              <a class="tabela-linha" [routerLink]="['/inquilinos', i.id]">
+                <div class="celula-pessoa">
+                  <q-avatar [nome]="i.nome" [alerta]="i.mesesAtrasados > 0" />
+                  <div class="linha-texto">
+                    <strong>{{ i.nome }}</strong>
+                    <span>{{ i.telefone || i.email || 'Sem contato' }}</span>
+                  </div>
+                </div>
+                <div class="celula-texto">{{ i.imovel.nome }}</div>
+                <div class="celula-valor">
+                  <strong class="numero">{{ i.valorAluguel | dinheiro }}</strong>
+                  <span>Todo dia {{ i.diaVencimento }}</span>
+                </div>
+                <div>
+                  @if (!i.ativo) {
+                    <q-selo-situacao situacao="NEUTRO" [texto]="'Saiu em ' + (i.dataSaida | dataBr)" />
+                  } @else if (i.mesesAtrasados > 0) {
+                    <q-selo-situacao situacao="ATRASADO" [texto]="textoAtraso(i.mesesAtrasados)" />
+                  } @else {
+                    <q-selo-situacao situacao="PAGO" texto="Em dia" />
+                  }
+                </div>
+                <span class="ver-detalhes">Ver detalhes <span class="material-symbols-outlined" aria-hidden="true">chevron_right</span></span>
+              </a>
+            </li>
+          }
+        </ul>
+      }
+    } @else if (!erro()) {
+      <div class="carregando-pagina"><mat-spinner diameter="40" aria-label="Carregando inquilinos" /></div>
+    }
+  </section>
+</div>

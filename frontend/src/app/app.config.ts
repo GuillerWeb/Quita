@@ -18,6 +18,7 @@ import { MAT_SNACK_BAR_DEFAULT_OPTIONS } from '@angular/material/snack-bar';
 import { provideRouter, withComponentInputBinding } from '@angular/router';
 import { routes } from './app.routes';
 import { AdaptadorDataBr } from './core/adaptador-data';
+import { interceptorAuth } from './core/auth/interceptor-auth';
 
 registerLocaleData(localePt);
 
@@ -25,7 +26,7 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideBrowserGlobalErrorListeners(),
     provideRouter(routes, withComponentInputBinding()),
-    provideHttpClient(withInterceptors([])),
+    provideHttpClient(withInterceptors([interceptorAuth])),
     { provide: LOCALE_ID, useValue: 'pt-BR' },
     { provide: DEFAULT_CURRENCY_CODE, useValue: 'BRL' },
     { provide: MAT_DATE_LOCALE, useValue: 'pt-BR' },

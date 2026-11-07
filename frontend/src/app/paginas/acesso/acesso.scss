@@ -1,0 +1,53 @@
+// Estilos comuns aos formulários de login e cadastro.
+.cabecalho {
+  display: flex;
+  flex-direction: column;
+  gap: 8px;
+  margin-bottom: 32px;
+
+  h1 {
+    font-size: 34px;
+    line-height: 42px;
+    font-weight: 500;
+    letter-spacing: -0.01em;
+  }
+
+  p {
+    margin: 0;
+    color: var(--q-texto-suave);
+    font-size: 16px;
+    line-height: 24px;
+  }
+}
+
+.formulario {
+  gap: 20px;
+}
+
+.botao-largo {
+  margin-top: 12px;
+}
+
+.alternar {
+  margin: 32px 0 0;
+  padding-top: 40px;
+  border-top: 1px solid var(--q-divisoria);
+  text-align: center;
+  font-size: 16px;
+  color: var(--q-texto-suave);
+
+  a {
+    font-weight: 700;
+    color: var(--q-primaria-escura);
+    text-decoration: none;
+    margin-left: 4px;
+
+    &:hover {
+      text-decoration: underline;
+    }
+  }
+}
+
+.botao-olho {
+  color: var(--q-texto-suave);
+}

@@ -11,10 +11,22 @@
   gap: 8px;
   flex-wrap: wrap;
 
+  // Régua de 12 meses: grade que encolhe os quadrados em telas estreitas.
   &--grande {
     --tamanho: 42px;
-    gap: 10px;
-    justify-content: space-between;
+    display: grid;
+    grid-template-columns: repeat(12, minmax(0, 1fr));
+    gap: 6px;
+
+    .quadrado {
+      width: min(var(--tamanho), 100%);
+      height: auto;
+      aspect-ratio: 1;
+    }
+
+    .quadrado .material-symbols-outlined {
+      font-size: clamp(14px, 2.4vw, 26px);
+    }
   }
 }
 

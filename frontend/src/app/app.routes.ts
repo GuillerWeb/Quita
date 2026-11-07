@@ -24,6 +24,23 @@ export const routes: Routes = [
         title: 'Painel — Quita',
         loadComponent: () => import('./paginas/painel/painel').then((m) => m.Painel),
       },
+      {
+        path: 'imoveis',
+        title: 'Imóveis — Quita',
+        loadComponent: () => import('./paginas/imoveis/lista-imoveis').then((m) => m.ListaImoveis),
+      },
+      {
+        path: 'imoveis/novo',
+        title: 'Cadastrar imóvel — Quita',
+        loadComponent: () =>
+          import('./paginas/imoveis/formulario-imovel').then((m) => m.FormularioImovel),
+      },
+      {
+        path: 'imoveis/:id/editar',
+        title: 'Editar imóvel — Quita',
+        loadComponent: () =>
+          import('./paginas/imoveis/formulario-imovel').then((m) => m.FormularioImovel),
+      },
     ],
   },
   { path: '**', redirectTo: '' },

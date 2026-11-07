@@ -1,0 +1,96 @@
+// Tabela de imóveis no estilo da tabela de inquilinos do design.
+.tabela-cabecalho,
+.tabela-linha {
+  display: grid;
+  grid-template-columns: minmax(0, 5fr) minmax(0, 3fr) 270px;
+  gap: 16px;
+  align-items: center;
+  padding: 0 24px;
+}
+
+.tabela-cabecalho {
+  height: 56px;
+  background: var(--q-superficie-baixa);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--q-texto-suave);
+}
+
+.tabela {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.tabela-linha {
+  min-height: 84px;
+  padding-top: 12px;
+  padding-bottom: 12px;
+  border-bottom: 1px solid var(--q-divisoria);
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  &:hover {
+    background: var(--q-fundo);
+  }
+}
+
+.celula-imovel {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  min-width: 0;
+}
+
+.icone-imovel {
+  width: 44px;
+  height: 44px;
+  border-radius: var(--q-raio);
+  background: var(--q-superficie-baixa);
+  color: var(--q-primaria);
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  flex-shrink: 0;
+}
+
+.celula-inquilino a {
+  font-weight: 600;
+  color: var(--q-texto);
+  text-decoration: none;
+
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.celula-acoes {
+  display: flex;
+  gap: 8px;
+  justify-content: flex-end;
+}
+
+@media (max-width: 767.98px) {
+  .tabela-cabecalho {
+    display: none;
+  }
+
+  .tabela-linha {
+    grid-template-columns: minmax(0, 1fr);
+    padding: 16px;
+    gap: 12px;
+  }
+
+  .celula-inquilino {
+    padding-left: 60px;
+  }
+
+  .celula-acoes {
+    justify-content: flex-start;
+    flex-wrap: wrap;
+  }
+}

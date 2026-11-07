@@ -80,6 +80,11 @@ a {
   }
 }
 
+.pagina--estreita {
+  max-width: 820px;
+  margin-left: 0;
+}
+
 .pagina-cabecalho {
   display: flex;
   flex-wrap: wrap;

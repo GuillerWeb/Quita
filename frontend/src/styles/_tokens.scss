@@ -1,0 +1,59 @@
+// Tokens visuais extraídos dos designs (docs/Designs/MAPA.md).
+:root {
+  // Cores
+  --q-fundo: #f2fbff;
+  --q-superficie: #ffffff;
+  --q-superficie-baixa: #e8f6fd;
+  --q-superficie-media: #e2f0f7;
+  --q-superficie-alta: #dceaf1;
+  --q-texto: #101d22;
+  --q-texto-suave: #404945;
+  --q-contorno: #707974;
+  --q-divisoria: #d7e5eb;
+  --q-divisoria-forte: #c0c9c3;
+
+  --q-primaria: #2e5e4e;
+  --q-primaria-escura: #144637;
+  --q-primaria-clara: #baeed9;
+  --q-primaria-suave: #e3f3ec;
+
+  --q-aguardando: #795900;
+  --q-aguardando-preenchimento: #c79a2e;
+  --q-aguardando-claro: #fff3d6;
+  --q-aguardando-borda: #f1bf51;
+
+  --q-atrasado: #9d2b38;
+  --q-atrasado-claro: #ffdada;
+  --q-atrasado-borda: #ffb3b4;
+
+  --q-erro: #ba1a1a;
+  --q-erro-claro: #ffdad6;
+  --q-sombreamento: rgba(16, 29, 34, 0.4);
+
+  // Tipografia
+  --q-fonte-titulo: 'Space Grotesk', system-ui, sans-serif;
+  --q-fonte-corpo: 'Atkinson Hyperlegible Next', system-ui, sans-serif;
+  --q-fonte-logo: 'Schibsted Grotesk', system-ui, sans-serif;
+
+  // Espaçamento
+  --q-xs: 4px;
+  --q-sm: 8px;
+  --q-md: 16px;
+  --q-lg: 24px;
+  --q-xl: 40px;
+  --q-margem: 32px;
+
+  // Raios
+  --q-raio-sm: 4px;
+  --q-raio: 8px;
+  --q-raio-lg: 12px;
+  --q-raio-xl: 16px;
+  --q-raio-total: 999px;
+
+  --q-largura-max: 1280px;
+  --q-largura-menu: 280px;
+
+  @media (max-width: 767.98px) {
+    --q-margem: 16px;
+  }
+}

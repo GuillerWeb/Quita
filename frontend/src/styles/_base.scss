@@ -1,0 +1,378 @@
+// Estilos globais e classes utilitárias reaproveitadas pelas telas.
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  height: 100%;
+}
+
+body {
+  margin: 0;
+  background: var(--q-fundo);
+  color: var(--q-texto);
+  font-family: var(--q-fonte-corpo);
+  font-size: 14px;
+  line-height: 20px;
+  color-scheme: light;
+  -webkit-font-smoothing: antialiased;
+}
+
+h1,
+h2,
+h3,
+h4 {
+  font-family: var(--q-fonte-titulo);
+  margin: 0;
+  color: var(--q-texto);
+}
+
+a {
+  color: var(--q-primaria);
+}
+
+:focus-visible {
+  outline: 2px solid var(--q-primaria);
+  outline-offset: 2px;
+}
+
+.material-symbols-outlined {
+  font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+  user-select: none;
+}
+
+.icone-cheio {
+  font-variation-settings: 'FILL' 1, 'wght' 500, 'GRAD' 0, 'opsz' 24;
+}
+
+// Números financeiros alinhados (tabular-nums), em Space Grotesk.
+.numero {
+  font-family: var(--q-fonte-titulo);
+  font-variant-numeric: tabular-nums;
+  font-weight: 600;
+}
+
+.visualmente-oculto {
+  position: absolute !important;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+// ---------- Página ----------
+.pagina {
+  width: 100%;
+  max-width: var(--q-largura-max);
+  margin: 0 auto;
+  padding: var(--q-lg) var(--q-margem) var(--q-xl);
+  display: flex;
+  flex-direction: column;
+  gap: var(--q-xl);
+
+  @media (max-width: 767.98px) {
+    gap: var(--q-lg);
+  }
+}
+
+.pagina-cabecalho {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--q-md);
+
+  &__titulo {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+    gap: var(--q-sm) var(--q-md);
+  }
+
+  &__acoes {
+    display: flex;
+    gap: var(--q-sm);
+    flex-wrap: wrap;
+  }
+
+  p {
+    margin: var(--q-xs) 0 0;
+    color: var(--q-texto-suave);
+    width: 100%;
+  }
+}
+
+.titulo-pagina {
+  font-size: 36px;
+  line-height: 44px;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+
+  @media (max-width: 767.98px) {
+    font-size: 26px;
+    line-height: 32px;
+  }
+}
+
+.secao {
+  display: flex;
+  flex-direction: column;
+  gap: var(--q-md);
+}
+
+.secao-cabecalho {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--q-sm);
+  flex-wrap: wrap;
+
+  &__titulo {
+    display: flex;
+    align-items: center;
+    gap: var(--q-sm);
+  }
+
+  h2 {
+    font-size: 20px;
+    line-height: 28px;
+    font-weight: 600;
+    letter-spacing: -0.01em;
+  }
+}
+
+.rotulo-secao {
+  font-size: 11px;
+  line-height: 14px;
+  font-weight: 600;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  color: var(--q-texto-suave);
+}
+
+// ---------- Cartão / painel ----------
+.cartao {
+  background: var(--q-superficie);
+  border: 1px solid var(--q-divisoria);
+  border-radius: var(--q-raio-lg);
+  overflow: hidden;
+
+  &--preenchido {
+    padding: var(--q-lg);
+  }
+}
+
+// Linhas de lista dentro de um cartão.
+.linha {
+  display: flex;
+  align-items: center;
+  gap: var(--q-md);
+  padding: var(--q-md) var(--q-lg);
+  border-bottom: 1px solid var(--q-divisoria);
+  color: inherit;
+  text-decoration: none;
+
+  &:last-child {
+    border-bottom: 0;
+  }
+
+  @media (max-width: 767.98px) {
+    padding: var(--q-md);
+  }
+}
+
+a.linha:hover,
+.linha--clicavel:hover {
+  background: var(--q-fundo);
+}
+
+.linha-texto {
+  display: flex;
+  flex-direction: column;
+  min-width: 0;
+  flex: 1;
+
+  strong {
+    font-family: var(--q-fonte-titulo);
+    font-size: 17px;
+    line-height: 24px;
+    font-weight: 600;
+  }
+
+  span {
+    color: var(--q-texto-suave);
+    font-size: 13px;
+  }
+}
+
+// ---------- Chips ----------
+.chip {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  padding: 2px 10px;
+  border-radius: var(--q-raio-total);
+  background: var(--q-superficie-media);
+  color: var(--q-texto-suave);
+  font-size: 12px;
+  line-height: 18px;
+  font-weight: 600;
+  white-space: nowrap;
+
+  &--alerta {
+    background: var(--q-atrasado-claro);
+    color: var(--q-atrasado);
+  }
+
+  &--ok {
+    background: var(--q-primaria-suave);
+    color: var(--q-primaria);
+  }
+
+  &__ponto {
+    width: 6px;
+    height: 6px;
+    border-radius: 50%;
+    background: currentColor;
+  }
+}
+
+// ---------- Botões ----------
+// Os botões usam mat-flat-button / mat-stroked-button / mat-button; estes ajustes
+// dão a altura e o peso do design.
+.mat-mdc-unelevated-button,
+.mat-mdc-outlined-button,
+.mat-mdc-button {
+  --mat-button-filled-container-height: 44px;
+  --mat-button-outlined-container-height: 44px;
+  font-family: var(--q-fonte-corpo) !important;
+}
+
+.botao-claro.mat-mdc-unelevated-button {
+  --mat-button-filled-container-color: var(--q-superficie-media);
+  --mat-button-filled-label-text-color: var(--q-texto);
+}
+
+.botao-perigo.mat-mdc-unelevated-button {
+  --mat-button-filled-container-color: var(--q-atrasado-claro);
+  --mat-button-filled-label-text-color: var(--q-atrasado);
+}
+
+.botao-perigo.mat-mdc-button {
+  --mat-button-text-label-text-color: var(--q-atrasado);
+}
+
+.botao-largo {
+  width: 100%;
+  --mat-button-filled-container-height: 52px;
+  font-size: 17px !important;
+}
+
+// ---------- Formulários ----------
+.formulario {
+  display: flex;
+  flex-direction: column;
+  gap: var(--q-md);
+}
+
+.formulario-grade {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: var(--q-md) var(--q-lg);
+
+  .ocupa-tudo {
+    grid-column: 1 / -1;
+  }
+
+  @media (max-width: 767.98px) {
+    grid-template-columns: minmax(0, 1fr);
+  }
+}
+
+.campo {
+  display: flex;
+  flex-direction: column;
+  gap: 6px;
+
+  > label,
+  .campo-rotulo {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--q-texto);
+  }
+
+  .mat-mdc-form-field {
+    width: 100%;
+  }
+
+  .mat-mdc-text-field-wrapper {
+    border-radius: var(--q-raio) !important;
+  }
+
+  // Sem rótulo flutuante: o rótulo fica acima do campo, como no design.
+  .mdc-text-field--no-label .mat-mdc-form-field-infix {
+    padding-top: 13px;
+    padding-bottom: 13px;
+    min-height: 48px;
+  }
+
+  .dica {
+    color: var(--q-texto-suave);
+    font-size: 12px;
+  }
+}
+
+.aviso {
+  display: flex;
+  gap: var(--q-sm);
+  align-items: flex-start;
+  padding: 12px var(--q-md);
+  border-radius: var(--q-raio);
+  background: var(--q-superficie-baixa);
+  color: var(--q-texto-suave);
+  font-size: 13px;
+
+  .material-symbols-outlined {
+    font-size: 20px;
+    color: var(--q-primaria);
+  }
+
+  &--erro {
+    background: var(--q-erro-claro);
+    color: var(--q-erro);
+
+    .material-symbols-outlined {
+      color: var(--q-erro);
+    }
+  }
+}
+
+.acoes-formulario {
+  display: flex;
+  justify-content: flex-end;
+  gap: var(--q-sm);
+  flex-wrap: wrap;
+  padding-top: var(--q-sm);
+
+  &--separadas {
+    justify-content: space-between;
+  }
+}
+
+// Spinner pequeno dentro de botões.
+.botao-carregando {
+  display: inline-flex;
+  align-items: center;
+  gap: var(--q-sm);
+}
+
+.carregando-pagina {
+  display: flex;
+  justify-content: center;
+  padding: var(--q-xl);
+}

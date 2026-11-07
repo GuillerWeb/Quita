@@ -1,0 +1,118 @@
+// Tema do Angular Material ajustado aos tokens do design.
+@use '@angular/material' as mat;
+
+html {
+  @include mat.theme(
+    (
+      color: (
+        primary: mat.$green-palette,
+        tertiary: mat.$red-palette,
+      ),
+      typography: (
+        plain-family: var(--q-fonte-corpo),
+        brand-family: var(--q-fonte-titulo),
+      ),
+      density: 0,
+    )
+  );
+
+  // Cores do sistema do Material trocadas pelas do design.
+  @include mat.theme-overrides(
+    (
+      primary: #2e5e4e,
+      on-primary: #ffffff,
+      primary-container: #baeed9,
+      on-primary-container: #002117,
+      error: #ba1a1a,
+      surface: #ffffff,
+      on-surface: #101d22,
+      on-surface-variant: #404945,
+      outline: #707974,
+      outline-variant: #d7e5eb,
+      surface-container-lowest: #ffffff,
+      surface-container-low: #ffffff,
+      surface-container: #ffffff,
+      surface-container-high: #ffffff,
+      surface-container-highest: #e8f6fd,
+      corner-extra-small: 4px,
+      corner-small: 8px,
+      corner-medium: 12px,
+      corner-large: 16px,
+      corner-extra-large: 16px,
+    )
+  );
+
+  // Campos "preenchidos" claros, sem linha, como no login do design.
+  @include mat.form-field-overrides(
+    (
+      filled-container-color: var(--q-superficie-baixa),
+      hover-state-layer-opacity: 0.02,
+      filled-container-shape: 8px,
+      focus-state-layer-opacity: 0,
+      filled-active-indicator-color: transparent,
+      filled-hover-active-indicator-color: transparent,
+      filled-focus-active-indicator-color: var(--q-primaria),
+      filled-error-active-indicator-color: var(--q-erro),
+      filled-error-focus-active-indicator-color: var(--q-erro),
+      filled-error-hover-active-indicator-color: var(--q-erro),
+      filled-active-indicator-height: 0,
+      filled-focus-active-indicator-height: 2px,
+      container-text-font: var(--q-fonte-corpo),
+      container-text-size: 15px,
+    )
+  );
+
+  @include mat.button-overrides(
+    (
+      filled-container-shape: 8px,
+      outlined-container-shape: 8px,
+      text-container-shape: 8px,
+      protected-container-shape: 8px,
+      filled-label-text-weight: 700,
+      outlined-label-text-weight: 600,
+      text-label-text-weight: 600,
+      outlined-outline-color: var(--q-divisoria-forte),
+    )
+  );
+
+  @include mat.dialog-overrides(
+    (
+      container-shape: 16px,
+      container-color: #ffffff,
+      subhead-font: var(--q-fonte-titulo),
+      subhead-weight: 600,
+    )
+  );
+
+  @include mat.snack-bar-overrides(
+    (
+      container-color: #101d22,
+      supporting-text-color: #ffffff,
+      button-color: #baeed9,
+      container-shape: 8px,
+    )
+  );
+
+  @include mat.sidenav-overrides(
+    (
+      container-shape: 0,
+      container-background-color: #ffffff,
+      content-background-color: var(--q-fundo),
+    )
+  );
+
+  @include mat.button-toggle-overrides(
+    (
+      shape: 8px,
+      selected-state-background-color: #ffffff,
+      selected-state-text-color: var(--q-texto),
+      background-color: var(--q-superficie-baixa),
+      divider-color: transparent,
+    )
+  );
+}
+
+// Fundo neutro e liso no diálogo (sem desfoque), como no design.
+.cdk-overlay-dark-backdrop {
+  background: var(--q-sombreamento);
+}

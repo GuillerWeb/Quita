@@ -28,8 +28,8 @@ ou objetos `{ ano, mes, dia }`:
 - `hoje(tz = process.env.APP_TIMEZONE ?? 'America/Cuiaba')`: data de hoje no fuso, via
   `Intl.DateTimeFormat('en-CA', { timeZone: tz })`. Sem bibliotecas de data.
 - `vencimentoNoMes(ano, mes, diaVencimento)`: aplica a RN-20 (dia inexistente → último dia).
-- `primeiroVencimento(dataEntrada, diaVencimento)`: aplica a RN-18.
-- `vencimentosAte(dataEntrada, diaVencimento, limite)`: lista de `{ competencia, dataVencimento }`
+- `primeiroVencimento(dataEntrada, diaVencimento, inicioCobranca)`: aplica a RN-18.
+- `vencimentosAte(dataEntrada, diaVencimento, inicioCobranca, limite)`: lista de `{ competencia, dataVencimento }`
   do primeiro vencimento até o limite (RN-19).
 - Conversão entre string e `Date` do Prisma sempre em UTC meia-noite, para não "voltar um dia".
 
@@ -64,12 +64,13 @@ ou objetos `{ ano, mes, dia }`:
 - `CriarInquilinoDto`: `imovelId` (UUID), `nome` (1–100), `telefone?` (até 20),
   `email?` (válido), `cpf?` (aceita com ou sem máscara, salva só os 11 dígitos),
   `observacoes?` (até 500), `valorAluguel` (string decimal > 0, até 2 casas, ex. `"1200.00"`),
-  `diaVencimento` (inteiro 1–31), `dataEntrada` (`YYYY-MM-DD`).
+  `diaVencimento` (inteiro 1–31), `dataEntrada` (`YYYY-MM-DD`),
+  `inicioCobranca?` (`MES_SEGUINTE` — padrão — ou `MES_DA_ENTRADA`, RN-18).
 - `POST /inquilinos`: verifica se o imóvel é do proprietário (senão 404) e está vago
   (senão `409 "Este imóvel já tem um inquilino ativo"`). Cria o inquilino e chama a geração
   mensal (RN-21), na mesma transação.
-- `AtualizarInquilinoDto`: os mesmos campos, todos opcionais, **exceto** `imovelId` e
-  `dataEntrada`, que não existem nesse DTO (RN-11).
+- `AtualizarInquilinoDto`: os mesmos campos, todos opcionais, **exceto** `imovelId`,
+  `dataEntrada` e `inicioCobranca`, que não existem nesse DTO (RN-11).
 - `GET /inquilinos?ativos=true|false|todos` (padrão `true`) → lista ordenada por nome com
   `imovel { id, nome }`, `valorAluguel`, `diaVencimento`, `ativo` e `mesesAtrasados`.
 - `GET /inquilinos/:id` → chama a geração mensal e devolve o inquilino com `imovel`,

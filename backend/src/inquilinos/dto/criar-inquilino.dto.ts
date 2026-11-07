@@ -1,6 +1,7 @@
 import { Transform } from 'class-transformer';
 import {
   IsEmail,
+  IsIn,
   IsInt,
   IsOptional,
   IsString,
@@ -13,7 +14,13 @@ import {
 } from 'class-validator';
 import { aparar, textoOpcional } from '../../comum/transformacoes.js';
 import { IsDataISO, IsValorMonetario } from '../../comum/validadores.js';
-import { emailOpcional, MENSAGENS, normalizarCpf } from './campos-inquilino.js';
+import type { InicioCobranca } from '../../comum/datas.js';
+import {
+  emailOpcional,
+  INICIOS_COBRANCA,
+  MENSAGENS,
+  normalizarCpf,
+} from './campos-inquilino.js';
 
 /** RN-09: dados do inquilino ao cadastrar. */
 export class CriarInquilinoDto {
@@ -57,4 +64,9 @@ export class CriarInquilinoDto {
 
   @IsDataISO({ message: MENSAGENS.data })
   dataEntrada: string;
+
+  /** RN-18: omitido = `MES_SEGUINTE`. Não pode ser editado depois (RN-11). */
+  @IsOptional()
+  @IsIn(INICIOS_COBRANCA, { message: MENSAGENS.inicioCobranca })
+  inicioCobranca?: InicioCobranca;
 }

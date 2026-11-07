@@ -40,6 +40,7 @@ export class GeracaoMensalService {
         valorAluguel: true,
         diaVencimento: true,
         dataEntrada: true,
+        inicioCobranca: true,
         dataSaida: true,
         pagamentos: {
           select: { competencia: true },
@@ -60,6 +61,7 @@ export class GeracaoMensalService {
       const faltantes = vencimentosAte(
         deDate(inquilino.dataEntrada),
         inquilino.diaVencimento,
+        inquilino.inicioCobranca,
         limite,
       ).filter((v) => !ultimaGerada || v.competencia > ultimaGerada);
 

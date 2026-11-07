@@ -19,15 +19,17 @@ import { MatDatepickerModule } from '@angular/material/datepicker';
 import { MatFormFieldModule } from '@angular/material/form-field';
 import { MatInputModule } from '@angular/material/input';
 import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
+import { MatRadioModule } from '@angular/material/radio';
 import { MatSelectModule } from '@angular/material/select';
+import { toSignal } from '@angular/core/rxjs-interop';
 import { Router, RouterLink } from '@angular/router';
 import { forkJoin, of } from 'rxjs';
 import { EstadoVazio } from '../../compartilhado/estado-vazio/estado-vazio';
 import { Notificacao } from '../../compartilhado/notificacao.service';
 import { ImoveisApi, InquilinosApi } from '../../core/api';
-import { paraIso } from '../../core/datas';
+import { dataBr, paraIso, primeiroVencimento } from '../../core/datas';
 import { mensagemDeErro } from '../../core/erros';
-import { DadosInquilino, Imovel } from '../../core/modelos';
+import { DadosInquilino, Imovel, InicioCobranca } from '../../core/modelos';
 import { valorParaApi, valorParaCampo } from '../../core/valores';
 
 function valorValido(controle: AbstractControl<string>): ValidationErrors | null {
@@ -55,6 +57,7 @@ function cpfValido(controle: AbstractControl<string>): ValidationErrors | null {
     MatFormFieldModule,
     MatInputModule,
     MatProgressSpinnerModule,
+    MatRadioModule,
     MatSelectModule,
     EstadoVazio,
   ],
@@ -75,6 +78,25 @@ function cpfValido(controle: AbstractControl<string>): ValidationErrors | null {
     }
     textarea {
       min-height: 72px;
+    }
+    .opcoes-cobranca {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+      margin-left: -10px;
+    }
+    .opcoes-cobranca small {
+      display: block;
+      color: var(--q-texto-suave);
+      font-size: 12px;
+      line-height: 16px;
+    }
+    .previa {
+      color: var(--q-texto);
+      font-size: 14px;
+    }
+    .previa strong {
+      color: var(--q-primaria-escura);
     }
   `,
 })
@@ -98,10 +120,24 @@ export class FormularioInquilino implements OnInit {
       [Validators.required, Validators.min(1), Validators.max(31), Validators.pattern(/^\d+$/)],
     ],
     dataEntrada: [null as Date | null, Validators.required],
+    inicioCobranca: ['MES_SEGUINTE' as InicioCobranca],
     telefone: ['', Validators.maxLength(20)],
     email: ['', [Validators.email]],
     cpf: ['', cpfValido],
     observacoes: ['', Validators.maxLength(500)],
+  });
+
+  private readonly valores = toSignal(this.form.valueChanges, {
+    initialValue: this.form.getRawValue(),
+  });
+
+  /** Prévia do primeiro vencimento conforme entrada, dia e início da cobrança (RN-18). */
+  protected readonly previaPrimeiroVencimento = computed(() => {
+    const { dataEntrada, diaVencimento, inicioCobranca } = this.valores();
+    const dia = Number(diaVencimento);
+    if (!(dataEntrada instanceof Date) || isNaN(dataEntrada.getTime())) return '';
+    if (!Number.isInteger(dia) || dia < 1 || dia > 31) return '';
+    return dataBr(primeiroVencimento(dataEntrada, dia, inicioCobranca ?? 'MES_SEGUINTE'));
   });
 
   protected readonly imoveisVagos = signal<Imovel[]>([]);
@@ -119,6 +155,7 @@ export class FormularioInquilino implements OnInit {
       // Na edição, imóvel e data de entrada não mudam (RN-11).
       this.form.controls.imovelId.disable();
       this.form.controls.dataEntrada.disable();
+      this.form.controls.inicioCobranca.disable();
     }
     forkJoin({
       imoveis: id ? of([]) : this.imoveisApi.listar(),
@@ -180,6 +217,7 @@ export class FormularioInquilino implements OnInit {
     if (!id) {
       dados.imovelId = v.imovelId;
       dados.dataEntrada = paraIso(v.dataEntrada!);
+      dados.inicioCobranca = v.inicioCobranca;
     }
 
     this.enviando.set(true);

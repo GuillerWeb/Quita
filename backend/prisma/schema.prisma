@@ -12,6 +12,12 @@ datasource db {
   provider = "postgresql"
 }
 
+/// RN-18: quando começa a cobrança do inquilino.
+enum InicioCobranca {
+  MES_SEGUINTE // primeiro vencimento no mês seguinte ao da entrada (padrão)
+  MES_DA_ENTRADA // primeiro vencimento igual ou posterior à data de entrada
+}
+
 enum StatusPagamento {
   AGUARDANDO
   PAGO
@@ -54,6 +60,7 @@ model Inquilino {
   valorAluguel   Decimal      @db.Decimal(10, 2)
   diaVencimento  Int // 1 a 31 (RN-20)
   dataEntrada    DateTime     @db.Date
+  inicioCobranca InicioCobranca @default(MES_SEGUINTE) // RN-18; não editável (RN-11)
   dataSaida      DateTime?    @db.Date // null = ativo
   criadoEm       DateTime     @default(now())
   pagamentos     Pagamento[]

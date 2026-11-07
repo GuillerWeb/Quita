@@ -82,14 +82,25 @@ function proximoMes(ano: number, mes: number): { ano: number; mes: number } {
   return mes === 12 ? { ano: ano + 1, mes: 1 } : { ano, mes: mes + 1 };
 }
 
-/** RN-18: primeiro vencimento igual ou posterior à data de entrada. */
+/**
+ * RN-18: quando começa a cobrança.
+ * - `MES_SEGUINTE` (padrão): o primeiro vencimento é no mês seguinte ao da entrada.
+ * - `MES_DA_ENTRADA`: o primeiro vencimento é o primeiro igual ou posterior à entrada
+ *   (para quem já tem o inquilino em andamento e cobra no próprio mês).
+ */
+export type InicioCobranca = 'MES_SEGUINTE' | 'MES_DA_ENTRADA';
+
+/** RN-18: data do primeiro vencimento do inquilino. */
 export function primeiroVencimento(
   dataEntrada: DataISO,
   diaVencimento: number,
+  inicio: InicioCobranca,
 ): DataISO {
   const { ano, mes } = partes(dataEntrada);
-  const noMesmoMes = vencimentoNoMes(ano, mes, diaVencimento);
-  if (noMesmoMes >= dataEntrada) return noMesmoMes;
+  if (inicio === 'MES_DA_ENTRADA') {
+    const noMesmoMes = vencimentoNoMes(ano, mes, diaVencimento);
+    if (noMesmoMes >= dataEntrada) return noMesmoMes;
+  }
   const seguinte = proximoMes(ano, mes);
   return vencimentoNoMes(seguinte.ano, seguinte.mes, diaVencimento);
 }
@@ -101,10 +112,13 @@ export function primeiroVencimento(
 export function vencimentosAte(
   dataEntrada: DataISO,
   diaVencimento: number,
+  inicio: InicioCobranca,
   limite: DataISO,
 ): Vencimento[] {
   const resultado: Vencimento[] = [];
-  let { ano, mes } = partes(primeiroVencimento(dataEntrada, diaVencimento));
+  let { ano, mes } = partes(
+    primeiroVencimento(dataEntrada, diaVencimento, inicio),
+  );
   for (;;) {
     const dataVencimento = vencimentoNoMes(ano, mes, diaVencimento);
     if (dataVencimento > limite) break;

@@ -134,11 +134,40 @@
                 <mat-error>Informe a data de entrada.</mat-error>
               }
             </mat-form-field>
+          </div>
+
+          <div class="campo ocupa-tudo">
+            <span class="campo-rotulo" id="rotulo-cobranca">Primeiro pagamento</span>
+            <mat-radio-group
+              class="opcoes-cobranca"
+              formControlName="inicioCobranca"
+              aria-labelledby="rotulo-cobranca"
+            >
+              <mat-radio-button value="MES_SEGUINTE">
+                No mês seguinte à entrada
+                <small
+                  >O mais comum: entrou em novembro, paga o primeiro aluguel em dezembro.</small
+                >
+              </mat-radio-button>
+              <mat-radio-button value="MES_DA_ENTRADA">
+                Já no mês da entrada
+                <small
+                  >Para quem já está em andamento: vence no próprio mês, se o dia de vencimento
+                  ainda não passou.</small
+                >
+              </mat-radio-button>
+            </mat-radio-group>
+            @if (previaPrimeiroVencimento(); as previa) {
+              <span class="previa" aria-live="polite"
+                >Primeiro vencimento: <strong class="numero">{{ previa }}</strong></span
+              >
+            }
             <div class="aviso">
               <span class="material-symbols-outlined" aria-hidden="true">info</span>
               <span
                 >Se a data de entrada for antiga, os meses anteriores serão criados para você marcar
-                o que já foi pago. A data de entrada não pode ser alterada depois.</span
+                o que já foi pago. A data de entrada e o primeiro pagamento não podem ser alterados
+                depois.</span
               >
             </div>
           </div>

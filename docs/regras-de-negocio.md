@@ -44,8 +44,15 @@ como padrão; podem ser revistas.
 - **RN-17** **Geração automática:** sempre que o proprietário acessa o sistema (painel,
   lista ou detalhe de inquilino), o sistema cria os meses que faltam para cada
   inquilino, do primeiro mês até o mês atual. A operação é idempotente: nunca duplica.
-- **RN-18** O primeiro mês é o do primeiro vencimento **igual ou posterior** à data de entrada.
-  Ex.: entrada em 20/10 com vencimento dia 10 → primeiro vencimento 10/11. *(decisão de projeto)*
+- **RN-18** No cadastro, o proprietário escolhe quando começa a cobrança (`inicioCobranca`):
+  - **No mês seguinte à entrada** (`MES_SEGUINTE`, padrão — o costume nos aluguéis): o
+    primeiro vencimento é o dia de vencimento do mês seguinte ao da entrada.
+    Ex.: entrada em 03/11 ou em 20/11, vencimento dia 7 → primeiro vencimento 07/12.
+  - **Já no mês da entrada** (`MES_DA_ENTRADA`, para contratos em andamento): o primeiro
+    vencimento é o primeiro **igual ou posterior** à data de entrada.
+    Ex.: entrada em 03/11, vencimento dia 7 → 07/11; entrada em 20/11 → 07/12.
+
+  A escolha não pode ser editada depois (como a data de entrada, RN-11). *(decisão de projeto)*
 - **RN-19** Os meses gerados vão até o mês atual, mesmo que o vencimento deste mês ainda não
   tenha chegado. Para inquilino com saída registrada, vão até o último vencimento igual ou
   anterior à data de saída.

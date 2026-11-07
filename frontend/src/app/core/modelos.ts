@@ -37,6 +37,9 @@ export interface Pagamento {
   dataPagamento: string | null;
 }
 
+/** RN-18: quando começa a cobrança do inquilino. */
+export type InicioCobranca = 'MES_SEGUINTE' | 'MES_DA_ENTRADA';
+
 export interface Inquilino {
   id: string;
   nome: string;
@@ -47,6 +50,7 @@ export interface Inquilino {
   valorAluguel: string;
   diaVencimento: number;
   dataEntrada: string;
+  inicioCobranca: InicioCobranca;
   dataSaida: string | null;
   ativo: boolean;
   imovel: { id: string; nome: string };
@@ -71,6 +75,7 @@ export interface DadosInquilino {
   valorAluguel?: string;
   diaVencimento?: number;
   dataEntrada?: string;
+  inicioCobranca?: InicioCobranca;
 }
 
 export interface AtrasadoDoPainel {

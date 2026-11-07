@@ -1,7 +1,15 @@
 import { TestBed } from '@angular/core/testing';
 import { MAT_DATE_LOCALE } from '@angular/material/core';
 import { AdaptadorDataBr } from './adaptador-data';
-import { competenciaCurta, competenciaLonga, dataBr, deIso, paraIso, somarMeses } from './datas';
+import {
+  competenciaCurta,
+  competenciaLonga,
+  dataBr,
+  deIso,
+  paraIso,
+  primeiroVencimento,
+  somarMeses,
+} from './datas';
 
 describe('datas', () => {
   it('converte Date local para YYYY-MM-DD e volta sem mudar o dia', () => {
@@ -47,5 +55,22 @@ describe('AdaptadorDataBr', () => {
     expect(
       adaptador.format(new Date(2026, 0, 5), { year: 'numeric', month: 'numeric', day: 'numeric' }),
     ).toBe('05/01/2026');
+  });
+});
+
+describe('primeiroVencimento (prévia do formulário, RN-18)', () => {
+  const d = (ano: number, mes: number, dia: number) => new Date(ano, mes - 1, dia);
+
+  it('MES_SEGUINTE: sempre o dia de vencimento do mês seguinte', () => {
+    expect(primeiroVencimento(d(2026, 11, 3), 7, 'MES_SEGUINTE')).toBe('2026-12-07');
+    expect(primeiroVencimento(d(2026, 11, 20), 7, 'MES_SEGUINTE')).toBe('2026-12-07');
+    expect(primeiroVencimento(d(2026, 12, 1), 5, 'MES_SEGUINTE')).toBe('2027-01-05');
+    expect(primeiroVencimento(d(2027, 1, 10), 31, 'MES_SEGUINTE')).toBe('2027-02-28');
+  });
+
+  it('MES_DA_ENTRADA: no mesmo mês se o dia ainda não passou', () => {
+    expect(primeiroVencimento(d(2026, 11, 3), 7, 'MES_DA_ENTRADA')).toBe('2026-11-07');
+    expect(primeiroVencimento(d(2026, 11, 7), 7, 'MES_DA_ENTRADA')).toBe('2026-11-07');
+    expect(primeiroVencimento(d(2026, 11, 20), 7, 'MES_DA_ENTRADA')).toBe('2026-12-07');
   });
 });

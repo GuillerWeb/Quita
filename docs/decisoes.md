@@ -128,3 +128,14 @@ com saída em `src/generated/prisma` (não versionado; gerado no `postinstall`).
 - **Regra:** toda tabela nova habilita o RLS na própria migration que a cria (regra 11 do
   `CLAUDE.md`). Para `_prisma_migrations` usa-se `ALTER TABLE IF EXISTS`, porque a shadow
   database do `prisma migrate dev` não tem essa tabela.
+
+## D-18 — Início da cobrança escolhido no cadastro do inquilino (07/11/2026)
+- **Pedido do dono do projeto:** na maioria dos aluguéis o primeiro pagamento é no mês
+  seguinte à entrada, mas proprietários com contratos em andamento precisam cobrar já no
+  mês da entrada. A RN-18 passou a ter as duas opções, com `MES_SEGUINTE` como padrão.
+- **Salvo no inquilino** (`inicioCobranca`), porque a geração mensal recalcula os meses a
+  cada acesso; não é editável depois, pelo mesmo motivo da data de entrada (RN-11).
+- **Inquilinos já cadastrados** ficaram com `MES_DA_ENTRADA` na migration `inicio_cobranca`,
+  a regra com que os meses deles foram gerados.
+- **Prévia no formulário:** o cadastro mostra "Primeiro vencimento: dd/mm/aaaa", calculado no
+  frontend só para exibição; quem gera os meses continua sendo a API.

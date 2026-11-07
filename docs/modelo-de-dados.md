@@ -30,6 +30,11 @@ enum StatusPagamento {
   PAGO
 }
 
+enum InicioCobranca {
+  MES_SEGUINTE     // primeiro vencimento no mês seguinte ao da entrada (padrão, RN-18)
+  MES_DA_ENTRADA   // primeiro vencimento igual ou posterior à data de entrada
+}
+
 model Proprietario {
   id         String      @id @default(uuid())
   nome       String
@@ -67,6 +72,7 @@ model Inquilino {
   valorAluguel   Decimal      @db.Decimal(10, 2)
   diaVencimento  Int          // 1 a 31 (RN-20)
   dataEntrada    DateTime     @db.Date
+  inicioCobranca InicioCobranca @default(MES_SEGUINTE)   // RN-18; não editável (RN-11)
   dataSaida      DateTime?    @db.Date   // null = ativo
   criadoEm       DateTime     @default(now())
   pagamentos     Pagamento[]

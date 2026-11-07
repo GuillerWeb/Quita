@@ -4,7 +4,13 @@ import {
   Injectable,
   NotFoundException,
 } from '@nestjs/common';
-import { deDate, hoje, paraDate, type DataISO } from '../comum/datas.js';
+import {
+  deDate,
+  hoje,
+  paraDate,
+  type DataISO,
+  type InicioCobranca,
+} from '../comum/datas.js';
 import { Prisma } from '../generated/prisma/client.js';
 import { GeracaoMensalService } from '../pagamentos/geracao-mensal.service.js';
 import {
@@ -31,6 +37,7 @@ const SELECAO_INQUILINO = {
   valorAluguel: true,
   diaVencimento: true,
   dataEntrada: true,
+  inicioCobranca: true,
   dataSaida: true,
   imovel: { select: { id: true, nome: true } },
 } as const;
@@ -49,6 +56,7 @@ export interface InquilinoResposta {
   valorAluguel: string;
   diaVencimento: number;
   dataEntrada: DataISO;
+  inicioCobranca: InicioCobranca;
   dataSaida: DataISO | null;
   ativo: boolean;
   imovel: { id: string; nome: string };
@@ -151,6 +159,7 @@ export class InquilinosService {
             valorAluguel: dto.valorAluguel,
             diaVencimento: dto.diaVencimento,
             dataEntrada: paraDate(dto.dataEntrada),
+            inicioCobranca: dto.inicioCobranca ?? 'MES_SEGUINTE',
           },
           select: { id: true },
         });

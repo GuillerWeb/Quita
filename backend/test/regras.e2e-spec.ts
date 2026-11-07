@@ -39,6 +39,9 @@ describe('Regras de negócio (e2e)', () => {
       valorAluguel: '1200.00',
       diaVencimento: 1,
       dataEntrada: somarMeses(inicioDoMesAtual, -3),
+      // Os cenários abaixo foram escritos para a cobrança desde o mês da entrada;
+      // o padrão (MES_SEGUINTE) tem teste próprio.
+      inicioCobranca: 'MES_DA_ENTRADA',
       ...extra,
     });
 
@@ -89,6 +92,36 @@ describe('Regras de negócio (e2e)', () => {
       mes(-1),
       mes(-2),
     ]);
+  });
+
+  it('RN-18: sem inicioCobranca, o padrão é MES_SEGUINTE; valor inválido → 400', async () => {
+    const imovel = await criarImovel('Casa RN-18 padrão');
+    // Entrada no dia 1 de 3 meses atrás, vencimento dia 1: só cobra a partir do mês seguinte.
+    const res = await conta.api.post('/inquilinos', {
+      imovelId: imovel,
+      nome: 'Inquilino Padrão',
+      valorAluguel: '1200.00',
+      diaVencimento: 1,
+      dataEntrada: somarMeses(inicioDoMesAtual, -3),
+    });
+    expect(res.status).toBe(201);
+    expect(res.body.inicioCobranca).toBe('MES_SEGUINTE');
+    expect(res.body.pagamentos.map((p: Pagamento) => p.competencia)).toEqual([
+      mes(0),
+      mes(-1),
+      mes(-2),
+    ]);
+
+    const invalido = await criarInquilino(
+      await criarImovel('Casa RN-18 inválido'),
+      {
+        inicioCobranca: 'AMANHA',
+      },
+    );
+    expect(invalido.status).toBe(400);
+    expect(invalido.body.message).toContain(
+      'O início da cobrança deve ser MES_SEGUINTE ou MES_DA_ENTRADA',
+    );
   });
 
   it('RN-17: GET /inquilinos/:id duas vezes não duplica meses', async () => {

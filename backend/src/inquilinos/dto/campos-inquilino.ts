@@ -26,4 +26,9 @@ export const MENSAGENS = {
     'O valor do aluguel deve ser maior que zero, com até 2 casas decimais (ex.: "1200.00")',
   diaVencimento: 'O dia de vencimento deve ser um número inteiro de 1 a 31',
   data: 'Informe uma data válida no formato AAAA-MM-DD',
+  inicioCobranca:
+    'O início da cobrança deve ser MES_SEGUINTE ou MES_DA_ENTRADA',
 } as const;
+
+/** RN-18: valores aceitos para o início da cobrança. */
+export const INICIOS_COBRANCA = ['MES_SEGUINTE', 'MES_DA_ENTRADA'] as const;

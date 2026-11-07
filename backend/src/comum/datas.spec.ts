@@ -33,31 +33,75 @@ describe('vencimentoNoMes (RN-20)', () => {
   });
 });
 
-describe('primeiroVencimento (RN-18)', () => {
+describe('primeiroVencimento (RN-18) — MES_DA_ENTRADA', () => {
   it('entrada antes do dia de vencimento: vence no mesmo mês', () => {
-    expect(primeiroVencimento('2026-10-05', 10)).toBe('2026-10-10');
+    expect(primeiroVencimento('2026-10-05', 10, 'MES_DA_ENTRADA')).toBe(
+      '2026-10-10',
+    );
   });
 
   it('entrada no dia do vencimento: vence no mesmo dia', () => {
-    expect(primeiroVencimento('2026-10-10', 10)).toBe('2026-10-10');
+    expect(primeiroVencimento('2026-10-10', 10, 'MES_DA_ENTRADA')).toBe(
+      '2026-10-10',
+    );
   });
 
   it('entrada depois do dia de vencimento: vence no mês seguinte', () => {
-    expect(primeiroVencimento('2026-10-20', 10)).toBe('2026-11-10');
+    expect(primeiroVencimento('2026-10-20', 10, 'MES_DA_ENTRADA')).toBe(
+      '2026-11-10',
+    );
   });
 
   it('entrada em dezembro depois do vencimento: vence em janeiro do ano seguinte', () => {
-    expect(primeiroVencimento('2026-12-15', 5)).toBe('2027-01-05');
+    expect(primeiroVencimento('2026-12-15', 5, 'MES_DA_ENTRADA')).toBe(
+      '2027-01-05',
+    );
   });
 
   it('dia 31 com entrada no último dia de fevereiro', () => {
-    expect(primeiroVencimento('2027-02-28', 31)).toBe('2027-02-28');
+    expect(primeiroVencimento('2027-02-28', 31, 'MES_DA_ENTRADA')).toBe(
+      '2027-02-28',
+    );
+  });
+});
+
+describe('primeiroVencimento (RN-18) — MES_SEGUINTE, o padrão', () => {
+  it('entrada antes do dia de vencimento: vence só no mês seguinte', () => {
+    expect(primeiroVencimento('2026-11-03', 7, 'MES_SEGUINTE')).toBe(
+      '2026-12-07',
+    );
+  });
+
+  it('entrada no dia do vencimento: vence no mês seguinte', () => {
+    expect(primeiroVencimento('2026-11-07', 7, 'MES_SEGUINTE')).toBe(
+      '2026-12-07',
+    );
+  });
+
+  it('entrada depois do dia de vencimento: vence no mês seguinte', () => {
+    expect(primeiroVencimento('2026-11-20', 7, 'MES_SEGUINTE')).toBe(
+      '2026-12-07',
+    );
+  });
+
+  it('entrada em dezembro: vence em janeiro do ano seguinte', () => {
+    expect(primeiroVencimento('2026-12-01', 5, 'MES_SEGUINTE')).toBe(
+      '2027-01-05',
+    );
+  });
+
+  it('dia 31 com entrada em janeiro: vence no último dia de fevereiro (RN-20)', () => {
+    expect(primeiroVencimento('2027-01-10', 31, 'MES_SEGUINTE')).toBe(
+      '2027-02-28',
+    );
   });
 });
 
 describe('vencimentosAte (RN-19)', () => {
   it('atravessa a virada de ano (nov/2026 a fev/2027)', () => {
-    expect(vencimentosAte('2026-11-01', 10, '2027-02-28')).toEqual([
+    expect(
+      vencimentosAte('2026-11-01', 10, 'MES_DA_ENTRADA', '2027-02-28'),
+    ).toEqual([
       { competencia: '2026-11-01', dataVencimento: '2026-11-10' },
       { competencia: '2026-12-01', dataVencimento: '2026-12-10' },
       { competencia: '2027-01-01', dataVencimento: '2027-01-10' },
@@ -66,7 +110,12 @@ describe('vencimentosAte (RN-19)', () => {
   });
 
   it('inclui o mês atual mesmo com vencimento ainda por vir', () => {
-    const lista = vencimentosAte('2026-08-15', 20, fimDoMes('2026-11-01'));
+    const lista = vencimentosAte(
+      '2026-08-15',
+      20,
+      'MES_DA_ENTRADA',
+      fimDoMes('2026-11-01'),
+    );
     expect(lista.map((v) => v.dataVencimento)).toEqual([
       '2026-08-20',
       '2026-09-20',
@@ -76,7 +125,12 @@ describe('vencimentosAte (RN-19)', () => {
   });
 
   it('aplica a RN-20 em cada mês com dia 31', () => {
-    const lista = vencimentosAte('2027-01-31', 31, '2027-04-30');
+    const lista = vencimentosAte(
+      '2027-01-31',
+      31,
+      'MES_DA_ENTRADA',
+      '2027-04-30',
+    );
     expect(lista.map((v) => v.dataVencimento)).toEqual([
       '2027-01-31',
       '2027-02-28',
@@ -86,17 +140,26 @@ describe('vencimentosAte (RN-19)', () => {
   });
 
   it('com saída, para no último vencimento igual ou anterior à saída', () => {
-    const lista = vencimentosAte('2026-07-01', 10, '2026-10-09');
+    const lista = vencimentosAte(
+      '2026-07-01',
+      10,
+      'MES_DA_ENTRADA',
+      '2026-10-09',
+    );
     expect(lista.map((v) => v.competencia)).toEqual([
       '2026-07-01',
       '2026-08-01',
       '2026-09-01',
     ]);
-    expect(vencimentosAte('2026-07-01', 10, '2026-10-10')).toHaveLength(4);
+    expect(
+      vencimentosAte('2026-07-01', 10, 'MES_DA_ENTRADA', '2026-10-10'),
+    ).toHaveLength(4);
   });
 
   it('primeiro vencimento depois do limite: lista vazia', () => {
-    expect(vencimentosAte('2026-11-20', 10, '2026-11-30')).toEqual([]);
+    expect(
+      vencimentosAte('2026-11-20', 10, 'MES_DA_ENTRADA', '2026-11-30'),
+    ).toEqual([]);
   });
 });
 

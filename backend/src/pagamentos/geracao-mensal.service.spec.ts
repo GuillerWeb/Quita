@@ -1,5 +1,5 @@
 import { Prisma } from '../generated/prisma/client.js';
-import { deDate, paraDate } from '../comum/datas.js';
+import { deDate, paraDate, type InicioCobranca } from '../comum/datas.js';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { GeracaoMensalService } from './geracao-mensal.service.js';
 
@@ -8,6 +8,7 @@ interface InquilinoFalso {
   valorAluguel: Prisma.Decimal;
   diaVencimento: number;
   dataEntrada: Date;
+  inicioCobranca: InicioCobranca;
   dataSaida: Date | null;
   pagamentos: { competencia: Date }[];
 }
@@ -35,6 +36,7 @@ function inquilino(parcial: Partial<InquilinoFalso>): InquilinoFalso {
     valorAluguel: new Prisma.Decimal('1200.00'),
     diaVencimento: 10,
     dataEntrada: paraDate('2026-08-01'),
+    inicioCobranca: 'MES_DA_ENTRADA',
     dataSaida: null,
     pagamentos: [],
     ...parcial,
@@ -113,7 +115,21 @@ describe('GeracaoMensalService', () => {
     ).toEqual(['2026-08-01', '2026-09-01']);
   });
 
-  it('RN-18: entrada depois do vencimento do mês começa no mês seguinte', async () => {
+  it('RN-18: MES_SEGUINTE começa no mês seguinte mesmo com o vencimento ainda por vir', async () => {
+    const { servico, prisma } = criarServico([
+      inquilino({
+        dataEntrada: paraDate('2026-09-03'),
+        diaVencimento: 7,
+        inicioCobranca: 'MES_SEGUINTE',
+      }),
+    ]);
+    await servico.garantirMeses('p1');
+    expect(
+      competencias(prisma.pagamento.createMany.mock.calls[0][0].data),
+    ).toEqual(['2026-10-01', '2026-11-01']);
+  });
+
+  it('RN-18: MES_DA_ENTRADA, entrada depois do vencimento do mês começa no mês seguinte', async () => {
     const { servico, prisma } = criarServico([
       inquilino({ dataEntrada: paraDate('2026-10-20') }),
     ]);

@@ -45,6 +45,26 @@ export function deIso(iso: string): Date {
   return new Date(ano, mes - 1, dia);
 }
 
+/**
+ * RN-18/RN-20: data do primeiro vencimento (só para a prévia do formulário; quem gera
+ * os meses é a API). `MES_SEGUINTE`: o dia de vencimento do mês seguinte ao da entrada.
+ * `MES_DA_ENTRADA`: o primeiro dia de vencimento igual ou posterior à entrada.
+ */
+export function primeiroVencimento(
+  entrada: Date,
+  diaVencimento: number,
+  inicio: 'MES_SEGUINTE' | 'MES_DA_ENTRADA',
+): string {
+  const noMes = (ano: number, mes: number) =>
+    new Date(ano, mes, Math.min(diaVencimento, new Date(ano, mes + 1, 0).getDate()));
+  const ano = entrada.getFullYear();
+  const mes = entrada.getMonth();
+  const mesmoMes = noMes(ano, mes);
+  const inicioDoDia = new Date(ano, mes, entrada.getDate());
+  if (inicio === 'MES_DA_ENTRADA' && mesmoMes >= inicioDoDia) return paraIso(mesmoMes);
+  return paraIso(noMes(ano, mes + 1));
+}
+
 /** `YYYY-MM-DD` → `dd/MM/yyyy`, sem passar por fuso horário. */
 export function dataBr(iso: string | null | undefined): string {
   if (!iso) return '';

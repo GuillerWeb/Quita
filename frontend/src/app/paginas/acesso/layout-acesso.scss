@@ -190,3 +190,62 @@
   color: var(--q-texto-suave);
   font-size: 13px;
 }
+
+// ---------- Animações de entrada ----------
+.entra {
+  animation: subir 640ms cubic-bezier(0.22, 1, 0.36, 1) both;
+
+  &--1 {
+    animation: none; // a logo já tem a própria animação
+  }
+  &--2 {
+    animation-delay: 380ms;
+  }
+  &--3 {
+    animation-delay: 560ms;
+  }
+  &--4 {
+    animation-delay: 760ms;
+  }
+  &--form {
+    animation-delay: 200ms;
+  }
+}
+
+@keyframes subir {
+  from {
+    opacity: 0;
+    transform: translateY(14px);
+  }
+}
+
+// Aviso que troca o "12 meses" enquanto o exemplo se mexe.
+.aviso-exemplo {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  color: var(--q-primaria);
+  animation: aviso 320ms cubic-bezier(0.22, 1, 0.36, 1);
+
+  .material-symbols-outlined {
+    font-size: 16px;
+  }
+
+  &--novo {
+    color: var(--q-aguardando);
+  }
+}
+
+@keyframes aviso {
+  from {
+    opacity: 0;
+    transform: translateY(4px);
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .entra,
+  .aviso-exemplo {
+    animation: none;
+  }
+}

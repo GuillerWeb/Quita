@@ -29,8 +29,13 @@ const ICONES: Record<EstadoMes, string> = {
   selector: 'q-regua-meses',
   changeDetection: ChangeDetectionStrategy.OnPush,
   template: `
-    <ol class="regua" [class.regua--grande]="tamanho() === 'g'" [attr.aria-label]="rotulo()">
-      @for (mes of meses(); track $index) {
+    <ol
+      class="regua"
+      [class.regua--grande]="tamanho() === 'g'"
+      [class.regua--animada]="animada()"
+      [attr.aria-label]="rotulo()"
+    >
+      @for (mes of meses(); track $index + ':' + mes.estado) {
         <li class="mes" [class.mes--atual]="mes.atual">
           @if (
             clicavel() && mes.estado !== 'PAGO' && mes.estado !== 'FUTURO' && mes.estado !== 'VAZIO'
@@ -71,6 +76,8 @@ export class ReguaMeses {
   readonly tamanho = input<'p' | 'g'>('p');
   readonly clicavel = input(false);
   readonly rotulo = input('Histórico de meses');
+  /** Quadrados surgem com um leve "pop" ao aparecer ou mudar de estado. */
+  readonly animada = input(false);
   readonly selecionar = output<number>();
 
   protected readonly icone = (estado: EstadoMes) => ICONES[estado];

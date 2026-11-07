@@ -116,3 +116,15 @@ com saída em `src/generated/prisma` (não versionado; gerado no `postinstall`).
     breadcrumb de contrato nem ID.
 - **Sem versão mobile no design:** no celular, o menu vira gaveta (`mat-sidenav`), as
   tabelas viram cartões e a coluna de apresentação do login some.
+
+## D-17 — RLS habilitado em todas as tabelas, sem políticas (07/11/2026)
+- **Motivo:** o Security Advisor do Supabase acusava "RLS Disabled in Public". Com o RLS
+  desligado, a Data API do Supabase (roles `anon`/`authenticated`) poderia ler e alterar as
+  tabelas com a chave pública do projeto.
+- **Como:** a migration `habilita_rls` faz `ENABLE ROW LEVEL SECURITY` em `Proprietario`,
+  `Imovel`, `Inquilino`, `Pagamento` e `_prisma_migrations`, **sem políticas**: a Data API
+  fica sem acesso. O backend usa só o Prisma com o usuário `postgres`, dono das tabelas, que
+  não passa pelo RLS (não usamos `FORCE ROW LEVEL SECURITY`).
+- **Regra:** toda tabela nova habilita o RLS na própria migration que a cria (regra 11 do
+  `CLAUDE.md`). Para `_prisma_migrations` usa-se `ALTER TABLE IF EXISTS`, porque a shadow
+  database do `prisma migrate dev` não tem essa tabela.

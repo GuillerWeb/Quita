@@ -61,6 +61,7 @@ npm run build
 8. Segredos só em variáveis de ambiente. Nunca commitar `.env`.
 9. "Atrasado" não é salvo no banco: é calculado (`AGUARDANDO` + vencimento < hoje).
 10. Mensagens de erro e textos de tela em português.
+11. Toda tabela nova deve ter RLS habilitado na própria migration que a cria.
 
 ## Convenções
 - Código, nomes de entidades e rotas em português (`inquilinos`, `imoveis`, `pagamentos`).

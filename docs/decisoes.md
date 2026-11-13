@@ -139,3 +139,9 @@ com saída em `src/generated/prisma` (não versionado; gerado no `postinstall`).
   a regra com que os meses deles foram gerados.
 - **Prévia no formulário:** o cadastro mostra "Primeiro vencimento: dd/mm/aaaa", calculado no
   frontend só para exibição; quem gera os meses continua sendo a API.
+
+## D-19 — Node 24 fixado no backend (`engines`)
+O `@nestjs/throttler` é CommonJS e faz `require()` do `@nestjs/common` 12, que é só ESM.
+Isso só funciona em Node com `require(esm)` estável (Node 24, o usado em dev). Na Vercel,
+o runtime padrão quebrava com `ERR_REQUIRE_ESM`; `"engines": { "node": "24.x" }` no
+`backend/package.json` fixa a mesma versão em produção.

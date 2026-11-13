@@ -145,3 +145,12 @@ O `@nestjs/throttler` é CommonJS e faz `require()` do `@nestjs/common` 12, que 
 Isso só funciona em Node com `require(esm)` estável (Node 24, o usado em dev). Na Vercel,
 o runtime padrão quebrava com `ERR_REQUIRE_ESM`; `"engines": { "node": "24.x" }` no
 `backend/package.json` fixa a mesma versão em produção.
+
+## D-20 — Limitador de login próprio no lugar do `@nestjs/throttler`
+Mesmo com Node 24 (D-19), a função na Vercel continuou caindo com `ERR_REQUIRE_ESM`: o
+carregador de módulos da Vercel não aceita `require()` de ESM. O `@nestjs/throttler` era o
+único pacote CommonJS que carregava o Nest 12 (só ESM). Foi trocado por
+`LimiteTentativasGuard` (`src/auth/limite-tentativas.guard.ts`): 5 tentativas/minuto por IP
+e rota, em memória — mesmo comportamento que o throttler tinha (memória por instância).
+Antes de adicionar dependência CommonJS que importe `@nestjs/*`, testar com
+`node --no-experimental-require-module dist/main.js`.

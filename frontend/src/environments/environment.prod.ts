@@ -1,5 +1,5 @@
-// A URL real da API é definida na Etapa 3 (deploy na Vercel).
+// API de produção (projeto da Vercel com Root Directory backend/).
 export const environment = {
   production: true,
-  apiUrl: 'URL_DA_API',
+  apiUrl: 'https://quita-one.vercel.app',
 };

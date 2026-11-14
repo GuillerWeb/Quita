@@ -154,3 +154,10 @@ carregador de módulos da Vercel não aceita `require()` de ESM. O `@nestjs/thro
 e rota, em memória — mesmo comportamento que o throttler tinha (memória por instância).
 Antes de adicionar dependência CommonJS que importe `@nestjs/*`, testar com
 `node --no-experimental-require-module dist/main.js`.
+
+## D-21 — Sem `await` no topo do `main.ts` e conexão com o banco sob demanda
+Na Vercel, a função ficava sem responder (nem rota inexistente, sem log): o `await bootstrap()`
+no topo do módulo segurava o carregamento até o `listen()`, que a Vercel só libera depois do
+carregamento. `main.ts` chama `bootstrap()` sem `await`. Além disso, o `PrismaService` não
+conecta mais no início (conecta na primeira consulta, com timeouts de 10–15 s) e registra no
+log o host:porta do `DATABASE_URL` (sem senha). API de produção: https://quita-one.vercel.app.

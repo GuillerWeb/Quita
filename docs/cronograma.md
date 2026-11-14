@@ -12,6 +12,11 @@ por cima e faz os passos manuais no Supabase e na Vercel.
 Com sessões em dias seguidos, a v1 pode estar no ar em poucos dias. O ritmo real depende de
 quantos ajustes aparecerem nos testes.
 
+## Situação
+- **v1 no ar em 14/11/2026:** front https://quita-v1.vercel.app · API https://quita-api.vercel.app.
+  Critérios de aceite 1 a 6 (`requisitos.md`) conferidos no endereço público, inclusive em
+  tela de celular (360 px), sem erros de JavaScript. Ajustes de deploy: D-19 a D-21 em `decisoes.md`.
+
 ## Ordem de corte, se algo travar
 1. Seção "Imóveis vagos" e "A vencer" do painel (o essencial do painel são totais e atrasados).
 2. Exclusão de imóvel e de inquilino (registrar saída já cobre o uso normal).

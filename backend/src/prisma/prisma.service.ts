@@ -1,9 +1,4 @@
-import {
-  Injectable,
-  Logger,
-  OnModuleDestroy,
-  OnModuleInit,
-} from '@nestjs/common';
+import { Injectable, Logger, OnModuleDestroy } from '@nestjs/common';
 import { PrismaPg } from '@prisma/adapter-pg';
 import { PrismaClient } from '../generated/prisma/client.js';
 
@@ -18,36 +13,26 @@ function destino(url: string | undefined): string {
   }
 }
 
+/**
+ * A conexão é aberta sob demanda, na primeira consulta (não no início da aplicação):
+ * na Vercel a função sobe mesmo se o banco estiver inacessível, e o erro aparece no log
+ * da requisição que precisou dele.
+ */
 @Injectable()
-export class PrismaService
-  extends PrismaClient
-  implements OnModuleInit, OnModuleDestroy
-{
-  private readonly logger = new Logger(PrismaService.name);
-
+export class PrismaService extends PrismaClient implements OnModuleDestroy {
   constructor() {
     // A aplicação usa o pooler do Supabase (DATABASE_URL); migrations usam DIRECT_URL.
-    // Timeout curto: se o banco não responder, falha com erro claro em vez de travar.
+    // Timeouts curtos: se o banco não responder, falha com erro claro em vez de travar.
     super({
       adapter: new PrismaPg({
         connectionString: process.env.DATABASE_URL,
         connectionTimeoutMillis: 10_000,
+        query_timeout: 15_000,
       }),
     });
-  }
-
-  async onModuleInit(): Promise<void> {
-    const alvo = destino(process.env.DATABASE_URL);
-    try {
-      await this.$connect();
-      await this.$queryRaw`SELECT 1`;
-      this.logger.log(`Banco conectado (${alvo})`);
-    } catch (erro) {
-      this.logger.error(
-        `Falha ao conectar no banco (${alvo}): ${(erro as Error).message}`,
-      );
-      throw erro;
-    }
+    new Logger(PrismaService.name).log(
+      `Banco: ${destino(process.env.DATABASE_URL)}`,
+    );
   }
 
   async onModuleDestroy(): Promise<void> {

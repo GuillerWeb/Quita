@@ -51,3 +51,41 @@
 .botao-olho {
   color: var(--q-texto-suave);
 }
+
+// D-22: "Você quis dizer fulano@gmail.com?" — só sugere, não bloqueia o envio.
+.sugestao-email {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  margin-top: 6px;
+  font-size: 14px;
+  line-height: 20px;
+  color: var(--q-texto-suave);
+
+  &:empty {
+    display: none;
+  }
+
+  .material-symbols-outlined {
+    font-size: 18px;
+    color: var(--q-primaria-escura);
+  }
+}
+
+.sugestao-email__aceitar {
+  padding: 0;
+  border: 0;
+  background: none;
+  font: inherit;
+  font-weight: 700;
+  color: var(--q-primaria-escura);
+  text-decoration: underline;
+  cursor: pointer;
+  overflow-wrap: anywhere;
+
+  &:focus-visible {
+    outline: 2px solid var(--q-primaria-escura);
+    outline-offset: 2px;
+    border-radius: 2px;
+  }
+}

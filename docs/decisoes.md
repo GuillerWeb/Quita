@@ -182,3 +182,9 @@ recuperar a conta, já que não há recuperação de senha na v1):
   - Domínios reais parecidos não ganham sugestão: `hotmail.com.br`, `outlook.com.br`,
     `yahoo.com`, `ymail.com`, `email.com`, `mail.com`, `live.com` etc.
   - O 400 de domínio aparece no próprio campo de e-mail, como o "já cadastrado".
+
+## D-23 — API não gera deploy de preview
+As variáveis da API (banco, JWT) existem só em Production, para que um preview nunca rode
+migrations no banco de produção. Por isso o build de preview (pushes na `dev`, PRs) falhava com
+"Connection url is empty". `backend/vercel.json` tem `ignoreCommand` que pula o build quando
+`VERCEL_ENV` não é `production` (exit 0 = pular): o deploy da API só acontece no merge na `main`.

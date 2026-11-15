@@ -161,3 +161,24 @@ no topo do módulo segurava o carregamento até o `listen()`, que a Vercel só l
 carregamento. `main.ts` chama `bootstrap()` sem `await`. Além disso, o `PrismaService` não
 conecta mais no início (conecta na primeira consulta, com timeouts de 10–15 s) e registra no
 log o host:porta do `DATABASE_URL` (sem senha). API de produção: https://quita-one.vercel.app.
+
+## D-22 — Verificação do e-mail no cadastro (MX no backend, sugestão no frontend)
+Para reduzir contas criadas com e-mail digitado errado (o proprietário não teria como
+recuperar a conta, já que não há recuperação de senha na v1):
+- **Backend** (`VerificadorEmailService`, chamado em `AuthService.cadastrar` depois da checagem
+  de e-mail duplicado): consulta `dns.promises.resolveMx(domínio)` com timeout de 3 s.
+  - `ENOTFOUND` (domínio não existe), `ENODATA` (sem MX), lista vazia ou "Null MX"
+    (RFC 7505, `exchange` vazio — ex.: `example.com`) → **400** "O domínio do e-mail não parece
+    existir. Confira se digitou corretamente."
+  - Timeout ou qualquer outro erro de DNS/rede (`ETIMEOUT`, `ESERVFAIL`, `ECONNREFUSED`…) →
+    **aceita** o cadastro e registra um aviso no log. A falha é nossa, não de quem se cadastra.
+  - Não se aplica ao login nem a e-mails de inquilinos.
+- **Frontend** (`core/sugestao-email.ts`): ao sair do campo de e-mail do cadastro, sugere a
+  correção para gmail.com, hotmail.com, outlook.com, yahoo.com.br e icloud.com
+  ("Você quis dizer fulano@gmail.com?"); um clique aceita. **Não bloqueia o envio.**
+  - Sugere quando o nome do provedor está certo e o final errado (`gmail.con`, `gmail.com.br`)
+    ou quando o domínio está a até 2 letras de distância (1 em domínios curtos), contando troca
+    de letras vizinhas (`gmial`).
+  - Domínios reais parecidos não ganham sugestão: `hotmail.com.br`, `outlook.com.br`,
+    `yahoo.com`, `ymail.com`, `email.com`, `mail.com`, `live.com` etc.
+  - O 400 de domínio aparece no próprio campo de e-mail, como o "já cadastrado".

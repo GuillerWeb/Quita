@@ -9,6 +9,7 @@ import bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { CadastroDto } from './dto/cadastro.dto.js';
 import { LoginDto } from './dto/login.dto.js';
+import { VerificadorEmailService } from './verificador-email.service.js';
 
 const CUSTO_BCRYPT = 10;
 // Hash usado quando o e-mail não existe, para o login levar o mesmo tempo nos dois casos.
@@ -33,6 +34,7 @@ export class AuthService {
   constructor(
     private readonly prisma: PrismaService,
     private readonly jwt: JwtService,
+    private readonly verificadorEmail: VerificadorEmailService,
   ) {}
 
   async cadastrar(dto: CadastroDto): Promise<RespostaAuth> {
@@ -41,6 +43,9 @@ export class AuthService {
       select: { id: true },
     });
     if (existente) throw new ConflictException('E-mail já cadastrado');
+
+    // D-22: domínio inexistente ou sem MX → 400 (em falha de DNS, aceita).
+    await this.verificadorEmail.garantirDominioComMx(dto.email);
 
     const senhaHash = await bcrypt.hash(dto.senha, CUSTO_BCRYPT);
     try {

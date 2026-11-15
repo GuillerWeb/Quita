@@ -1,8 +1,16 @@
-import { ConflictException, UnauthorizedException } from '@nestjs/common';
+import {
+  BadRequestException,
+  ConflictException,
+  UnauthorizedException,
+} from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import bcrypt from 'bcrypt';
 import { PrismaService } from '../prisma/prisma.service.js';
 import { AuthService } from './auth.service.js';
+import {
+  MENSAGEM_DOMINIO_INEXISTENTE,
+  VerificadorEmailService,
+} from './verificador-email.service.js';
 
 function criarServico() {
   const prisma = {
@@ -12,8 +20,15 @@ function criarServico() {
     },
   };
   const jwt = new JwtService({ secret: 'segredo-de-teste' });
-  const servico = new AuthService(prisma as unknown as PrismaService, jwt);
-  return { servico, prisma, jwt };
+  const verificadorEmail = {
+    garantirDominioComMx: vi.fn().mockResolvedValue(undefined),
+  };
+  const servico = new AuthService(
+    prisma as unknown as PrismaService,
+    jwt,
+    verificadorEmail as unknown as VerificadorEmailService,
+  );
+  return { servico, prisma, jwt, verificadorEmail };
 }
 
 describe('AuthService', () => {
@@ -49,6 +64,24 @@ describe('AuthService', () => {
     await expect(
       servico.cadastrar({ nome: 'Ana', email: 'a@b.com', senha: '12345678' }),
     ).rejects.toThrow(new ConflictException('E-mail já cadastrado'));
+  });
+
+  it('D-22: domínio do e-mail recusado → 400 e a conta não é criada', async () => {
+    const { servico, prisma, verificadorEmail } = criarServico();
+    prisma.proprietario.findUnique.mockResolvedValue(null);
+    const recusa = new BadRequestException(MENSAGEM_DOMINIO_INEXISTENTE);
+    verificadorEmail.garantirDominioComMx.mockRejectedValue(recusa);
+    await expect(
+      servico.cadastrar({
+        nome: 'Ana',
+        email: 'ana@gmial.com',
+        senha: '12345678',
+      }),
+    ).rejects.toThrow(recusa);
+    expect(verificadorEmail.garantirDominioComMx).toHaveBeenCalledWith(
+      'ana@gmial.com',
+    );
+    expect(prisma.proprietario.create).not.toHaveBeenCalled();
   });
 
   it('login com e-mail inexistente e com senha errada dão a mesma mensagem', async () => {

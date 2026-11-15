@@ -1,5 +1,5 @@
-import { ChangeDetectionStrategy, Component, inject, signal } from '@angular/core';
-import { takeUntilDestroyed } from '@angular/core/rxjs-interop';
+import { ChangeDetectionStrategy, Component, computed, inject, signal } from '@angular/core';
+import { takeUntilDestroyed, toSignal } from '@angular/core/rxjs-interop';
 import {
   AbstractControl,
   FormBuilder,
@@ -14,6 +14,7 @@ import { MatProgressSpinnerModule } from '@angular/material/progress-spinner';
 import { Router, RouterLink } from '@angular/router';
 import { AuthService } from '../../core/auth/auth.service';
 import { mensagemDeErro, statusDoErro } from '../../core/erros';
+import { sugerirEmail } from '../../core/sugestao-email';
 import { LayoutAcesso } from './layout-acesso';
 
 /** Confirmação precisa ser igual ao campo "senha" do mesmo formulário. */
@@ -70,6 +71,7 @@ function igualASenha(controle: AbstractControl): ValidationErrors | null {
               formControlName="email"
               autocomplete="email"
               placeholder="seu@email.com.br"
+              (blur)="emailSaiuDoFoco.set(true)"
             />
             @if (form.controls.email.hasError('required')) {
               <mat-error>Informe o e-mail.</mat-error>
@@ -77,8 +79,25 @@ function igualASenha(controle: AbstractControl): ValidationErrors | null {
               <mat-error>Informe um e-mail válido.</mat-error>
             } @else if (form.controls.email.hasError('jaCadastrado')) {
               <mat-error>Este e-mail já está cadastrado.</mat-error>
+            } @else if (form.controls.email.hasError('dominio')) {
+              <mat-error>{{ form.controls.email.getError('dominio') }}</mat-error>
             }
           </mat-form-field>
+          <div class="sugestao-email" aria-live="polite">
+            @if (sugestaoEmail(); as sugestao) {
+              <span class="material-symbols-outlined" aria-hidden="true">lightbulb</span>
+              <span
+                >Você quis dizer
+                <button
+                  type="button"
+                  class="sugestao-email__aceitar"
+                  (click)="aceitarSugestao(sugestao)"
+                >
+                  {{ sugestao }}</button
+                >?</span
+              >
+            }
+          </div>
         </div>
 
         <div class="campo">
@@ -173,11 +192,25 @@ export class Cadastro {
   protected readonly enviando = signal(false);
   protected readonly erro = signal('');
 
+  /** D-22: só sugere depois que a pessoa sai do campo, para não atrapalhar a digitação. */
+  protected readonly emailSaiuDoFoco = signal(false);
+  private readonly email = toSignal(this.form.controls.email.valueChanges, {
+    initialValue: this.form.controls.email.value,
+  });
+  protected readonly sugestaoEmail = computed(() =>
+    this.emailSaiuDoFoco() ? sugerirEmail(this.email()) : null,
+  );
+
   constructor() {
     // Mudar a senha revalida a confirmação.
     this.form.controls.senha.valueChanges
       .pipe(takeUntilDestroyed())
       .subscribe(() => this.form.controls.confirmacao.updateValueAndValidity());
+  }
+
+  protected aceitarSugestao(sugestao: string): void {
+    this.form.controls.email.setValue(sugestao);
+    this.form.controls.email.markAsTouched();
   }
 
   protected cadastrar(): void {
@@ -195,6 +228,10 @@ export class Cadastro {
         if (statusDoErro(e) === 409) {
           // Mostra no próprio campo, como no design.
           this.form.controls.email.setErrors({ jaCadastrado: true });
+          this.form.controls.email.markAsTouched();
+        } else if (statusDoErro(e) === 400 && mensagemDeErro(e).includes('domínio do e-mail')) {
+          // D-22: domínio inexistente ou sem MX — mostra no campo de e-mail.
+          this.form.controls.email.setErrors({ dominio: mensagemDeErro(e) });
           this.form.controls.email.markAsTouched();
         } else {
           this.erro.set(mensagemDeErro(e));
